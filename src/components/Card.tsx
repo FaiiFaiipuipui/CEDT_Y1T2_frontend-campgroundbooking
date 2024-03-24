@@ -4,9 +4,11 @@ import InteractiveCard from "./InteractiveCard";
 export default function Card({
   campgroundName,
   imgSrc,
+  campgroundProvince,
 }: {
   campgroundName: string;
   imgSrc: string;
+  campgroundProvince: string;
 }) {
   return (
     <InteractiveCard>
@@ -15,10 +17,13 @@ export default function Card({
           src={imgSrc}
           alt="Campground Picture"
           fill={true}
-          className="object-cover rounded-t-lg w-fit"
+          className="object-cover rounded-t-lg"
         />
       </div>
-      <div className="w-full h-[30%] p-[10px]">{campgroundName}</div>
+      <div className="w-full h-[30%] p-[10px] text-base mt-[10px]">
+        <div>{campgroundName}</div>
+        <div>จังหวัด{campgroundProvince}</div>
+      </div>
     </InteractiveCard>
   );
 }
