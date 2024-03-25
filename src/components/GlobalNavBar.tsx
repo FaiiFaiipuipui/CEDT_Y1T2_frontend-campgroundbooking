@@ -7,7 +7,7 @@ async function GlobalNavBar() {
   const session = await getServerSession(authOptions);
   
   return (
-    <nav className="bg-white min-w-fit h-[55px] m-2 rounded-full sticky flex flex-row justify-start z-40 p-1 align-middle items-center gap-x-3 drop-shadow-2xl">
+    <nav className="bg-green-50 min-w-fit h-[55px] m-2 rounded-full sticky flex flex-row justify-start z-40 p-1 align-middle items-center gap-x-3 drop-shadow-xl">
       <a href="/">
         <Image
           src="/img/logo.svg"
