@@ -30,7 +30,7 @@ export default function AddCampgroundPage() {
     redirect("/campground");
   };
   return (
-    <main className="text-left mx-[20%]">
+    <main className="text-left mx-[20%] pb-5">
       {/* Admin ONLY */}
       {/* {profile.data.role == "admin" ? () */}
       <form action={addCampground}>
