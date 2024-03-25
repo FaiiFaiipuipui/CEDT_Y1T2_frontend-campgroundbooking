@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
 import "./globals.css";
 import GlobalNavBar from "@/components/GlobalNavBar";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import NextAuthProvider from "./providers/NextAuthProvider";
 
 const prompt = Prompt({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
@@ -10,20 +13,23 @@ const prompt = Prompt({
 });
 
 export const metadata: Metadata = {
-  title: "Campground",
+  title: "CBS | Team Kae Leaw",
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nextAuthSession = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={prompt.className}>
-        <GlobalNavBar />
-        {children}
+        <NextAuthProvider session={nextAuthSession}>
+          <GlobalNavBar />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );
