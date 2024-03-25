@@ -2,13 +2,19 @@
 
 import getCampgrounds from "@/app/libs/getCampgrounds";
 import CampgroundCatalog from "@/components/CampgroundCatalog";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { LinearProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function Hospital() {
-  const campgrounds = getCampgrounds();
   const router = useRouter();
+  const [campgrounds, setCampgrounds] = useState(null);
+  useEffect(() => {
+    getCampgrounds(20).then(data => setCampgrounds(data));
+  }, []);
+
+  if (!campgrounds) return null;
+
 
   return (
     <main className="text-center p-5 mx-[8%]">
