@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+/* const fetch = require('node-fetch'); */
 
 export default async function getCampground(id: string) {
   const response = await fetch(
