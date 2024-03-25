@@ -1,11 +1,14 @@
 /* const fetch = require('node-fetch'); */
 
-export default async function getCampgrounds() {
+export default async function getCampgrounds(limit?: number, page?: number) {
   // add timeout
   await new Promise((resolve) => setTimeout(resolve, 5000));
 
+  const limitParam = limit ? `?limit=${limit}` : '';
+  const pageParam = page ? `&page=${page}` : '';
+
   const response = await fetch(
-    "https://cbs-team-kae-leaw-backendapi.vercel.app/api/v1/campgrounds/",
+    `${process.env.BACKEND_URL}/api/v1/campgrounds/${limitParam}${pageParam}`,
     { next: { tags: ["campgrounds"] } }
   );
   if (!response.ok) {
