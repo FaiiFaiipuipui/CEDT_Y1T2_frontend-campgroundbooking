@@ -8,7 +8,7 @@ async function GlobalNavBar() {
   
   return (
     <nav className="bg-green-50 min-w-fit h-[55px] m-2 rounded-full sticky flex flex-row justify-start z-40 p-1 align-middle items-center gap-x-3 drop-shadow-xl">
-      <a href="/">
+      <Link href="/">
         <Image
           src="/img/logo.svg"
           alt="Logo"
@@ -17,31 +17,37 @@ async function GlobalNavBar() {
           className="rounded-full inline"
           priority
         />
-      </a>
-      <a href="/booking">
+      </Link>
+      <Link href="/booking">
         <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
           <p className=" ">BOOKING</p>
         </button>
-      </a>
-      <a href="/campground">
+      </Link>
+      <Link href="/campground">
         <button className="transition h-[90%] w-[200px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
           <p className=" ">CAMPGROUND</p>
         </button>
-      </a>
-      <a href="/aboutUs">
+      </Link>
+      <Link href="/aboutUs">
         <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
           <p className=" ">ABOUT US</p>
         </button>
-      </a>
-      {
-        session ?
-        <Link href="api/auth/signout">
-          <div className="flex item-center absolute right-0 h-full px-2">SIGN OUT</div>
-        </Link>
-        : <Link href="api/auth/signin">
-          <div className="flex item-center absolute right-0 h-full px-2">SIGN IN</div>
-        </Link>
-      }
+      </Link>
+      <div className="ml-auto p-2">
+        {
+          session ?
+          <Link href="api/auth/signout">
+            <button className="transition h-[90%] w-[170px] text-rose-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-2xl">
+              <p className=" ">SIGN OUT</p>
+            </button>
+          </Link>
+          : <Link href="api/auth/signin">
+            <button className="transition h-[90%] w-[170px] text-rose-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-2xl ">
+              <p className=" ">SIGN IN</p>
+            </button>
+          </Link>
+        }
+      </div>
     </nav>
   );
 }
