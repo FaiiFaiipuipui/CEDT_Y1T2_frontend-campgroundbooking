@@ -1,8 +1,30 @@
-import { TextField } from '@mui/material';
+import { AuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
+import getUserDashboard from "../libs/getUserDashboard";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
-export default function Booking(){
+export default async function Booking(){
+
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user.token) return null;
+
+    const profile = await getUserDashboard(session.user.token);
+    var createdAt = new Date(profile.data.createdAt);
     return (
         <main className="text-center p-5 mx-[8%]">
+            <div className="text-4xl font-bold m-10 text-left">My profile</div>
+            <div className="bg-slate-100 m-5 p-5 text-left">
+                <table className="table-auto border-collapse border-separate border-spacing-3">
+                <div className="text-2xl">{profile.data.name}</div>
+                <tbody>
+                    <tr><td>Email: </td><td>{profile.data.email}</td></tr>
+                    <tr><td>Telephone: </td><td>{profile.data.telephone}</td></tr>
+                    <tr><td>Member since</td><td>{createdAt.toString()}</td></tr>
+                </tbody>
+                </table>
+            </div>
+            
+
             <div className="text-4xl font-bold m-10 text-left">Edit my profile</div>
             <div className='m-10 text-left'>
                 <label for="name" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
