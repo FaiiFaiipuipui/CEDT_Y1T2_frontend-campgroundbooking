@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -8,18 +7,31 @@ async function GlobalNavBar() {
   const session = await getServerSession(authOptions);
   
   return (
-    <nav className="bg-green-50 min-w-fit h-[55px] m-2 rounded-full sticky flex flex-row justify-start z-40 p-1 align-middle items-center gap-x-3 drop-shadow-lg">
+    <nav className="bg-white min-w-fit h-[55px] m-5 rounded-full sticky flex flex-row justify-start z-40 p-1 align-middle items-center gap-x-3 drop-shadow-2xl">
       <a href="/">
-        <Image src="/img/logo.svg" alt="Logo" width='160' height='100' className="rounded-full inline" priority/>
+        <Image
+          src="/img/logo.svg"
+          alt="Logo"
+          width="160"
+          height="100"
+          className="rounded-full inline"
+          priority
+        />
       </a>
       <a href="/booking">
-        <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl"><p className=" ">BOOKING</p></button>
+        <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
+          <p className=" ">BOOKING</p>
+        </button>
       </a>
       <a href="/campground">
-        <button className="transition h-[90%] w-[200px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl"><p className=" ">CAMPGROUND</p></button>
+        <button className="transition h-[90%] w-[200px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
+          <p className=" ">CAMPGROUND</p>
+        </button>
       </a>
       <a href="/aboutUs">
-        <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl"><p className=" ">ABOUT US</p></button>
+        <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl">
+          <p className=" ">ABOUT US</p>
+        </button>
       </a>
       {
         session ?
