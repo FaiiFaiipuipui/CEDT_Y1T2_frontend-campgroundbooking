@@ -10,7 +10,7 @@ export default function Hospital() {
   const router = useRouter();
   const [campgrounds, setCampgrounds] = useState(null);
   useEffect(() => {
-    getCampgrounds(20).then(data => setCampgrounds(data));
+    getCampgrounds(50).then(data => setCampgrounds(data));
   }, []);
 
   if (!campgrounds) return null;
