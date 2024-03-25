@@ -16,3 +16,10 @@ interface CampgroundJson {
     pagination: Object,
     data: CampgroundItem[]
 }
+
+interface AppointmentItem {
+    _id: string,
+    apptDate: string,
+    user: string,
+    campground: string
+}

@@ -33,14 +33,21 @@ async function GlobalNavBar() {
           <p className=" ">ABOUT US</p>
         </button>
       </Link>
-      <div className="ml-auto p-2">
+      <div className="ml-auto p-2 flex items-center">
         {
           session ?
-          <Link href="api/auth/signout">
-            <button className="transition h-[90%] w-[170px] text-rose-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-2xl">
-              <p className=" ">SIGN OUT</p>
-            </button>
-          </Link>
+          <>
+            <Link href="/dashboard">
+              <button className="transition h-[90%] w-[170px] text-emerald-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-2xl mr-3">
+                <p className=" ">DASHBOARD</p>
+              </button>
+            </Link>
+            <Link href="api/auth/signout">
+              <button className="transition h-[90%] w-[170px] text-rose-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-2xl">
+                <p className=" ">SIGN OUT</p>
+              </button>
+            </Link>
+          </>
           : <Link href="api/auth/signin">
             <button className="transition h-[90%] w-[170px] text-rose-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-2xl ">
               <p className=" ">SIGN IN</p>
