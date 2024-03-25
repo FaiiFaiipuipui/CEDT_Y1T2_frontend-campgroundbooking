@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { appointmentSlice } from "./features/appointmentSlice";
 
 export const store = configureStore({
     reducer: {

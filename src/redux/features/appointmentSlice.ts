@@ -1,30 +1,26 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type AppointmentState = {
-    appointmentItems: AppointmentItem
+    appointmentItems: AppointmentItem[]
 }
 
-const initialState:AppointmentState = {appointmentItems:[],}
+const initialState:AppointmentState = {appointmentItems:[]}
 
 export const appointmentSlice = createSlice({
     name: "appointment",
     initialState,
     reducers: {
         addAppointment: (state, action:PayloadAction<AppointmentItem>)=>{
-            const { _id } = action.payload;
-            const existingAppointmentIndex = state.appointmentItems.findIndex(item => item.id === _id);
-            if (existingAppointmentIndex !== -1) {
-                // If the booking with the same ID exists, replace it
-                state.appointmentItems[existingAppointmentIndex] = action.payload;
-            } else {
-                // If the booking with the same ID does not exist, add it
-                state.appointmentItems.push(action.payload);
-            }
+            state.appointmentItems.push(action.payload);
         },
-        removeAppointment(state, action: PayloadAction<string>) {
-            const idToRemove = action.payload;
-            state.appointmentItems = state.appointmentItems.filter(item => item.id !== idToRemove);
-        },
+        removeAppointment: (state, action:PayloadAction<AppointmentItem>)=>{
+            const remainItems = state.appointmentItems.filter(obj => {
+                return ((obj.campground !== action.payload.campground)
+                || (obj.user !== action.payload.user)
+                || (obj.apptDate !== action.payload.apptDate));
+            })
+            state.appointmentItems = remainItems;
+        }
     }
 })
 

@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 export default async function getCampgrounds() {
   // add timeout
   await new Promise((resolve) => setTimeout(resolve, 5000));
