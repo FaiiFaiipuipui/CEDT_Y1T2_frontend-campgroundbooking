@@ -25,3 +25,10 @@ interface AppointmentItem {
     campground: string,
     createdAt: Date
 }
+
+interface AppointmentJson {
+    success: boolean,
+    count: number,
+    pagination: Object,
+    data: AppointmentItem[]
+}
