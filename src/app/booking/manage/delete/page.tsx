@@ -31,7 +31,7 @@ export default function DeleteAppointmentPage() {
         <button
           className="bg-white border-[1px] border-emerald-500 hover:bg-emerald-500 hover:text-white px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
           onClick={() => {
-            router.push("/dashboard");
+            router.back();
           }}
         >
           Cancel
