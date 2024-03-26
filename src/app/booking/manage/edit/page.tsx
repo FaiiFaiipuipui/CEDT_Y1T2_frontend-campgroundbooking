@@ -23,17 +23,9 @@ export default function EditAppointmentPage({
 
   if (!session || !session.user.token) return null;
   const submit = () => {
-    if (
-      name &&
-      date
-    ) {
+    if (name && date) {
       const editAppointment = async () => {
-        await updateAppointment(
-          id,
-          session.user.token,
-          name,
-          date
-        );
+        await updateAppointment(id, session.user.token, name, date);
       };
       editAppointment();
       alert("Successfully booked!");
