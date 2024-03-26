@@ -4,21 +4,24 @@ import { useState } from "react";
 import Link from "next/link";
 import logIn from "@/app/libs/login";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const submit = () => {
+  
+  const submit = async () => {
     if (email && password) {
-      const signin = async () => {
-        await logIn(email, password);
-      };
-      signin();
-      alert("Successfully login!");
-      router.push("/");
+      try {
+        await signIn("credentials", { email: email, password: password })
+        alert("Successfully login!");
+        router.push("/");
+      } catch (error) {
+        console.error(error);
+        alert("Failed to login!");
+      }
     } else {
       alert("Please fill in the missing field!");
     }
