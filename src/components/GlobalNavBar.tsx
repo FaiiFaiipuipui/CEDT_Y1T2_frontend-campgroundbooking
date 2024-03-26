@@ -44,11 +44,18 @@ async function GlobalNavBar() {
             </Link>
           </>
         ) : (
+          <>
+          <Link href="/register">
+            <button className="transition h-[90%] w-[170px] text-cyan-500 text-xl font-black bg-white rounded-full border-white border-4 ring-4 ring-cyan-500 hover:bg-cyan-500 hover:text-white hover:text-2xl mr-3">
+              <p className=" ">REGISTER</p>
+            </button>
+          </Link>
           <Link href="/api/auth/signin">
             <button className="transition h-[90%] w-[170px] text-blue-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-blue-500 hover:bg-blue-500 hover:text-white hover:text-xl ">
               <p className=" ">SIGN IN</p>
             </button>
           </Link>
+          </>
         )}
       </div>
     </nav>
