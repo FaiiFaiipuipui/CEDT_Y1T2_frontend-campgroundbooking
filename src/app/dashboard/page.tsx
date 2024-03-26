@@ -40,16 +40,7 @@ export default async function DashbordPage() {
       </div>
 
       <div className="text-4xl font-bold pt-10 m-10 text-left">My booking</div>
-      <Suspense
-        fallback={
-          <p>
-            Loading...
-            <LinearProgress />
-          </p>
-        }
-      >
-        <AppointmentCatalog appointmentJson={appointment} />
-      </Suspense>
+      <AppointmentCatalog appointmentJson={appointment} />
     </main>
   );
 }

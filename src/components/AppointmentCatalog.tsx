@@ -12,8 +12,9 @@ export default async function AppointmentCatalog({
       {appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
         <AppointmentCard
           key={appointmentItem._id}
+          aid={appointmentItem._id}
           userId={appointmentItem.user}
-          campgroundName={appointmentItem.campground.name}
+          campground={appointmentItem.campground}
           appointmentDate={new Date(appointmentItem.apptDate)}
         />
       ))}
