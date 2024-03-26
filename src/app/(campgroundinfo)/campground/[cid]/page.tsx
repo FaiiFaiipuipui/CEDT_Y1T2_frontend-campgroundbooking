@@ -24,16 +24,22 @@ export default async function CampgroundDetailPage({
           {campgroundDetail.data.name}
         </div>
       </div>
-      <div className="text-xl font-medium ml-[10%] mt-[50px] text-left text-black">
+      <div className="text-xl font-medium mt-[50px] text-left text-black text-center">
         General Information
       </div>
-      <div className="ml-[10%] my-[10px] text-left text-black">
+      <div className="my-[10px] text-left text-black text-center">
         <div className="text-md font-medium mt-[20px]">Name</div>
         <div className="text-md">{campgroundDetail.data.name}</div>
-        <div className="text-md font-medium mt-[20px]">Province</div>
-        <div className="text-md">{campgroundDetail.data.province}</div>
-        <div className="text-md font-medium mt-[20px]">Region</div>
-        <div className="text-md">{campgroundDetail.data.region}</div>
+        <div className="flex flex-row justify-center ">
+          <div>
+            <div className="text-md font-medium mt-[20px]">Province</div>
+            <div className="text-md">{campgroundDetail.data.province}</div>
+          </div>
+          <div className="ml-20">
+            <div className="text-md font-medium mt-[20px]">Region</div>
+            <div className="text-md">{campgroundDetail.data.region}</div>
+          </div>
+        </div>
         <div className="text-md font-medium mt-[20px]">Coordinate</div>
         <div className="text-md">{campgroundDetail.data.coordinate}</div>
         <div className="text-md font-medium mt-[20px]">Postal Code</div>
@@ -46,6 +52,13 @@ export default async function CampgroundDetailPage({
         <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
           Back
         </button>
+        <Link
+          href={`/booking/manage/add?id=${params.cid}&name=${campgroundDetail.data.name}`}
+        >
+          <button className="bg-emerald-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
+            Book
+          </button>
+        </Link>
         <Link
           href={`/campground/manage/edit?id=${params.cid}&name=${campgroundDetail.data.name}`}
         >
