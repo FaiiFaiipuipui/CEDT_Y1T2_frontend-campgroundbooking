@@ -13,7 +13,7 @@ export default function AppointmentCard({
 }) {
     return (
         <InteractiveCard>
-            <div className="w-[70%] h-full relative rounded-t-lg">
+            <div className="w-full h-[30%] relative rounded-t-lg">
                 <Image
                     src={imgSrc}
                     alt="Campground Picture"

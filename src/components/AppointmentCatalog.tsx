@@ -11,9 +11,9 @@ export default async function AppointmentCatalog({
         <div className="flex flex-row flex-wrap place-items-around justify-around">
         {appointmentJsonReady.data.map((appointmentItem: Object) => (
             <Link
-            href={`/appointment/${appointmentItem._id}`}
-            key={appointmentItem._id}
-            className="w-1/4 m-10"
+                href={`/appointment/${appointmentItem._id}`}
+                key={appointmentItem._id}
+                className="h-1/4 m-10"
             >
             <Card
                 imgSrc={appointmentItem.picture}
