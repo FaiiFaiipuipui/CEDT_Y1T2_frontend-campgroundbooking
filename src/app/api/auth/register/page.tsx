@@ -2,43 +2,45 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import register from "@/app/libs/register";
+import Link from "next/link";
 
-const RegisterPage = () => {
-  const nameRef = useRef("");
-  const telephoneRef = useRef("");
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
+export default function RegisterPage() {
+  const router = useRouter();
 
-  const handleSubmit = async () => {
-    const result = await signIn("credentials", {
-      name: nameRef.current,
-      telephone: telephoneRef.current,
-      email: emailRef.current,
-      password: passwordRef.current,
-      redirect: true, // Redirect to homepage after successful registration
-      callbackUrl: "/", // Homepage URL
-    });
+  const [name, setName] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
-    if (result.error) {
-      console.error("Sign-in error:", result.error);
+  const submit = () => {
+    if (name && telephone && email && password && role) {
+      const postRegister = async () => {
+        await register(name, telephone, email, password, role);
+      };
+      postRegister();
+      alert("Successfully register!");
+      router.push("/api/auth/signin");
+    } else {
+      alert("Please fill in the missing field!");
     }
   };
-
   return (
     <main className="justify-start  mx-[30%] my-[5%] pb-5">
       <div className="text-4xl text-left font-bold mb-[8%] ">Register</div>
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
-        Name
+        Name - Surname
       </label>
       <input
         type="text"
         required
         id="name"
         name="name"
-        placeholder="Name"
+        placeholder="Enter your name and surname here"
+        value={name}
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
-        onChange={(e) => (nameRef.current = e.target.value)}
+        onChange={(e) => setName(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
         Telephone
@@ -48,9 +50,10 @@ const RegisterPage = () => {
         required
         id="telephone"
         name="telephone"
-        placeholder="Telephone"
+        placeholder="Enter your phone number here"
+        value={telephone}
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
-        onChange={(e) => (telephoneRef.current = e.target.value)}
+        onChange={(e) => setTelephone(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
         Email
@@ -60,9 +63,10 @@ const RegisterPage = () => {
         required
         id="email"
         name="email"
-        placeholder="Email"
+        placeholder="Enter your email address here"
+        value={email}
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
-        onChange={(e) => (emailRef.current = e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
         Password
@@ -73,25 +77,38 @@ const RegisterPage = () => {
         id="password"
         name="password"
         placeholder="Password"
+        value={password}
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
-        onChange={(e) => (passwordRef.current = e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       />
+      <label htmlFor="role">Role</label>
+      <select
+        id="role"
+        name="role"
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+      >
+        <option disabled selected>
+          Select your role here
+        </option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
       <div className="text-center">
         <button
           className="bg-emerald-500 px-10 py-1 my-5 text-white font-medium rounded-full"
-          onClick={handleSubmit}
+          onClick={submit}
         >
           Register
         </button>
       </div>
       <div className="text-center">
         Already have an account?
-        <Link href={"/api/auth/signin"}>
+        <Link href="/api/auth/signin">
           <button className="ml-1 py-1 my-5 font-bold">Login here</button>
         </Link>
       </div>
     </main>
   );
-};
-
-export default RegisterPage;
+}
