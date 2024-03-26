@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import logIn from "@/app/libs/login";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
@@ -17,7 +17,7 @@ export default function LoginPage() {
       try {
         await signIn("credentials", { email: email, password: password })
         alert("Successfully login!");
-        router.push("/");
+        //redirect('./');
       } catch (error) {
         console.error(error);
         alert("Failed to login!");
@@ -58,7 +58,7 @@ export default function LoginPage() {
       <div className="text-center">
         <button
           className="bg-emerald-500 px-10 py-1 my-5 text-white font-medium rounded-full"
-          onClick={submit}
+          onClick={()=>{signIn("credentials", { email: email, password: password }); redirect('/');}}
         >
           Login
         </button>
