@@ -22,7 +22,7 @@ export default async function createAppointment(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+    throw new Error("Failed to create campgrounds");
   }
   return await response.json();
 }

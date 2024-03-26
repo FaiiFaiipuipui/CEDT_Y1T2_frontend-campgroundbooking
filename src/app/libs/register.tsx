@@ -24,7 +24,7 @@ export default async function register(
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+    throw new Error("Failed register");
   }
   return await response.json();
 }

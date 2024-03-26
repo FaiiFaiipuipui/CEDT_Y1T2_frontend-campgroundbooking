@@ -10,6 +10,8 @@ export default async function getCampgrounds(limit?: number, page?: number) {
       { next: { tags: ["campgrounds"] } }
     );
     if (!response.ok) {
+      console.log(response);
+      
       throw new Error("Failed to fetch campgrounds");
     }
     return await response.json();

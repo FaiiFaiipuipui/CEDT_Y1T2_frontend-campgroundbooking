@@ -1,12 +1,13 @@
 export default async function getCampground(id: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${id}`
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${id}`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch campground");
+    }
+    return await response.json();
+  } catch (error) {
+    console.log(error);
   }
-
-  const test = await response.json();
-  //console.log(test);
-  return test;
 }

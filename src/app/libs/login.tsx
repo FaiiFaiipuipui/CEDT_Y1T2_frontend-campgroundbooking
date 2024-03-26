@@ -14,7 +14,7 @@ export default async function logIn(userEmail: string, userPassword: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+    throw new Error("Failed to login");
   }
   return await response.json();
 }
