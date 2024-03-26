@@ -13,7 +13,7 @@ export default function AppointmentCard({
 }) {
   return (
     <main>
-      <div className="flex flex-row text-left">
+      <div className="flex flex-row text-left m-3">
         <div className="w-1/5">
           <div className="text-lg font-bold">User ID</div>
           <div>{userId}</div>
