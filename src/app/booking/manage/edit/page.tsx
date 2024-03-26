@@ -6,7 +6,11 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import updateAppointment from "@/app/libs/updateAppointment";
 
-export default function EditAppointmentPage() {
+export default function EditAppointmentPage({
+  params,
+}: {
+  params: { aid: string };
+}) {
   const router = useRouter();
   const { data: session } = useSession();
 
