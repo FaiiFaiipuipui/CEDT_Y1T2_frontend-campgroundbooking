@@ -4,7 +4,7 @@ import Link from "next/link";
 export default async function CampgroundCatalog({
   campgroundJson,
 }: {
-  campgroundJson: CampgroundJson;
+  campgroundJson: any;
 }) {
   const campgroundJsonReady = await campgroundJson;
   return (

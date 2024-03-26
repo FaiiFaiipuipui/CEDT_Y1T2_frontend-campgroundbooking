@@ -162,8 +162,16 @@ export default function AddCampgroundPage() {
       </div>
       <div className="text-center">
         <button
-          type="reset"
-          className="bg-white border-[1px] border-emerald-500 px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
+          className="bg-white border-[1px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full"
+          onClick={() => {
+            setName("");
+            setCoordinate("");
+            setProvince("");
+            setPostalcode("");
+            setTelephone("");
+            setRegion("");
+            setPicture("");
+          }}
         >
           Cancel
         </button>

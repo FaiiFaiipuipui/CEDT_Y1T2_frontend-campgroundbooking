@@ -1,5 +1,6 @@
 import Image from "next/image";
 import getCampground from "@/app/libs/getCampground";
+import Link from "next/link";
 
 export default async function CampgroundDetailPage({
   params,
@@ -36,6 +37,21 @@ export default async function CampgroundDetailPage({
         <div className="text-md">{campgroundDetail.data.postalcode}</div>
         <div className="text-md font-medium mt-[20px]">Phone Number</div>
         <div className="text-md">{campgroundDetail.data.telephone}</div>
+      </div>
+      <div className="text-center my-20">
+        <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
+          Back
+        </button>
+        <Link
+          href={`/campground/manage/edit?id=${params.cid}&name=${campgroundDetail.data.name}`}
+        >
+          <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
+            Edit
+          </button>
+        </Link>
+        <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
+          Delete
+        </button>
       </div>
     </main>
   );
