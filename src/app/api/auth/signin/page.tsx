@@ -61,7 +61,7 @@ export default function LoginPage() {
         </button>
       </div>
       <div className="text-center">
-        Don't have any account yet?
+        Do not have any account yet?
         <Link href={"/api/auth/register"}>
           <button className="ml-1 py-1 my-5 font-bold">Register here</button>
         </Link>
