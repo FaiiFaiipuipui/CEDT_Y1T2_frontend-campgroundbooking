@@ -4,8 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import createCampground from "@/app/libs/createCampground";
-import getCampground from "@/app/libs/getCampground";
 import updateCampground from "@/app/libs/updateCampground";
 
 export default function EditCampgroundPage() {
@@ -58,7 +56,9 @@ export default function EditCampgroundPage() {
 
   return (
     <main className="text-left mx-[20%] pb-5">
-      <div className="text-4xl font-bold mt-[8%] ">Edit {cname}</div>
+      <div className="text-4xl font-bold mt-[8%] ">
+        Edit Campground : {cname}
+      </div>
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">
           Name

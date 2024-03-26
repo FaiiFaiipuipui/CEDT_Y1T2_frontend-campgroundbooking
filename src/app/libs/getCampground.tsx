@@ -7,6 +7,6 @@ export default async function getCampground(id: string) {
   }
 
   const test = await response.json();
-  console.log(test);
+  //console.log(test);
   return test;
 }

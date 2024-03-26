@@ -1,9 +1,8 @@
-"use client";
+// "use client";
 
 import Image from "next/image";
 import getCampground from "@/app/libs/getCampground";
 import Link from "next/link";
-import deleteCampground from "@/app/libs/deleteCampground";
 
 export default async function CampgroundDetailPage({
   params,
@@ -54,9 +53,13 @@ export default async function CampgroundDetailPage({
             Edit
           </button>
         </Link>
-        <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
-          Delete
-        </button>
+        <Link
+          href={`/campground/manage/delete?id=${params.cid}&name=${campgroundDetail.data.name}`}
+        >
+          <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
+            Delete
+          </button>
+        </Link>
       </div>
     </main>
   );
