@@ -8,8 +8,12 @@ export default async function deleteAppoinment(id: string, token: string) {
       },
     }
   );
+  console.log(response);
   if (!response.ok) {
     throw new Error("Failed to fetch Appointment");
   }
-  return await response.json();
+
+  const test = await response.json();
+  // console.log()
+  return test;
 }
