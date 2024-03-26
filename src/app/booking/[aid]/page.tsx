@@ -17,11 +17,11 @@ export default async function AppointmentDetailPage({
       <div className="text-4xl font-bold mt-[8%] ">Add new campground</div>
       <div className="ml-[10%] my-[10px] text-left text-black">
         <div className="text-md font-medium mt-[20px]">User ID</div>
-        <div className="text-md">{apptDetail.data.user}</div>
+        <div className="text-md">{JSON.stringify(apptDetail.data.user)}</div>
         <div className="text-md font-medium mt-[20px]">Campground</div>
-        <div className="text-md">{apptDetail.data.campground}</div>
+        <div className="text-md">{JSON.stringify(apptDetail.data.campground)}</div>
         <div className="text-md font-medium mt-[20px]">Date</div>
-        <div className="text-md">{apptDetail.data.apptDate}</div>
+        <div className="text-md">{JSON.stringify(apptDetail.data.apptDate)}</div>
       </div>
 
       <div className="text-center my-20">
