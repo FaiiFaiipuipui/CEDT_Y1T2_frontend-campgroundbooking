@@ -47,21 +47,6 @@ export default function EditAppointmentPage({
         </label>
         <CampGroundSelection/>
       </div>
-      {/* <div className="w-full my-10">
-        <label className="w-auto block text-gray-700" htmlFor="name">
-          Campground
-        </label>
-        <input
-          type="text"
-          required
-          id="name"
-          name="name"
-          placeholder="Type the name of campground here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-      </div> */}
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="date">
           Date
@@ -83,6 +68,7 @@ export default function EditAppointmentPage({
           onClick={() => {
             setName("");
             setDate("");
+            router.back();
           }}
         >
           Cancel
