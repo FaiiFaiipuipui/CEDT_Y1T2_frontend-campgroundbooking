@@ -12,7 +12,7 @@ import { Dayjs } from "dayjs";
 export default function BookingPage({
   campgrounds,
 }: {
-  campgrounds: CampgroundJson;
+  campgrounds: CampgroundJson
 }) {
   const router = useRouter();
   const { data: session } = useSession();
