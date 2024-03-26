@@ -47,7 +47,7 @@ export default function EditCampgroundPage() {
         );
       };
       editCampground();
-      alert("Successfully booked!");
+      alert("Successfully edited!");
       router.push("/campground");
     } else {
       alert("Please fill in the missing field!");

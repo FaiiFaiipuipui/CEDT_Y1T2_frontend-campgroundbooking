@@ -41,7 +41,7 @@ export default function AddCampgroundPage() {
         );
       };
       addCampground();
-      alert("Successfully booked!");
+      alert("Successfully added!");
       router.push("/campground");
     } else {
       alert("Please fill in the missing field!");
