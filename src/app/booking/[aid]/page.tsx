@@ -8,6 +8,7 @@ export default async function AppointmentDetailPage({
 }: {
   params: { aid: string };
 }) {
+
   const session = await getServerSession(authOptions);
   if (!session || !session.user.token) return null;
   const apptDetail = await getAppointment(params.aid, session.user.token);
@@ -29,9 +30,11 @@ export default async function AppointmentDetailPage({
       </div>
 
       <div className="text-center my-20">
+        <Link href={'/dashboard'}>
         <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
           Back
         </button>
+        </Link>
         <Link href={`/booking/manage/edit?id=${params.aid}`}>
           <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
             Edit
