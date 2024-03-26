@@ -34,7 +34,7 @@ export default function BookingPage({
     }
   };
 
-  const campgroundArray = campgrounds;
+  const campgroundArray = campgrounds.data;
 
   return (
     <div className="text-left w-full px-12">
