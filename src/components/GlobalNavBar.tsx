@@ -18,11 +18,7 @@ async function GlobalNavBar() {
           priority
         />
       </Link>
-      <Link href="/booking">
-        <button className="transition h-[90%] w-[170px] text-emerald-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-xl">
-          <p className=" ">BOOKING</p>
-        </button>
-      </Link>
+      
       <Link href="/campground">
         <button className="transition h-[90%] w-[200px] text-emerald-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-xl">
           <p className=" ">CAMPGROUND</p>
