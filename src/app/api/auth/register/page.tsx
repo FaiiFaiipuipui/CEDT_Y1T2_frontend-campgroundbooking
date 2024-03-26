@@ -9,6 +9,7 @@ const RegisterPage = () => {
   const telephoneRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const roleRef = useRef("");
 
   const handleSubmit = async () => {
     const result = await signIn("credentials", {
@@ -16,6 +17,7 @@ const RegisterPage = () => {
       telephone: telephoneRef.current,
       email: emailRef.current,
       password: passwordRef.current,
+      role: roleRef.current,
       redirect: true, // Redirect to homepage after successful registration
       callbackUrl: "/", // Homepage URL
     });
@@ -76,6 +78,17 @@ const RegisterPage = () => {
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => (passwordRef.current = e.target.value)}
       />
+      <label htmlFor="role">Role:</label>
+      <select
+        id="role"
+        name="role"
+        onChange={(e) => (roleRef.current = e.target.value)}
+        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+      >
+        <option disabled selected>-- Please select --</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
       <div className="text-center">
         <button className="bg-emerald-500 px-10 py-1 my-5 text-white font-medium rounded-full" onClick={handleSubmit}>
           Register
