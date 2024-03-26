@@ -18,7 +18,7 @@ async function GlobalNavBar() {
           priority
         />
       </Link>
-      
+
       <Link href="/campground">
         <button className="transition h-[90%] w-[200px] text-emerald-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-emerald-500 hover:bg-emerald-500 hover:text-white hover:text-xl">
           <p className=" ">CAMPGROUND</p>
@@ -37,14 +37,14 @@ async function GlobalNavBar() {
                 <p className=" ">DASHBOARD</p>
               </button>
             </Link>
-            <Link href="api/auth/signout">
+            <Link href="/api/auth/signout">
               <button className="transition h-[90%] w-[170px] text-rose-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-rose-500 hover:bg-rose-500 hover:text-white hover:text-xl">
                 <p className=" ">SIGN OUT</p>
               </button>
             </Link>
           </>
         ) : (
-          <Link href="api/auth/signin">
+          <Link href="/api/auth/signin">
             <button className="transition h-[90%] w-[170px] text-blue-500 text-lg font-black bg-white rounded-full border-white border-4 ring-4 ring-blue-500 hover:bg-blue-500 hover:text-white hover:text-xl ">
               <p className=" ">SIGN IN</p>
             </button>
