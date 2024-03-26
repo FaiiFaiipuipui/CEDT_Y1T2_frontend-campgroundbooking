@@ -19,7 +19,7 @@ export default async function DashbordPage() {
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">My profile</div>
 
-      <div className="bg-slate-100 m-10 p-5 text-left">
+      <div className="bg-slate-200 m-10 p-5 text-left rounded-2xl">
         <div className="text-xl m-3 font-medium">{profile.data.name}</div>
         <table className="table-auto border-collapse border-separate border-spacing-3">
           <tbody>
