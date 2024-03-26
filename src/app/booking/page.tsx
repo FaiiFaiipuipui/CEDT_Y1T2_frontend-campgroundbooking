@@ -9,10 +9,10 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
 
-export default function bookingPage({
+export default function BookingPage({
   campgrounds,
 }: {
-  campgrounds: CampgroundJson;
+  campgrounds: CampgroundJson
 }) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -34,7 +34,7 @@ export default function bookingPage({
     }
   };
 
-  const campgroundArray = campgrounds;
+  const campgroundArray = campgrounds.data;
 
   return (
     <div className="text-left w-full px-12">

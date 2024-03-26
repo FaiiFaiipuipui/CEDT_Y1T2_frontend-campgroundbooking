@@ -19,21 +19,25 @@ export default async function AppointmentDetailPage({
         <div className="text-md font-medium mt-[20px]">User ID</div>
         <div className="text-md">{JSON.stringify(apptDetail.data.user)}</div>
         <div className="text-md font-medium mt-[20px]">Campground</div>
-        <div className="text-md">{JSON.stringify(apptDetail.data.campground.name)}</div>
+        <div className="text-md">
+          {JSON.stringify(apptDetail.data.campground.name)}
+        </div>
         <div className="text-md font-medium mt-[20px]">Date</div>
-        <div className="text-md">{JSON.stringify(apptDetail.data.apptDate)}</div>
+        <div className="text-md">
+          {JSON.stringify(apptDetail.data.apptDate)}
+        </div>
       </div>
 
       <div className="text-center my-20">
         <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
           Back
         </button>
-        <Link href={`/campground/manage/edit?id=${params.aid}`}>
+        <Link href={`/booking/manage/edit?id=${params.aid}`}>
           <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
             Edit
           </button>
         </Link>
-        <Link href={`/campground/manage/delete?id=${params.aid}`}>
+        <Link href={`/booking/manage/delete?id=${params.aid}`}>
           <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
             Delete
           </button>

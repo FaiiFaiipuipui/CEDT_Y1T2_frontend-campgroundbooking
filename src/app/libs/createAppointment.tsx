@@ -3,12 +3,8 @@ import { Dayjs } from "dayjs";
 export default async function createAppointment(
   token: string,
   cid: string,
-  date: Dayjs
+  apptDate: string
 ) {
-  let bodyData = {
-    cid,
-    date,
-  };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/appointments/`,
     {
@@ -17,7 +13,7 @@ export default async function createAppointment(
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(bodyData),
+      body: apptDate,
     }
   );
 
