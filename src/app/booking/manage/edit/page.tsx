@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import updateAppointment from "@/app/libs/updateAppointment";
+import CampGroundSelection from "@/components/CampGroundSelection";
 
 export default function EditAppointmentPage({
   params,
@@ -40,7 +41,13 @@ export default function EditAppointmentPage({
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Appointment : {cname}
       </div>
-      <div className="w-full my-10">
+        <div className="w-full my-10">
+        <label className="w-auto block text-gray-700" htmlFor="name">
+          Campground
+        </label>
+        <CampGroundSelection/>
+      </div>
+      {/* <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">
           Campground
         </label>
@@ -54,7 +61,7 @@ export default function EditAppointmentPage({
           value={name}
           onChange={(e) => setName(e.target.value)}
         ></input>
-      </div>
+      </div> */}
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="date">
           Date
