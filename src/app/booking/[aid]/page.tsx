@@ -19,7 +19,7 @@ export default async function AppointmentDetailPage({
         <div className="text-md font-medium mt-[20px]">User ID</div>
         <div className="text-md">{JSON.stringify(apptDetail.data.user)}</div>
         <div className="text-md font-medium mt-[20px]">Campground</div>
-        <div className="text-md">{JSON.stringify(apptDetail.data.campground)}</div>
+        <div className="text-md">{JSON.stringify(apptDetail.data.campground.name)}</div>
         <div className="text-md font-medium mt-[20px]">Date</div>
         <div className="text-md">{JSON.stringify(apptDetail.data.apptDate)}</div>
       </div>
