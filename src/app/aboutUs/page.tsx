@@ -9,7 +9,7 @@ export default function AboutUs(){
                 </div>
                 <div className="flex flex-row items-center justify-center">
                     <div className="text-md w-[70%]">
-                        Meet our meticulous contributor, Tippaphanun! She's the backbone of our project, ensuring precision in every aspect. With her dedication and attention to detail, she keeps our website running smoothly.
+                        Meet our meticulous contributor, Tippaphanun! She&apos;s the backbone of our project, ensuring precision in every aspect. With her dedication and attention to detail, she keeps our website running smoothly.
                         <h2 className="pt-2">Responsobility:</h2>
                         <ul>
                             <li>• Schedule a planning meeting and assign tasks to everyone in the group.</li>
@@ -37,7 +37,7 @@ export default function AboutUs(){
                         <Image src="/img/aboutus2.jpg" alt="Pakarn's picture" width={300} height={200} />
                     </div>
                     <div className="text-md w-[70%]">
-                        Introducing Pakarn, the epitome of hard work and dedication. Her unwavering commitment to excellence shines through in every task she undertakes. With her precision and drive, she's an invaluable asset to our team.
+                        Introducing Pakarn, the epitome of hard work and dedication. Her unwavering commitment to excellence shines through in every task she undertakes. With her precision and drive, she&apos;s an invaluable asset to our team.
                         <h2 className="pt-2">Responsobility:</h2>
                         <ul>
                             <li>• Generate the initial files of the website from the Next.js API.</li>
