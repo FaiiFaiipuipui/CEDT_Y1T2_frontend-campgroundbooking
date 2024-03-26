@@ -58,7 +58,9 @@ export default function LoginPage() {
       <div className="text-center">
         <button
           className="bg-emerald-500 px-10 py-1 my-5 text-white font-medium rounded-full"
-          onClick={()=>{signIn("credentials", { email: email, password: password }); redirect('/');}}
+          onClick={async () => {
+            await signIn("credentials", { email: email, password: password, callbackUrl: '/' });
+          }}
         >
           Login
         </button>
