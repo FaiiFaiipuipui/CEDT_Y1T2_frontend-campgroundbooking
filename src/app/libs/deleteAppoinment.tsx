@@ -9,7 +9,7 @@ export default async function deleteAppoinment(id: string, token: string) {
     }
   );
   if (!response.ok) {
-    throw new Error("Failed to fetch campgrounds");
+    throw new Error("Failed to fetch Appointment");
   }
   return await response.json();
 }

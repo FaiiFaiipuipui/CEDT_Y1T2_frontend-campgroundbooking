@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
 
-export default function bookingPage({
+export default function BookingPage({
   campgrounds,
 }: {
   campgrounds: CampgroundJson;
