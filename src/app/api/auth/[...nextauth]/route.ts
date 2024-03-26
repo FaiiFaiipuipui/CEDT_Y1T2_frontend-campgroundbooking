@@ -33,7 +33,14 @@ export const authOptions:AuthOptions = {
             session.user = token as any;
             return session;
         },
-    }
+    },
+    pages: {
+        signIn: '/auth/signin',
+        signOut: '/auth/signout',
+        error: '/auth/error',
+        verifyRequest: '/auth/verify-request',
+        newUser: '/auth/register'
+    },
 }
 const handler = NextAuth(authOptions);
 export {handler as GET, handler as POST};
