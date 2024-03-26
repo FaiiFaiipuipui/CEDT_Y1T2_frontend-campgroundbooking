@@ -1,0 +1,14 @@
+export default async function getAppointments(token: string) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/appointments/`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch appointments");
+  }
+  return await response.json();
+}

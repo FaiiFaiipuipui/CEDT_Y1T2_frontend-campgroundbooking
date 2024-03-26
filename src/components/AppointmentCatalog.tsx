@@ -1,26 +1,22 @@
-import Card from "./Card";
+import AppointmentCard from "./AppointmentCard";
 import Link from "next/link";
 
 export default async function AppointmentCatalog({
-    appointmentJson,
+  appointmentJson,
 }: {
-    appointmentJson: AppointmentJson;
+  appointmentJson: AppointmentJson;
 }) {
-    const appointmentJsonReady = await appointmentJson;
-    return (
-        <div className="flex flex-row flex-wrap place-items-around justify-around">
-        {appointmentJsonReady.data.map((appointmentItem: Object) => (
-            <Link
-                href={`/appointment/${appointmentItem._id}`}
-                key={appointmentItem._id}
-                className="h-1/4 m-10"
-            >
-            <Card
-                imgSrc={appointmentItem.picture}
-                appointmentDate={appointmentItem.apptDate}
-            />
-            </Link>
-        ))}
-        </div>
-    );
+  const appointmentJsonReady = await appointmentJson;
+  return (
+    <div className="block place-items-start justify-start mx-10">
+      {appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
+        <AppointmentCard
+          key={appointmentItem._id}
+          userId={appointmentItem.user}
+          campgroundName={appointmentItem.campground.name}
+          appointmentDate={new Date(appointmentItem.apptDate)}
+        />
+      ))}
+    </div>
+  );
 }
