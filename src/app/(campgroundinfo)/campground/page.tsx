@@ -1,32 +1,26 @@
-"use client";
-
 import getCampgrounds from "@/app/libs/getCampgrounds";
 import CampgroundCatalog from "@/components/CampgroundCatalog";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function Campground() {
-  const router = useRouter();
-  const [campgrounds, setCampgrounds] = useState(null);
-  useEffect(() => {
-    getCampgrounds(50).then((data) => setCampgrounds(data));
-  }, []);
-
+export default async function Campground() {
+  const campgrounds = getCampgrounds(50);
+  // const session = await getServerSession(authOptions);
+  // const profile = await getUserProfile(session.user.token);
   if (!campgrounds) return null;
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Campground</div>
-      {/* Admin ONLY */}
-      {/* {profile.data.role == "admin" ? () */}
-      <button
-        className="absolute top-[17%] right-[12%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full"
-        onClick={(e) => {
-          router.push("/campground/manage/add");
-        }}
-      >
-        Add Campground
-      </button>
+
+      {/* {profile.data.role == "admin" ? () : null} */}
+      <Link href="/campground/manage/add">
+        <button className="absolute top-[17%] right-[12%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full">
+          Add Campground
+        </button>
+      </Link>
 
       <Suspense
         fallback={
