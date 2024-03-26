@@ -16,19 +16,19 @@ export default function BookingPage() {
 
   const [date, setDate] = useState("");
 
-  // if (!session || !session.user.token) return null;
-  // const submit = () => {
-  //   if (date) {
-  //     const booking = async () => {
-  //       await createAppointment(session.user.token, id, date);
-  //     };
-  //     booking();
-  //     alert("Successfully booked!");
-  //     router.push("/dashboard");
-  //   } else {
-  //     alert("Please fill in the missing field!");
-  //   }
-  // };
+  if (!session || !session.user.token) return null;
+  const submit = () => {
+    if (date) {
+      const booking = async () => {
+        await createAppointment(session.user.token, id, date);
+      };
+      booking();
+      alert("Successfully booked!");
+      router.push("/dashboard");
+    } else {
+      alert("Please fill in the missing field!");
+    }
+  };
   return (
     <div className="text-left w-full px-12">
       <div className="text-4xl font-bold mt-[20%] ">
@@ -60,7 +60,7 @@ export default function BookingPage() {
         </button>
         <button
           className="bg-emerald-500 px-10 py-1 text-white font-medium rounded-full"
-          // onClick={submit}
+          onClick={submit}
         >
           Book!
         </button>
