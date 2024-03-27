@@ -15,11 +15,10 @@ export default async function createAppointment(
         body: JSON.stringify({ apptDate: apptDate }),
       }
     );
-    if (!response.ok) {
+    if (!response) {
       throw new Error("Failed to create appointment");
     }
-    console.log(response.json);
-    return await response.json();
+    return await response;
   } catch (error) {
     console.log(error);
   }

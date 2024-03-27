@@ -6,6 +6,11 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+interface ResponseData {
+  message: string;
+  // include other properties
+}
+
 export default function AddAppointmentPage({
   params,
 }: {
@@ -33,10 +38,22 @@ export default function AddAppointmentPage({
           selectedCampground,
           date
         );
-        alert(JSON.stringify(response));
+
+        if (!response) {
+          throw new Error("Failed to submit create Appointment form");
+        }
+
+        const responseData: ResponseData = await response.json();
+
+        if (response && response.status !== 200) {
+          alert(responseData.message);
+          alert("Not Success");
+          return;
+        }
+
+        alert("Successfully booked!");
       };
-      await addAppointment();
-      alert("Successfully booked!");
+      addAppointment();
       router.push("/dashboard");
     } else {
       alert("Please fill in the missing field!");
