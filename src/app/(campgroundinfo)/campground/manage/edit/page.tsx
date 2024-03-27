@@ -2,7 +2,7 @@
 
 import getCampground from "@/app/libs/getCampground";
 import updateCampground from "@/app/libs/updateCampground";
-import CurrentCampgroundShower from "@/components/CurrentCampgroundShower";
+// import CurrentCampgroundShower from "@/components/CurrentCampgroundShower";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -70,7 +70,7 @@ export default function EditCampgroundPage() {
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Campground : {cname}
       </div>
-      <CurrentCampgroundShower campground={campgroundJsonReady} />
+      {/* <CurrentCampgroundShower campground={campgroundJsonReady} /> */}
 
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">

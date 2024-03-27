@@ -13,4 +13,4 @@ function CurrentAppointmentShower({appointment}:{appointment:Object}) {
   </div>);
 }
 
-export default CurrentAppointmentShower;
+// export default CurrentAppointmentShower;
