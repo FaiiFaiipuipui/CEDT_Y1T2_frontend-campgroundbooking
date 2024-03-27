@@ -12,11 +12,11 @@ export default function DeleteAppointmentPage() {
   const id = urlParams.get("id") as string;
 
   if (!session || !session.user.token) return null;
-  const submit = () => {
+  const submit = async () => {
     const handleDelete = async () => {
       await deleteAppoinment(id, session.user.token);
     };
-    handleDelete();
+    await handleDelete();
     alert("Successfully deleted!");
     router.push("/dashboard");
   };

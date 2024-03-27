@@ -3,7 +3,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import getUserDashboard from "../libs/getUserDashboard";
 import getAppointments from "@/app/libs/getAppointments";
 import { Suspense } from "react";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Skeleton } from "@mui/material";
 import AppointmentCatalog from "@/components/AppointmentCatalog";
 
 export default async function DashbordPage() {
@@ -40,7 +40,9 @@ export default async function DashbordPage() {
       </div>
 
       <div className="text-4xl font-bold pt-10 m-10 text-left">My booking</div>
-      <AppointmentCatalog appointmentJson={appointment} />
+      <Suspense fallback={<Skeleton/>}>
+        <AppointmentCatalog appointmentJson={appointment} session={session} />
+      </Suspense>
     </main>
   );
 }

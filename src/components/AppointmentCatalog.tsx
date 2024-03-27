@@ -1,15 +1,33 @@
+'use client'
+import { useEffect, useState } from "react";
 import AppointmentCard from "./AppointmentCard";
-import Link from "next/link";
+import getUserDashboard from "@/app/libs/getUserDashboard";
+import getAppointments from "@/app/libs/getAppointments";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Session, getServerSession } from "next-auth";
 
-export default async function AppointmentCatalog({
+export default function AppointmentCatalog({
   appointmentJson,
+  session
 }: {
-  appointmentJson: AppointmentJson;
+  appointmentJson: AppointmentJson,
+  session: Session
 }) {
-  const appointmentJsonReady = await appointmentJson;
+  const [appointmentJsonReady, setAppointmentJsonReady] = useState<AppointmentJson>();
+  
+  useEffect(() => {
+    const setData = async () => {
+      const profile = await getUserDashboard(session.user.token);
+      const appointment = await getAppointments(session.user.token);
+      setAppointmentJsonReady(appointment)
+    }
+    setData();
+  
+  }, [session.user.token])
+
   return (
     <div className="block place-items-start justify-start mx-10">
-      {appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
+      {appointmentJsonReady && appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
         <AppointmentCard
           key={appointmentItem._id}
           aid={appointmentItem._id}
