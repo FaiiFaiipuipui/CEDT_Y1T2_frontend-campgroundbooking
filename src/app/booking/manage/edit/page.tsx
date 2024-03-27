@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import updateAppointment from "@/app/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
+import { log } from "console";
 
 export default function EditAppointmentPage({
   params,
@@ -22,15 +23,26 @@ export default function EditAppointmentPage({
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
+  const [selectedCampground, setSelectedCampground] = useState<string>("");
+  const handleOptionChange = (newOption:string) => {
+    setSelectedCampground(newOption);
+  };
+
+
   if (!session || !session.user.token) return null;
-  const submit = () => {
-    if (name && date) {
+
+  const submit = async () => {
+    console.log(selectedCampground, date,);
+    if (selectedCampground && date) {
+      
       const editAppointment = async () => {
-        await updateAppointment(id, session.user.token, name, date);
+        const response = await updateAppointment(id, session.user.token, selectedCampground, date);
+        alert(JSON.stringify(response));
+        
       };
-      editAppointment();
+      await editAppointment();
       alert("Successfully booked!");
-      router.push("/appointment");
+      router.push("/dashboard");
     } else {
       alert("Please fill in the missing field!");
     }
@@ -45,7 +57,7 @@ export default function EditAppointmentPage({
         <label className="w-auto block text-gray-700" htmlFor="name">
           Campground
         </label>
-        <CampGroundSelection/>
+        <CampGroundSelection onSelection={handleOptionChange}/>
       </div>
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="date">
@@ -66,7 +78,7 @@ export default function EditAppointmentPage({
         <button
           className="bg-white border-[1px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full"
           onClick={() => {
-            setName("");
+            setSelectedCampground("");
             setDate("");
             router.back();
           }}
@@ -75,7 +87,7 @@ export default function EditAppointmentPage({
         </button>
         <button
           className="bg-blue-800 px-10 py-1 text-white font-medium rounded-full"
-          onClick={submit}
+          onClick={()=>{submit()}}
         >
           Edit
         </button>

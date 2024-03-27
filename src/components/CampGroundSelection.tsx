@@ -2,14 +2,16 @@ import getCampgrounds from "@/app/libs/getCampgrounds";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useEffect, useState } from "react";
 
-export const getPollute = (async () => {
-  // Fetch data from external API
+export const getPollute = async () => {
   const campgrounds: CampgroundJson = await getCampgrounds(50);
-  // Pass data to the page via props
-  return campgrounds
-})
+  return campgrounds;
+};
 
-function CampGroundSelection() {
+function CampGroundSelection({
+  onSelection,
+}: {
+  onSelection: Function
+}) {
   const [campgrounds, setCampgrounds] = useState<CampgroundJson | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -24,31 +26,39 @@ function CampGroundSelection() {
   }, []);
 
   if (isLoading) {
-    return(
-      <select
-        id="campground"
-        name="campground"
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-        >
-          <option value="" disabled selected hidden>Loading...</option>
-      </select>
-        )
-  }
-
-  return (
+    return (
       <select
         id="campground"
         name="campground"
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
       >
-        {campgrounds && campgrounds.data.map((campgroundObj: CampgroundItem) => {
+        <option value="Loading..." defaultValue={"Loading..."} hidden>
+          Loading...
+        </option>
+      </select>
+    );
+  }
+
+  return (
+    <select
+      id="campground"
+      name="campground"
+      defaultValue={"default"}
+      className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+      onChange={(e) => {onSelection(e.target.value);}}
+    >
+      <option value={"default"} key={"default"} hidden>
+        โปรดเลือก...
+      </option>
+      {campgrounds &&
+        campgrounds.data.map((campgroundObj: CampgroundItem) => {
           return (
             <option value={campgroundObj._id} key={campgroundObj._id}>
               {campgroundObj.name}
             </option>
           );
         })}
-      </select>
+    </select>
   );
 }
 
