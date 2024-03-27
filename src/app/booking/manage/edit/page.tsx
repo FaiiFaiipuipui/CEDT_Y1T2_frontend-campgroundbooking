@@ -22,21 +22,23 @@ export default function EditAppointmentPage({
   const [date, setDate] = useState("");
 
   const [selectedCampground, setSelectedCampground] = useState<string>("");
-  const handleOptionChange = (newOption:string) => {
+  const handleOptionChange = (newOption: string) => {
     setSelectedCampground(newOption);
   };
-
 
   if (!session || !session.user.token) return null;
 
   const submit = async () => {
-    console.log(selectedCampground, date,);
+    console.log(selectedCampground, date);
     if (selectedCampground && date) {
-      
       const editAppointment = async () => {
-        const response = await updateAppointment(id, session.user.token, selectedCampground, date);
-        // alert(JSON.stringify(response));
-        
+        const response = await updateAppointment(
+          id,
+          session.user.token,
+          selectedCampground,
+          date
+        );
+        //alert(JSON.stringify(response));
       };
       await editAppointment();
       alert("Successfully booked!");
@@ -51,11 +53,11 @@ export default function EditAppointmentPage({
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Appointment : {cname}
       </div>
-        <div className="w-full my-10">
+      <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">
           Campground
         </label>
-        <CampGroundSelection onSelection={handleOptionChange}/>
+        <CampGroundSelection onSelection={handleOptionChange} />
       </div>
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="date">
@@ -85,7 +87,9 @@ export default function EditAppointmentPage({
         </button>
         <button
           className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-blue-800 hover:bg-white"
-          onClick={()=>{submit()}}
+          onClick={() => {
+            submit();
+          }}
         >
           Edit
         </button>
