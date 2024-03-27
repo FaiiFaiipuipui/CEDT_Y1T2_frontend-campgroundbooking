@@ -5,20 +5,27 @@ export default async function createAppointment(
   cid: string,
   apptDate: string
 ) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/appointments/`,
-    {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: apptDate,
-    }
-  );
+  try {
 
-  if (!response.ok) {
-    throw new Error("Failed to create campgrounds");
-  }
-  return await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/appointments/`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ apptDate: apptDate }),
+      }
+      );
+      
+      if (!response.ok) {
+        throw new Error("Failed to create campgrounds");
+      }
+
+      console.log(response.json);
+      return await response.json();
+    } catch(error) {
+      console.log(error);
+    }
 }
