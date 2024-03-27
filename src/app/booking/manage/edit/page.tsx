@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import updateAppointment from "@/app/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
-import { log } from "console";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function EditAppointmentPage({
   params,
@@ -69,14 +67,14 @@ export default function EditAppointmentPage({
           id="date"
           name="date"
           placeholder="Select the date here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         ></input>
       </div>
       <div className="text-center">
         <button
-          className="bg-white border-[1px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-red-800 px-8 py-1 mr-10 text-red-800 font-medium rounded-full hover:bg-red-800 hover:text-white"
           onClick={() => {
             setSelectedCampground("");
             setDate("");
@@ -86,7 +84,7 @@ export default function EditAppointmentPage({
           Cancel
         </button>
         <button
-          className="bg-blue-800 px-10 py-1 text-white font-medium rounded-full"
+          className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-blue-800 hover:bg-white"
           onClick={()=>{submit()}}
         >
           Edit

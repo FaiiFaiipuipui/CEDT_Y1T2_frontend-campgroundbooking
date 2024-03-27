@@ -3,6 +3,10 @@
 import Image from "next/image";
 import getCampground from "@/app/libs/getCampground";
 import Link from "next/link";
+import { profile } from "console";
+import { getServerSession } from "next-auth";
+import getUserDashboard from "@/app/libs/getUserDashboard";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function CampgroundDetailPage({
   params,
@@ -10,7 +14,8 @@ export default async function CampgroundDetailPage({
   params: { cid: string };
 }) {
   const campgroundDetail = await getCampground(params.cid);
-
+  const session = await getServerSession(authOptions);
+  const profile = await getUserDashboard(session.user.token);
   return (
     <main>
       <div className="block w-screen h-[550px] relative">
@@ -47,32 +52,37 @@ export default async function CampgroundDetailPage({
         <div className="text-md font-medium mt-[20px]">Phone Number</div>
         <div className="text-md">{campgroundDetail.data.telephone}</div>
       </div>
-      {/* Authorise Admin */}
       <div className="text-center my-20">
-        <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
+        <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
           Back
         </button>
         <Link
           href={`/booking/manage/add?id=${params.cid}&name=${campgroundDetail.data.name}`}
         >
-          <button className="bg-emerald-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
+          <button className="border-[2px] border-emerald-800 bg-emerald-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-800">
             Book
           </button>
         </Link>
-        <Link
-          href={`/campground/manage/edit?id=${params.cid}&name=${campgroundDetail.data.name}`}
-        >
-          <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
-            Edit
-          </button>
-        </Link>
-        <Link
-          href={`/campground/manage/delete?id=${params.cid}&name=${campgroundDetail.data.name}`}
-        >
-          <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
-            Delete
-          </button>
-        </Link>
+        {profile.data.role == "admin" ? (
+          <>
+            <Link
+              href={`/campground/manage/edit?id=${params.cid}&name=${campgroundDetail.data.name}`}
+            >
+              <button className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 ml-10 mr-10 text-white font-medium rounded-full hover:bg-white hover:text-blue-800">
+                Edit
+              </button>
+            </Link>
+            <Link
+              href={`/campground/manage/delete?id=${params.cid}&name=${campgroundDetail.data.name}`}
+            >
+              <button className="border-[2px] border-red-800 bg-red-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-red-800">
+                Delete
+              </button>
+            </Link>
+          </>
+        ) : null}
+        
+        
       </div>
     </main>
   );
