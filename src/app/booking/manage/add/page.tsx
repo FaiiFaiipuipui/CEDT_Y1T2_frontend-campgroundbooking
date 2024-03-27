@@ -19,12 +19,14 @@ export default function BookingPage() {
   if (!session || !session.user.token) return null;
   const submit = () => {
     if (date) {
+      alert(date);
       const booking = async () => {
         await createAppointment(session.user.token, id, date);
+        booking();
+        alert("Successfully booked!");
       };
-      booking();
-      alert("Successfully booked!");
       router.push("/dashboard");
+      booking();
     } else {
       alert("Please fill in the missing field!");
     }
@@ -38,12 +40,12 @@ export default function BookingPage() {
         <label className="w-auto block text-gray-700" htmlFor="date">
           Date
         </label>
-        <input
-          type="text"
+                <input
+          type="date"
           required
           id="date"
           name="date"
-          placeholder="Type the date here"
+          placeholder="Select the date here"
           className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -54,6 +56,7 @@ export default function BookingPage() {
           className="bg-white border-[1px] border-emerald-500 px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
           onClick={() => {
             setDate("");
+            router.back();
           }}
         >
           Cancel
