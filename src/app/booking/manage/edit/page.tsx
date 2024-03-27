@@ -62,7 +62,7 @@ export default function EditAppointmentPage() {
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Appointment : {cname}
       </div>
-      <CurrentAppointmentShower appointment={appointmentJsonReady} />
+      {/* <CurrentAppointmentShower appointment={appointmentJsonReady} /> */}
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">
           Campground
