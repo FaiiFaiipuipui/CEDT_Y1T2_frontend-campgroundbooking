@@ -12,7 +12,7 @@ date and the preferred campground. The campground list is also provided to the u
 campground information includes the campground name, address, and telephone number.
 - [x] The system shall allow the registered user to view his campground bookings.
 - [x] The system shall allow the registered user to edit his campground bookings.
-- [ ] The system shall allow the registered user to delete his campground bookings.
+- [x] The system shall allow the registered user to delete his campground bookings.
 - [ ] The system shall allow the admin to view any campground bookings.
 - [ ] The system shall allow the admin to edit any campground bookings.
 - [ ] The system shall allow the admin to delete any campground bookings.
