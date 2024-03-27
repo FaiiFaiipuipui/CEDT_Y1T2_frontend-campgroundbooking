@@ -162,7 +162,7 @@ export default function AddCampgroundPage() {
       </div>
       <div className="text-center">
         <button
-          className="bg-white border-[1px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full hover:bg-red-500 hover:text-white"
           onClick={() => {
             setName("");
             setCoordinate("");
@@ -176,7 +176,7 @@ export default function AddCampgroundPage() {
           Cancel
         </button>
         <button
-          className="bg-emerald-500 px-10 py-1 text-white font-medium rounded-full"
+          className="border-[2px] border-emerald-500 bg-white hover:bg-emerald-500 px-10 py-1 text-emerald-500 hover:text-white font-medium rounded-full"
           onClick={submit}
         >
           Add
