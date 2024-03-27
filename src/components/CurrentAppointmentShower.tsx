@@ -1,3 +1,5 @@
+import React from "react";
+
 function CurrentAppointmentShower({appointment}:{appointment:Object}) {
   const array = appointment ? Object.entries(appointment) : null;
   console.log(array);
@@ -6,8 +8,8 @@ function CurrentAppointmentShower({appointment}:{appointment:Object}) {
   const campground = info ? Object.entries(info[3][1]) : null;
   console.log(campground); 
   return (<div className="text-lg">
-    <div>appointment date: {info[1][1]}</div>
-    <div>appointment campground: {campground[1][1]}</div>
+    <div>appointment date: {info && info[1] ? info[1][1] : 'N/A'}</div>
+    <div>appointment campground: {campground && campground[1] ? campground[1][1] : 'N/A'}</div>
   </div>);
 }
 
