@@ -6,10 +6,10 @@ import Image from "next/image";
 function HomeBanner() {
   const [currentCoverIndex, setCurrentCoverIndex] = useState(0);
   const bannerCoverSrc = [
-    "/img/cover1.jpg",
-    "/img/cover2.jpg",
-    "/img/cover3.jpg",
     "/img/cover4.jpg",
+    "/img/cover3.jpg",
+    "/img/cover2.jpg",
+    "/img/cover1.jpg",
   ];
 
   const changeCover = () => {
