@@ -10,7 +10,7 @@ export default async function deleteAppoinment(id: string, token: string) {
   );
   console.log(response);
   if (!response.ok) {
-    throw new Error("Failed to fetch Appointment");
+    throw new Error("Failed to delete Appointment");
   }
 
   const test = await response.json();
