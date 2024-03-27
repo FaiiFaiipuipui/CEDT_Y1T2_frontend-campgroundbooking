@@ -22,7 +22,7 @@ export default async function updateAppointment(
     );
   
     if (!response.ok) {
-      throw new Error("Cannot fetch appointment");
+      throw new Error("Cannot update appointment");
     }
   
     return await response.json();
