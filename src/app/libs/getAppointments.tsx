@@ -5,6 +5,7 @@ export default async function getAppointments(token: string) {
       headers: {
         authorization: `Bearer ${token}`,
       },
+      cache: 'no-store'
     }
   );
   if (!response.ok) {
