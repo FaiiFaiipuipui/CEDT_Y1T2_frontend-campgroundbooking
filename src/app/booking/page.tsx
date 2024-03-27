@@ -33,7 +33,7 @@ export default function AddAppointmentPage({
           selectedCampground,
           date
         );
-        alert(JSON.stringify(response));
+        // alert(JSON.stringify(response));
       };
       await addAppointment();
       alert("Successfully booked!");

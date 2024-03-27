@@ -32,13 +32,13 @@ export default function BookingPage() {
             throw new Error('Failed to submit create Appointment form')
           }
 
-          const responseData:ResponseData = await response.json();
+          // const responseData:ResponseData = await response.json();
 
-          if (response && response.status !== 200) {
-            alert(responseData.message);
-            alert('Not Success')
-            return;
-          }
+          // if (response && response.status !== 200) {
+          //   alert(responseData.message);
+          //   alert('Not Success')
+          //   return;
+          // }
           
           alert("Successfully booked!");
         };
@@ -48,7 +48,7 @@ export default function BookingPage() {
         alert("Please fill in the missing field!");
       }
     } catch (error){
-      alert(`${error}, response`);
+      // alert(`${error}, response`);
     }
     }
   };
