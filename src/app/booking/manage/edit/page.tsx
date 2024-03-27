@@ -1,10 +1,12 @@
 "use client";
 
+import getAppointments from "@/app/libs/getAppointments";
 import updateAppointment from "@/app/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
+import CurrentAppointmentShower from "@/components/CurrentAppointmentShower";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EditAppointmentPage({
   params,
@@ -25,7 +27,18 @@ export default function EditAppointmentPage({
     setSelectedCampground(newOption);
   };
 
+  const [appointmentJsonReady, setAppointmentJsonReady] = useState<AppointmentJson>();
+  useEffect(() => {
+    const setData = async () => {
+      const appointment = await getAppointments(session.user.token);
+      setAppointmentJsonReady(appointment)
+    }
+    setData();
+  
+  }, [])
+
   if (!session || !session.user.token) return null;
+
 
   const submit = async () => {
     console.log(selectedCampground, date);
@@ -49,6 +62,9 @@ export default function EditAppointmentPage({
 
   return (
     <main className="text-left mx-[20%] pb-5">
+      <div className="text-4xl">
+      <CurrentAppointmentShower appointment={appointmentJsonReady}/>
+      </div>
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Appointment : {cname}
       </div>
