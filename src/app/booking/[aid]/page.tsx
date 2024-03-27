@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getAppointment from "@/app/libs/getAppointment";
 import Link from "next/link";
+import getUserDashboard from "@/app/libs/getUserDashboard";
 
 export default async function AppointmentDetailPage({
   params,
@@ -10,6 +11,7 @@ export default async function AppointmentDetailPage({
 }) {
 
   const session = await getServerSession(authOptions);
+  const profile = await getUserDashboard(session.user.token);
   if (!session || !session.user.token) return null;
   const apptDetail = await getAppointment(params.aid, session.user.token);
 
@@ -35,16 +37,22 @@ export default async function AppointmentDetailPage({
           Back
         </button>
         </Link>
-        <Link href={`/booking/manage/edit?id=${params.aid}`}>
-          <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
-            Edit
-          </button>
-        </Link>
-        <Link href={`/booking/manage/delete?id=${params.aid}`}>
-          <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
-            Delete
-          </button>
-        </Link>
+        {profile.data.role == "admin" ?
+        (
+          <>
+            <Link href={`/booking/manage/edit?id=${params.aid}`}>
+              <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
+                Edit
+              </button>
+            </Link>
+            <Link href={`/booking/manage/delete?id=${params.aid}`}>
+              <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
+                Delete
+              </button>
+            </Link>
+          </>
+        )
+        : null}
       </div>
     </main>
   );
