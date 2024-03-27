@@ -27,7 +27,7 @@ export default function AppointmentCatalog({
 
   return (
     <div className="block place-items-start justify-start mx-10">
-      {appointmentJsonReady && appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
+      {appointmentJsonReady && (appointmentJsonReady.data.length > 0) ? appointmentJsonReady.data.map((appointmentItem: AppointmentItem) => (
         <AppointmentCard
           key={appointmentItem._id}
           aid={appointmentItem._id}
@@ -35,7 +35,7 @@ export default function AppointmentCatalog({
           campground={appointmentItem.campground}
           appointmentDate={new Date(appointmentItem.apptDate)}
         />
-      ))}
+      )) : (<div className="text-xl">You have not made any booking</div>)}
     </div>
   );
 }
