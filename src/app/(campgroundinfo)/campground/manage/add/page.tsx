@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import createCampground from "@/app/libs/createCampground";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function AddCampgroundPage() {
   const router = useRouter();
@@ -61,7 +61,7 @@ export default function AddCampgroundPage() {
           id="name"
           name="name"
           placeholder="Type the name of campground here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={name}
           onChange={(e) => setName(e.target.value)}
         ></input>
@@ -76,7 +76,7 @@ export default function AddCampgroundPage() {
           id="coor"
           name="coor"
           placeholder="Type the coordinate here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={coordinate}
           onChange={(e) => setCoordinate(e.target.value)}
         ></input>
@@ -91,7 +91,7 @@ export default function AddCampgroundPage() {
           id="picture"
           name="picture"
           placeholder="Type the source of image here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={picture}
           onChange={(e) => setPicture(e.target.value)}
         ></input>
@@ -107,7 +107,7 @@ export default function AddCampgroundPage() {
             id="province"
             name="province"
             placeholder="Type the province here"
-            className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+            className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             value={province}
             onChange={(e) => setProvince(e.target.value)}
           ></input>
@@ -122,7 +122,7 @@ export default function AddCampgroundPage() {
             id="region"
             name="region"
             placeholder="Type the region here"
-            className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+            className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
           ></input>
@@ -139,7 +139,7 @@ export default function AddCampgroundPage() {
             id="postal"
             name="postal"
             placeholder="Type the postal code here"
-            className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+            className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             value={postalcode}
             onChange={(e) => setPostalcode(e.target.value)}
           ></input>
@@ -154,7 +154,7 @@ export default function AddCampgroundPage() {
             id="tel"
             name="tel"
             placeholder="Type the phone number here"
-            className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+            className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
           ></input>

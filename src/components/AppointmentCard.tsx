@@ -28,8 +28,8 @@ export default function AppointmentCard({
         </div>
 
         <Link href={`/booking/${aid}`} className="w-1/5">
-          <button className="bg-white border-[1px] border-purple-500 px-8 py-1 mr-10 text-black-500 font-medium rounded-full">
-            detail
+          <button className="bg-white border-[2px] border-purple-500 px-8 py-1 mr-10 text-purple-500 font-medium rounded-full hover:bg-purple-500 hover:text-white">
+            Detail
           </button>
         </Link>
       </div>

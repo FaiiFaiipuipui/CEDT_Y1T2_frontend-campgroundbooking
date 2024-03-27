@@ -33,26 +33,21 @@ export default async function AppointmentDetailPage({
 
       <div className="text-center my-20">
         <Link href={'/dashboard'}>
-        <button className="bg-white border-[1px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full">
+        <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
           Back
         </button>
         </Link>
-        {profile.data.role ?
-        (
-          <>
-            <Link href={`/booking/manage/edit?id=${params.aid}`}>
-              <button className="bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full">
-                Edit
-              </button>
-            </Link>
-            <Link href={`/booking/manage/delete?id=${params.aid}`}>
-              <button className="bg-red-800 px-10 py-1 text-white font-medium rounded-full">
-                Delete
-              </button>
-            </Link>
-          </>
-        )
-        : null}
+        <Link href={`/booking/manage/edit?id=${params.aid}`}>
+          <button className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full hover:bg-white hover:text-blue-800">
+            Edit
+          </button>
+        </Link>
+        <Link href={`/booking/manage/delete?id=${params.aid}`}>
+          <button className="border-[2px] border-red-800 bg-red-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-red-800">
+            Delete
+          </button>
+        </Link>
+        
       </div>
     </main>
   );

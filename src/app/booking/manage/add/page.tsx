@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import createAppointment from "@/app/libs/createAppointment";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function BookingPage() {
   const router = useRouter();
@@ -49,8 +48,8 @@ export default function BookingPage() {
     }
   };
   return (
-    <div className="text-left w-full px-12">
-      <div className="text-4xl font-bold mt-[20%] ">
+    <div className="text-left w-[70%] p-12 mx-auto">
+      <div className="text-4xl font-bold mt-[10%] ">
         Booking campground : {cname}
       </div>
       <div className="w-full my-10">
@@ -63,14 +62,14 @@ export default function BookingPage() {
           id="date"
           name="date"
           placeholder="Select the date here"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         ></input>
       </div>
       <div className="text-center">
         <button
-          className="bg-white border-[1px] border-emerald-500 px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-red-500 px-8 py-1 mr-10 text-red-500 font-medium rounded-full hover:bg-red-500 hover:text-white"
           onClick={() => {
             setDate("");
             router.back();
@@ -79,7 +78,7 @@ export default function BookingPage() {
           Cancel
         </button>
         <button
-          className="bg-emerald-500 px-10 py-1 text-white font-medium rounded-full"
+          className="border-[2px] border-emerald-500 bg-emerald-500 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500"
           onClick={submit}
         >
           Book!

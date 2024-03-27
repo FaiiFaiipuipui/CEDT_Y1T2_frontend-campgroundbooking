@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import register from "@/app/libs/register";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function RegisterPage() {
         name="name"
         placeholder="Enter your name and surname here"
         value={name}
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => setName(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
@@ -52,7 +52,7 @@ export default function RegisterPage() {
         name="telephone"
         placeholder="Enter your phone number here"
         value={telephone}
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => setTelephone(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
@@ -65,7 +65,7 @@ export default function RegisterPage() {
         name="email"
         placeholder="Enter your email address here"
         value={email}
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => setEmail(e.target.value)}
       />
       <label className="w-auto block text-gray-700 mb-2" htmlFor="name">
@@ -78,16 +78,23 @@ export default function RegisterPage() {
         name="password"
         placeholder="Password"
         value={password}
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => setPassword(e.target.value)}
       />
+      <div
+        className="flex flex-row justify-end text-gray-500 text-sm"
+        onClick={togglePassword}
+      >
+        <input type="checkbox" />
+        <div className="ml-3">Show Password</div>
+      </div>
       <label htmlFor="role">Role</label>
       <select
         id="role"
         name="role"
         value={role}
         onChange={(e) => setRole(e.target.value)}
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
       >
         <option disabled selected>
           Select your role here
@@ -111,4 +118,16 @@ export default function RegisterPage() {
       </div>
     </main>
   );
+}
+function togglePassword(): void {
+  var x: HTMLInputElement | null = document.getElementById(
+    "password"
+  ) as HTMLInputElement;
+  if (x !== null) {
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 }

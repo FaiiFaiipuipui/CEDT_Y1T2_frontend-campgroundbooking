@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import logIn from "@/app/libs/login";
-import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,7 +38,7 @@ export default function LoginPage() {
           id="email"
           name="email"
           placeholder="Email"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
           onChange={(e) => setEmail(e.target.value)}
         ></input>
         <label className="w-auto block text-gray-700 mb-2" htmlFor="password">
@@ -51,7 +50,7 @@ export default function LoginPage() {
           id="password"
           name="password"
           placeholder="Password"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mb-2 text-gray-700 focus:outline-none focus:border-emerald-500"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </div>

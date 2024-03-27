@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import createAppointment from "../libs/createAppointment";
-import { DatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
 
 export default function BookingPage({
   campgrounds,
@@ -49,7 +48,7 @@ export default function BookingPage({
         <select
           id="campground"
           name="campground"
-          className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+          className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
         >
           {campgroundArray.data.map((campgroundObj: CampgroundItem) => {
             return (
@@ -69,14 +68,14 @@ export default function BookingPage({
             onChange={(newDate) => {
               setDate(newDate);
             }}
-            className="bg-white border-[1px] border-gray-500 rounded-lg py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500 w-full"
+            className="bg-white border-[2px] border-gray-500 rounded-lg py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500 w-full"
           />
         </div>
       </div>
 
       <div className="text-center">
         <button
-          className="bg-white border-[1px] border-emerald-500 px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-emerald-500 px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
           onClick={() => {
             setCid("");
             setDate(null);
