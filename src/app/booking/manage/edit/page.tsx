@@ -35,7 +35,7 @@ export default function EditAppointmentPage({
       
       const editAppointment = async () => {
         const response = await updateAppointment(id, session.user.token, selectedCampground, date);
-        alert(JSON.stringify(response));
+        // alert(JSON.stringify(response));
         
       };
       await editAppointment();
