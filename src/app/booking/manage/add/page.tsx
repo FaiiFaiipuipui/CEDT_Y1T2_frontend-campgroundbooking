@@ -22,7 +22,6 @@ export default function BookingPage() {
       alert(date);
       const booking = async () => {
         await createAppointment(session.user.token, id, date);
-        booking();
         alert("Successfully booked!");
       };
       router.push("/dashboard");
