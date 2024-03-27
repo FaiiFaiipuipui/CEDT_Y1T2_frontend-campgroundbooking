@@ -7,7 +7,7 @@ and password.
 - [x] After registration, the user becomes a registered user, and the system shall allow the user to
 log in to use the system by specifying the email and password. The system shall allow a
 registered user to log out.
-- [ ] After login, the system shall allow the registered user to book up to 3 nights by specifying the
+- [x] After login, the system shall allow the registered user to book up to 3 nights by specifying the
 date and the preferred campground. The campground list is also provided to the user. A
 campground information includes the campground name, address, and telephone number.
 - [x] The system shall allow the registered user to view his campground bookings.
