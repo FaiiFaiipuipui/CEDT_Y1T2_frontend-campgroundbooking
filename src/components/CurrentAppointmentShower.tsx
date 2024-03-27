@@ -1,4 +1,4 @@
-function CurrentAppointmentShower({appointment}:{appointment:AppointmentJson}) {
+function CurrentAppointmentShower({appointment}:{appointment:AppointmentItem}) {
   return (<div>{JSON.stringify(appointment)}</div>);
 }
 

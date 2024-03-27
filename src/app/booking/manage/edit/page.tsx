@@ -1,18 +1,15 @@
 "use client";
 
+import getAppointment from "@/app/libs/getAppointment";
 import getAppointments from "@/app/libs/getAppointments";
 import updateAppointment from "@/app/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
 import CurrentAppointmentShower from "@/components/CurrentAppointmentShower";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function EditAppointmentPage({
-  params,
-}: {
-  params: { aid: string };
-}) {
+export default function EditAppointmentPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -27,10 +24,11 @@ export default function EditAppointmentPage({
     setSelectedCampground(newOption);
   };
 
-  const [appointmentJsonReady, setAppointmentJsonReady] = useState<AppointmentJson>();
+  const [appointmentJsonReady, setAppointmentJsonReady] = useState<AppointmentItem>();
   useEffect(() => {
     const setData = async () => {
-      const appointment = await getAppointments(session.user.token);
+      const appointment = await getAppointment(id, session.user.token);
+      console.log(appointment);
       setAppointmentJsonReady(appointment)
     }
     setData();

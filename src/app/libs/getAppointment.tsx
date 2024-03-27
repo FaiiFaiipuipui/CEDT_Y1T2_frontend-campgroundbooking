@@ -7,7 +7,7 @@ export default async function getAppointment(id: string, token: string) {
       },
     }
   );
-  if (!response.ok) {
+  if (!response) {
     throw new Error("Failed to fetch appointments");
   }
   return await response.json();
