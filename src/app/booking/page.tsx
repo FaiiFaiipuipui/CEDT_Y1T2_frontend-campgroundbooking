@@ -29,8 +29,8 @@ export default function AddAppointmentPage({
     if (selectedCampground && date) {
       const addAppointment = async () => {
         const response = await createAppointment(
-          selectedCampground,
           session.user.token,
+          selectedCampground,
           date
         );
         alert(JSON.stringify(response));
