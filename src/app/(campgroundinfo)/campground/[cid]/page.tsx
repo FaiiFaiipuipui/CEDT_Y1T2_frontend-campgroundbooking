@@ -1,4 +1,4 @@
-// "use client";
+//"use client";
 
 import Image from "next/image";
 import getCampground from "@/app/libs/getCampground";
@@ -16,6 +16,7 @@ export default async function CampgroundDetailPage({
   const campgroundDetail = await getCampground(params.cid);
   const session = await getServerSession(authOptions);
   const profile = await getUserDashboard(session.user.token);
+
   return (
     <main>
       <div className="block w-screen h-[550px] relative">
@@ -81,8 +82,6 @@ export default async function CampgroundDetailPage({
             </Link>
           </>
         ) : null}
-        
-        
       </div>
     </main>
   );

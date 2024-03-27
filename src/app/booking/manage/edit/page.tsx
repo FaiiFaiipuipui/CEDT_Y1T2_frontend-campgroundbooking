@@ -24,19 +24,18 @@ export default function EditAppointmentPage() {
     setSelectedCampground(newOption);
   };
 
-  const [appointmentJsonReady, setAppointmentJsonReady] = useState<AppointmentItem>();
+  const [appointmentJsonReady, setAppointmentJsonReady] =
+    useState<AppointmentItem>();
   useEffect(() => {
     const setData = async () => {
       const appointment = await getAppointment(id, session.user.token);
       console.log(appointment);
-      setAppointmentJsonReady(appointment)
-    }
+      setAppointmentJsonReady(appointment);
+    };
     setData();
-  
-  }, [])
+  }, []);
 
   if (!session || !session.user.token) return null;
-
 
   const submit = async () => {
     console.log(selectedCampground, date);
@@ -63,7 +62,7 @@ export default function EditAppointmentPage() {
       <div className="text-4xl font-bold mt-[8%] ">
         Edit Appointment : {cname}
       </div>
-      <CurrentAppointmentShower appointment={appointmentJsonReady}/>
+      <CurrentAppointmentShower appointment={appointmentJsonReady} />
       <div className="w-full my-10">
         <label className="w-auto block text-gray-700" htmlFor="name">
           Campground
