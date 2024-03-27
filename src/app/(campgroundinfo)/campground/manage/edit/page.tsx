@@ -1,9 +1,10 @@
 "use client";
 
+import getCampground from "@/app/libs/getCampground";
 import updateCampground from "@/app/libs/updateCampground";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function EditCampgroundPage() {
   const router = useRouter();
@@ -12,6 +13,13 @@ export default function EditCampgroundPage() {
   const urlParams = useSearchParams();
   const id = urlParams.get("id") as string;
   const cname = urlParams.get("name");
+
+  useEffect(() => {
+    const fetchCampground = async () => {
+      const data = await getCampground(id);
+    };
+    fetchCampground();
+  }, [id]);
 
   const [name, setName] = useState("");
   const [coordinate, setCoordinate] = useState("");

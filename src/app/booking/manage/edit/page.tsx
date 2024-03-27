@@ -18,7 +18,6 @@ export default function EditAppointmentPage({
   const id = urlParams.get("id") as string;
   const cname = urlParams.get("name");
 
-  const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
   const [selectedCampground, setSelectedCampground] = useState<string>("");
