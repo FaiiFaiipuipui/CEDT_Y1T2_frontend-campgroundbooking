@@ -1,5 +1,4 @@
 import getCampgrounds from "@/app/libs/getCampgrounds";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useEffect, useState } from "react";
 
 export const getPollute = async () => {
@@ -30,7 +29,7 @@ function CampGroundSelection({
       <select
         id="campground"
         name="campground"
-        className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+        className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
       >
         <option value="Loading..." defaultValue={"Loading..."} hidden>
           Loading...
@@ -44,7 +43,7 @@ function CampGroundSelection({
       id="campground"
       name="campground"
       defaultValue={"default"}
-      className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+      className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
       onChange={(e) => {onSelection(e.target.value);}}
     >
       <option value={"default"} key={"default"} hidden>

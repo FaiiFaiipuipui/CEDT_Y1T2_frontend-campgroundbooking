@@ -1,7 +1,6 @@
 "use client";
 
 import logout from "@/app/libs/logout";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -21,7 +20,7 @@ export default function LogoutPage() {
       </div>
       <div className="text-center">
         <button
-          className="bg-white border-[1px] border-emerald-500 hover:bg-emerald-500 hover:text-white px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-emerald-500 hover:bg-emerald-500 hover:text-white px-8 py-1 mr-10 text-emerald-500 font-medium rounded-full"
           onClick={() => {
             router.push("/");
           }}
@@ -29,7 +28,7 @@ export default function LogoutPage() {
           Cancel
         </button>
         <button
-          className="bg-white border-[1px] border-red-500 hover:bg-red-500 hover:text-white px-8 py-1 text-red-500 font-medium rounded-full"
+          className="bg-white border-[2px] border-red-500 hover:bg-red-500 hover:text-white px-8 py-1 text-red-500 font-medium rounded-full"
           onClick={() => {
             router.push("/");
           }}
