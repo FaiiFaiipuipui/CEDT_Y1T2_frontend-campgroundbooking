@@ -38,7 +38,7 @@ export default function EditAppointmentPage({
           selectedCampground,
           date
         );
-        alert(JSON.stringify(response));
+        //alert(JSON.stringify(response));
       };
       await editAppointment();
       alert("Successfully booked!");
