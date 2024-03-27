@@ -19,15 +19,33 @@ export default function BookingPage() {
   if (!session || !session.user.token) return null;
   const submit = () => {
     if (date) {
-      alert(date);
+      try {
+        if (date) {
       const booking = async () => {
-        await createAppointment(session.user.token, id, date);
-        alert("Successfully booked!");
-      };
-      router.push("/dashboard");
-      booking();
-    } else {
-      alert("Please fill in the missing field!");
+          const response = await createAppointment(session.user.token, id, date);
+          console.log(response);
+          if (!response) {
+            throw new Error('Failed to submit create Appointment form')
+          }
+
+          const responseData:Object = await response.json();
+
+          if (response && response.status !== 200) {
+            alert(responseData.message);
+            alert('Not Success')
+            return;
+          }
+          
+          alert("Successfully booked!");
+        };
+        booking();
+        router.push("/dashboard");
+      } else {
+        alert("Please fill in the missing field!");
+      }
+    } catch (error){
+      alert(`${error}, response`);
+    }
     }
   };
   return (
