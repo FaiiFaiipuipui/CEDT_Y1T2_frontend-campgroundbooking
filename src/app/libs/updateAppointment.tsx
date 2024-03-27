@@ -5,8 +5,8 @@ export default async function updateAppointment(
     date: string
   ) {
     let bodyData = {
-      name: name,
-      date: date,
+      campground: name,
+      apptDate: date,
     };
     console.log(bodyData);
     const response = await fetch(
