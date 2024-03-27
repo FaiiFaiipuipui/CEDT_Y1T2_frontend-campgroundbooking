@@ -12,7 +12,7 @@ export default function RegisterPage() {
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("Select your role here");
 
   const submit = () => {
     if (name && telephone && email && password && role) {

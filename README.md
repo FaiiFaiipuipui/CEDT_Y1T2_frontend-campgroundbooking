@@ -13,8 +13,8 @@ campground information includes the campground name, address, and telephone numb
 - [x] The system shall allow the registered user to view his campground bookings.
 - [x] The system shall allow the registered user to edit his campground bookings.
 - [x] The system shall allow the registered user to delete his campground bookings.
-- [ ] The system shall allow the admin to view any campground bookings.
-- [ ] The system shall allow the admin to edit any campground bookings.
-- [ ] The system shall allow the admin to delete any campground bookings.
+- [x] The system shall allow the admin to view any campground bookings.
+- [x] The system shall allow the admin to edit any campground bookings.
+- [x] The system shall allow the admin to delete any campground bookings.
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/OFxUFd-r)
