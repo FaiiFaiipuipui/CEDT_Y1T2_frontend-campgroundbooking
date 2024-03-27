@@ -37,7 +37,7 @@ export default async function AppointmentDetailPage({
           Back
         </button>
         </Link>
-        {profile.data.role == "admin" ?
+        {profile.data.role ?
         (
           <>
             <Link href={`/booking/manage/edit?id=${params.aid}`}>
