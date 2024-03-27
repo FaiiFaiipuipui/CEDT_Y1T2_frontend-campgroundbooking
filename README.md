@@ -2,7 +2,7 @@
 **Please view this document using vscode markdown preview enhanced extensions**
 Current Requirement State:
 
-- [ ] The system shall allow a user to register by specifying the name, telephone number, email,
+- [x] The system shall allow a user to register by specifying the name, telephone number, email,
 and password.
 - [x] After registration, the user becomes a registered user, and the system shall allow the user to
 log in to use the system by specifying the email and password. The system shall allow a
