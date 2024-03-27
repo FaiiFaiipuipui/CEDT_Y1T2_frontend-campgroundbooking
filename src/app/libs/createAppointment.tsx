@@ -1,12 +1,9 @@
-import { Dayjs } from "dayjs";
-
 export default async function createAppointment(
   token: string,
   cid: string,
   apptDate: string
 ) {
   try {
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/appointments/`,
       {
@@ -17,15 +14,13 @@ export default async function createAppointment(
         },
         body: JSON.stringify({ apptDate: apptDate }),
       }
-      );
-      
-      if (!response) {
-        throw new Error("Failed to create appointment");
-      }
-
-      return await response;
-    } catch(error) {
-      console.log(error);
-      return error
+    );
+    if (!response.ok) {
+      throw new Error("Failed to create appointment");
     }
+    console.log(response.json);
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
