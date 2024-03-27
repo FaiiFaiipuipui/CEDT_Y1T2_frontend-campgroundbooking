@@ -81,6 +81,13 @@ export default function RegisterPage() {
         className="bg-white border-[1px] border-gray-500 rounded-lg w-full py-2 px-4 mb-4 text-gray-700 focus:outline-none focus:border-emerald-500"
         onChange={(e) => setPassword(e.target.value)}
       />
+      <div
+        className="flex flex-row justify-end text-gray-500 text-sm"
+        onClick={togglePassword}
+      >
+        <input type="checkbox" />
+        <div className="ml-3">Show Password</div>
+      </div>
       <label htmlFor="role">Role</label>
       <select
         id="role"
@@ -111,4 +118,16 @@ export default function RegisterPage() {
       </div>
     </main>
   );
+}
+function togglePassword(): void {
+  var x: HTMLInputElement | null = document.getElementById(
+    "password"
+  ) as HTMLInputElement;
+  if (x !== null) {
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 }
