@@ -20,7 +20,7 @@ export default async function createAppointment(
       );
       
       if (!response.ok) {
-        throw new Error("Failed to create campgrounds");
+        throw new Error("Failed to create appointment");
       }
 
       console.log(response.json);
