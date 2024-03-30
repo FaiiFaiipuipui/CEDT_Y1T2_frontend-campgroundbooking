@@ -41,3 +41,7 @@ cypress.config.ts
 /__test__
 jest.config.js
 jest.setup.js
+
+# edit page (not work)
+src/components/CurrentAppointmentShower.tsx
+src/components/CurrentCampgroundShower.tsx

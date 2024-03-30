@@ -1,5 +1,6 @@
 import Card from "./Card";
 import Link from "next/link";
+import { CampgroundItem, CampgroundJson } from "interface";
 
 export default async function CampgroundCatalog({
   campgroundJson,

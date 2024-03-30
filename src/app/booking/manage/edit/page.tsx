@@ -4,10 +4,11 @@ import getAppointment from "@/app/libs/getAppointment";
 import getAppointments from "@/app/libs/getAppointments";
 import updateAppointment from "@/app/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
-import CurrentAppointmentShower from "@/components/CurrentAppointmentShower";
+// import CurrentAppointmentShower from "@/components/CurrentAppointmentShower";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AppointmentItem } from "interface";
 
 export default function EditAppointmentPage() {
   const router = useRouter();
@@ -23,7 +24,8 @@ export default function EditAppointmentPage() {
   const handleOptionChange = (newOption: string) => {
     setSelectedCampground(newOption);
   };
-
+  {
+    /*
   const [appointmentJsonReady, setAppointmentJsonReady] =
     useState<AppointmentItem>();
   useEffect(() => {
@@ -34,6 +36,8 @@ export default function EditAppointmentPage() {
     };
     setData();
   }, []);
+  */
+  }
 
   if (!session || !session.user.token) return null;
 

@@ -1,5 +1,6 @@
 import getCampgrounds from "@/app/libs/getCampgrounds";
 import { useEffect, useState } from "react";
+import { CampgroundItem, CampgroundJson } from "interface";
 
 export const getPollute = async () => {
   const campgrounds: CampgroundJson = await getCampgrounds(50);

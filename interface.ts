@@ -1,4 +1,4 @@
-interface CampgroundItem {
+export interface CampgroundItem {
   _id: string;
   number: number;
   name: string;
@@ -11,14 +11,14 @@ interface CampgroundItem {
   picture: string;
 }
 
-interface CampgroundJson {
+export interface CampgroundJson {
   success: boolean;
   count: number;
   pagination: Object;
   data: CampgroundItem[];
 }
 
-interface AppointmentItem {
+export interface AppointmentItem {
   _id: string;
   apptDate: string;
   user: string;
@@ -26,7 +26,7 @@ interface AppointmentItem {
   createdAt: Date;
 }
 
-interface AppointmentJson {
+export interface AppointmentJson {
   success: boolean;
   count: number;
   pagination: Object;
