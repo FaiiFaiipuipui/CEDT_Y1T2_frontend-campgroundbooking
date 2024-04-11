@@ -27,6 +27,7 @@ export default function PaymentPage() {
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
     alert(`Submit Image: ${imagePreview}`);
+    window.location.reload();
   };
 
   return (
@@ -34,9 +35,9 @@ export default function PaymentPage() {
       <div className="text-5xl font-black font-bold text-center">
         Payment Information
       </div>
-      <div className="flex border border-black border-solid w-full h-[60vh] grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
+      <div className="flex border border-black border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
         {/* The first col */}
-        <div className="bg-[#9DCAC2] w-[100%] h-[100%] rounded-l-2xl">
+        <div className="bg-[#9DCAC2] rounded-l-2xl">
           <div className="flex flex-row font-bold pt-7 pl-6">User</div>
           <div className="pl-6">User 1</div>
 
