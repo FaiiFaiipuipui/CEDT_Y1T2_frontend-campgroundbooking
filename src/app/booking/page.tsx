@@ -53,8 +53,8 @@ export default function AddAppointmentPage({
 
         alert("Successfully booked!");
       };
-      addAppointment();
-      router.push("/dashboard");
+      // addAppointment();
+      router.push("/payment");
     } else {
       alert("Please fill in the missing field!");
     }
