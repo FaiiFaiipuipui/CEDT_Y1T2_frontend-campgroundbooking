@@ -1,8 +1,14 @@
 import { qrcode,checkBox  } from "public/img";
 import Image from "next/image";
 import { Button } from "@mui/material";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
-export default function PaymentPage() {
+export default async function PaymentPage() {
+
+    const session = await getServerSession(authOptions)
+    //console.log('token: ' + session?.user.token)
+
     return (
         <div className=" flex justify-center items-center p-10 flex-col">
             <div className="text-5xl font-black font-bold text-center">
@@ -12,10 +18,10 @@ export default function PaymentPage() {
             <div className="bg-[#9DCAC2] w-[100%] h-[100%] rounded-l-2xl">
                 
         <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-        <div className="pl-6">User 1</div>
+        <div className="pl-6">{session.user.name}</div>
 
         <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-        <div className="pl-6">7894sdafsdaf45665644adsf</div>
+        <div className="pl-6">{session.user._id}</div>
 
         <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
         <div className="pl-6">01/01/1111</div>
