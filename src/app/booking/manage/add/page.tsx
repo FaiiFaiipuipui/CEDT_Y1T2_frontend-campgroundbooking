@@ -42,8 +42,8 @@ export default function BookingPage() {
           
           alert("Successfully booked!");
         };
-        booking();
-        router.push("/dashboard");
+        //booking();
+        router.push("/payment");
       } else {
         alert("Please fill in the missing field!");
       }
