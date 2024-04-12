@@ -25,31 +25,35 @@ export default function BookingPage() {
     if (date) {
       try {
         if (date) {
-      const booking = async () => {
-          const response = await createAppointment(session.user.token, id, date) as Response;
-          console.log(response);
-          if (!response) {
-            throw new Error('Failed to submit create Appointment form')
-          }
+          const booking = async () => {
+            const response = (await createAppointment(
+              session.user.token,
+              id,
+              date
+            )) as Response;
+            console.log(response);
+            if (!response) {
+              throw new Error("Failed to submit create Appointment form");
+            }
 
-          // const responseData:ResponseData = await response.json();
+            const responseData: ResponseData = await response.json();
 
-          // if (response && response.status !== 200) {
-          //   alert(responseData.message);
-          //   alert('Not Success')
-          //   return;
-          // }
-          
-          alert("Successfully booked!");
-        };
-        booking();
-        router.push("/dashboard");
-      } else {
-        alert("Please fill in the missing field!");
+            if (response && response.status !== 200) {
+              alert(responseData.message);
+              alert("Not Success");
+              return;
+            }
+
+            alert("Successfully booked!");
+          };
+          booking();
+          router.push("/dashboard");
+        } else {
+          alert("Please fill in the missing field!");
+        }
+      } catch (error) {
+        // alert(`${error}, response`);
       }
-    } catch (error){
-      // alert(`${error}, response`);
-    }
     }
   };
   return (
@@ -61,7 +65,7 @@ export default function BookingPage() {
         <label className="w-auto block text-gray-700" htmlFor="date">
           Date
         </label>
-                <input
+        <input
           type="date"
           required
           id="date"
