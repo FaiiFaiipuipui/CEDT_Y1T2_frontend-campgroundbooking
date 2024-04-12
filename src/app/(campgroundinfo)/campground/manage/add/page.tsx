@@ -1,6 +1,6 @@
 "use client";
 
-import createCampground from "@/app/libs/createCampground";
+import createCampground from "@/libs/createCampground";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import getCampgrounds from "@/app/libs/getCampgrounds";
+import getCampgrounds from "@/libs/getCampgrounds";
 import { useEffect, useState } from "react";
 import { CampgroundItem, CampgroundJson } from "interface";
 

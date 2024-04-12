@@ -1,7 +1,7 @@
 "use client";
 
-import getCampground from "@/app/libs/getCampground";
-import updateCampground from "@/app/libs/updateCampground";
+import getCampground from "@/libs/getCampground";
+import updateCampground from "@/libs/updateCampground";
 // import CurrentCampgroundShower from "@/components/CurrentCampgroundShower";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";

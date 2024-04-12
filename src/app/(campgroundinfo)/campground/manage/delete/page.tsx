@@ -1,5 +1,5 @@
 "use client";
-import deleteCampground from "@/app/libs/deleteCampground";
+import deleteCampground from "@/libs/deleteCampground";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 

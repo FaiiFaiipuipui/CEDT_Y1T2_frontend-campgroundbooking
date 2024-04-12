@@ -1,8 +1,8 @@
 "use client";
 
-import getAppointment from "@/app/libs/getAppointment";
-import getAppointments from "@/app/libs/getAppointments";
-import updateAppointment from "@/app/libs/updateAppointment";
+import getAppointment from "@/libs/getAppointment";
+import getAppointments from "@/libs/getAppointments";
+import updateAppointment from "@/libs/updateAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
 // import CurrentAppointmentShower from "@/components/CurrentAppointmentShower";
 import { useSession } from "next-auth/react";

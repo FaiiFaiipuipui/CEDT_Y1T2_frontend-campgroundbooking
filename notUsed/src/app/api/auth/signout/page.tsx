@@ -1,6 +1,6 @@
 "use client";
 
-import logout from "@/app/libs/logout";
+import logout from "@/libs/logout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

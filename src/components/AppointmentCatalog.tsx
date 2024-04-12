@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import AppointmentCard from "./AppointmentCard";
-import getUserDashboard from "@/app/libs/getUserDashboard";
-import getAppointments from "@/app/libs/getAppointments";
+import getUserDashboard from "@/libs/getUserDashboard";
+import getAppointments from "@/libs/getAppointments";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Session, getServerSession } from "next-auth";
 import { AppointmentItem, AppointmentJson } from "interface";

@@ -1,15 +1,14 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import getAppointment from "@/app/libs/getAppointment";
+import getAppointment from "@/libs/getAppointment";
 import Link from "next/link";
-import getUserDashboard from "@/app/libs/getUserDashboard";
+import getUserDashboard from "@/libs/getUserDashboard";
 
 export default async function AppointmentDetailPage({
   params,
 }: {
   params: { aid: string };
 }) {
-
   const session = await getServerSession(authOptions);
   const profile = await getUserDashboard(session.user.token);
   if (!session || !session.user.token) return null;
@@ -32,10 +31,10 @@ export default async function AppointmentDetailPage({
       </div>
 
       <div className="text-center my-20">
-        <Link href={'/dashboard'}>
-        <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
-          Back
-        </button>
+        <Link href={"/dashboard"}>
+          <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
+            Back
+          </button>
         </Link>
         <Link href={`/booking/manage/edit?id=${params.aid}`}>
           <button className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 mr-10 text-white font-medium rounded-full hover:bg-white hover:text-blue-800">
@@ -47,7 +46,6 @@ export default async function AppointmentDetailPage({
             Delete
           </button>
         </Link>
-        
       </div>
     </main>
   );
