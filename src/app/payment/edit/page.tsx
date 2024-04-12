@@ -101,6 +101,12 @@ export default function EditPaymentPage() {
           <div className="mt-5 text-center">
             <button
               className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
+              onClick={back}
+            >
+              Back
+            </button>
+            <button
+              className="bg-white border-[2px] border-rose-500 px-8 py-1 mr-10 text-rose-500 font-medium rounded-full"
               onClick={cancelUpload}
             >
               Cancel
@@ -118,6 +124,10 @@ export default function EditPaymentPage() {
 function nextUpload(): void {
   document.getElementById("upload").style.display = "block";
   document.getElementById("showQr").style.display = "none";
+}
+function back(): void {
+  document.getElementById("upload").style.display = "none";
+  document.getElementById("showQr").style.display = "block";
 }
 function cancelUpload(): void {
   const input = document.getElementById("upload_slip") as HTMLInputElement;
