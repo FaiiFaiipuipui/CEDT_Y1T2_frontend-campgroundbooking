@@ -98,14 +98,14 @@ export default function PaymentPage() {
             <Button
               variant="contained"
               component="label"
-              className="bg-[#ECFDF5] w-[100%] h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
+              className="bg-[#ECFDF5] w-[100%] min-h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
             >
               {/* This function is for adding display the input image, so that user can preview what they have input recently*/}
               {imagePreview ? (
                 <img
                   src={imagePreview}
                   alt="Uploaded Image"
-                  className="h-full w-full object-cover"
+                  className="px-2  h-[80%]"
                 />
               ) : (
                 <div className="flex flex-row justify-center items-center pb-0.5">
@@ -134,7 +134,7 @@ export default function PaymentPage() {
               </label>
             </Button>
           </div>
-          <div className="flex flex-row mt-10 justify-around">
+          <div className="flex flex-row p-10 justify-around">
             <div className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer">
               {" "}
               Cancel{" "}
