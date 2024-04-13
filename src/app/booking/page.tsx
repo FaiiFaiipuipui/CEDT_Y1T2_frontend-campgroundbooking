@@ -1,6 +1,6 @@
 "use client";
 
-import createAppointment from "../libs/createAppointment";
+import createAppointment from "../../libs/createAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";

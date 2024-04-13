@@ -1,6 +1,6 @@
 "use client";
 
-import register from "@/app/libs/register";
+import register from "@/libs/register";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

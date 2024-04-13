@@ -1,6 +1,6 @@
 "use client";
 
-import createAppointment from "@/app/libs/createAppointment";
+import createAppointment from "@/libs/createAppointment";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -48,6 +48,7 @@ export default function BookingPage() {
           };
           //booking();
           router.push("/payment");
+
         } else {
           alert("Please fill in the missing field!");
         }

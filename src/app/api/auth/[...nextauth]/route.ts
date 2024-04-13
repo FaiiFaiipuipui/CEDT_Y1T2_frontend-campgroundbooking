@@ -1,7 +1,7 @@
 import NextAuth from "next-auth/next";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import userLogIn from "@/app/libs/login";
+import userLogIn from "@/libs/login";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -38,7 +38,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-/*   pages: {
+  /*   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
     error: "/auth/error",

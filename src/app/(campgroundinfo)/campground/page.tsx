@@ -1,11 +1,11 @@
-import getCampgrounds from "@/app/libs/getCampgrounds";
+import getCampgrounds from "@/libs/getCampgrounds";
 import CampgroundCatalog from "@/components/CampgroundCatalog";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import getUserDashboard from "@/app/libs/getUserDashboard";
+import getUserDashboard from "@/libs/getUserDashboard";
 
 export default async function Campground() {
   const campgrounds = getCampgrounds(50);

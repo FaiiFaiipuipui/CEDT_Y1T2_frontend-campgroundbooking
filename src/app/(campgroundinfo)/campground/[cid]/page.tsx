@@ -1,11 +1,11 @@
 //"use client";
 
 import Image from "next/image";
-import getCampground from "@/app/libs/getCampground";
+import getCampground from "@/libs/getCampground";
 import Link from "next/link";
 import { profile } from "console";
 import { getServerSession } from "next-auth";
-import getUserDashboard from "@/app/libs/getUserDashboard";
+import getUserDashboard from "@/libs/getUserDashboard";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function CampgroundDetailPage({
