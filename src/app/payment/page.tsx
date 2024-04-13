@@ -11,6 +11,7 @@ export default function PaymentPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const router = useRouter();
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +37,7 @@ export default function PaymentPage() {
       // Hide the popup after 3 seconds
       setTimeout(() => {
         setShowPopup(false);
-      }, 3000);
+      }, 1500);
     } else {
       alert("Please upload Slip");
     }
@@ -193,7 +194,10 @@ export default function PaymentPage() {
             </div>
             <div
               className="bg-fern  py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
-              onClick={() => handleSubmit()}
+              onClick={() => {
+                handleSubmit();
+                router.push("/dashboard");
+              }}
             >
               {" "}
               Confirm{" "}
