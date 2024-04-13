@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
+import Modal from "react-modal";
 
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
-  const router = useRouter();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,11 +31,23 @@ export default function PaymentPage() {
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
     if (imagePreview != null) {
-      alert(`Submit Image: ${imagePreview}`);
-      router.push("/dashboard");
+      setShowPopup(true);
+
+      // Hide the popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
     } else {
       alert("Please upload Slip");
     }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -65,7 +79,7 @@ export default function PaymentPage() {
             </div>
             <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
               {" "}
-              <span className="h-[3vh] w-[3vh] flex mr-2">
+              <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
                 <Image src={checkBox} alt="checkbox" />
               </span>{" "}
               Estimated ticketing time less than 2 Days
@@ -94,20 +108,30 @@ export default function PaymentPage() {
           <div className="pt-7 font-medium text-xl">
             Please upload your receipt{" "}
           </div>
-          <div className="flex ">
-            <Button
-              variant="contained"
-              component="label"
-              className="bg-[#ECFDF5] w-[100%] min-h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
-            >
-              {/* This function is for adding display the input image, so that user can preview what they have input recently*/}
-              {imagePreview ? (
+          <div className=" ">
+            {/* This function is for adding display the input image, so that user can preview what they have input recently*/}
+            {imagePreview ? (
+              <div className="flex items-center justify-center ">
                 <img
                   src={imagePreview}
                   alt="Uploaded Image"
-                  className="px-2  h-[80%]"
+                  className=" relative h-[30vh] mt-10"
                 />
-              ) : (
+                <div
+                  className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
+                  onClick={openModal}
+                >
+                  <span className="text-lg  font-medium ">
+                    Click for Preview
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <Button
+                variant="contained"
+                component="label"
+                className="bg-lightteal w-[100%] min-h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
+              >
                 <div className="flex flex-row justify-center items-center pb-0.5">
                   <span className="h-[1.5vh] w-[3vh] flex">
                     <Image
@@ -119,28 +143,56 @@ export default function PaymentPage() {
                   </span>{" "}
                   filename.jpg
                 </div>
-              )}
-              <label
-                htmlFor="file-upload"
-                className="w-[10vw] h-[5vh] flex items-center justify-center block rounded-[20vh] bg-green-500 p-2 mt-2 text-white cursor-pointer hover:bg-green-700 shadow-xl"
-              >
-                <span>Browse file</span>
-                <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                  onChange={(event) => handleFileUpload(event)}
+                <label
+                  htmlFor="file-upload"
+                  className="w-[10vw] h-[5vh] flex items-center justify-center block rounded-[20vh] bg-green-500 p-2 mt-2 text-white cursor-pointer hover:bg-green-700 shadow-xl"
+                >
+                  <span>Browse file</span>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    className="hidden"
+                    onChange={(event) => handleFileUpload(event)}
+                  />
+                </label>
+              </Button>
+            )}
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Enlarged Image"
+              className="flex items-center flex-col top-"
+            >
+              <div>
+                <div className="h-[10vh]"></div>
+                <Image
+                  src={imagePreview}
+                  alt="Uploaded Image"
+                  width={350}
+                  height={350}
+                  className=""
                 />
-              </label>
-            </Button>
+              </div>
+              <button
+                onClick={closeModal}
+                className="bg-fern text-white font-medium px-10 py-2 rounded-2xl mt-10"
+              >
+                Close
+              </button>
+            </Modal>
           </div>
-          <div className="flex flex-row p-10 justify-around">
-            <div className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer">
+          <div className="flex flex-row p-5 justify-around">
+            <div
+              className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
               {" "}
               Cancel{" "}
             </div>
             <div
-              className="bg-green-600  py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
+              className="bg-fern  py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
               onClick={() => handleSubmit()}
             >
               {" "}
@@ -148,6 +200,14 @@ export default function PaymentPage() {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+      >
+        <Image src={checkBox} alt="checkbox" className="mr-5" />
+        Successfully upload!
       </div>
     </div>
   );
