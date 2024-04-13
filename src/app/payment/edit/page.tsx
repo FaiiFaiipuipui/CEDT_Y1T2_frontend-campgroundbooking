@@ -3,6 +3,36 @@
 import Image from "next/image";
 
 export default function EditPaymentPage() {
+  const nextUpload = () => {
+    document.getElementById("upload").style.display = "block";
+    document.getElementById("showQr").style.display = "none";
+  };
+  const back = () => {
+    document.getElementById("upload").style.display = "none";
+    document.getElementById("showQr").style.display = "block";
+  };
+  const cancelUpload = () => {
+    const input = document.getElementById("upload_slip") as HTMLInputElement;
+    input.value = "";
+    document.getElementById("browse").style.display = "block";
+    document.getElementById("file-preview").style.display = "none";
+  };
+  const showSlip = () => {
+    document.getElementById("browse").style.display = "none";
+    document.getElementById("file-preview").style.display = "block";
+    const input = document.getElementById("upload_slip") as HTMLInputElement;
+    const file = input.files;
+    if (file) {
+      const fileReader = new FileReader();
+      const preview = document.getElementById(
+        "file-preview"
+      ) as HTMLImageElement;
+      fileReader.onload = (event) => {
+        preview.src = event.target.result as string;
+      };
+      fileReader.readAsDataURL(file[0]);
+    }
+  };
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>
@@ -51,7 +81,11 @@ export default function EditPaymentPage() {
           <div className="mt-3 ml-12 text-3xl text-gray-700 font-medium">
             THB xxx.xx
           </div>
-          <div className="mt-5 mx-36 py-28 bg-slate-200 ">*Image</div>
+          <Image
+            src=""
+            alt="QR code Image"
+            className="w-[300px] h-[300px] mt-5 ml-[20%] object-contain"
+          ></Image>
           <div className="mt-9 text-center">
             <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full">
               Cancel
@@ -96,7 +130,7 @@ export default function EditPaymentPage() {
             src=""
             alt="Preview Uploaded Image"
             id="file-preview"
-            className="hidden w-[280px] mt-5 ml-[22%]"
+            className="hidden w-[280px] h-[370px] mt-5 ml-[22%] object-contain"
           ></Image>
           <div className="mt-5 text-center">
             <button
@@ -119,34 +153,4 @@ export default function EditPaymentPage() {
       </div>
     </main>
   );
-}
-
-function nextUpload(): void {
-  document.getElementById("upload").style.display = "block";
-  document.getElementById("showQr").style.display = "none";
-}
-function back(): void {
-  document.getElementById("upload").style.display = "none";
-  document.getElementById("showQr").style.display = "block";
-}
-function cancelUpload(): void {
-  const input = document.getElementById("upload_slip") as HTMLInputElement;
-  input.value = "";
-  document.getElementById("browse").style.display = "block";
-  document.getElementById("file-preview").style.display = "none";
-}
-
-function showSlip(): void {
-  document.getElementById("browse").style.display = "none";
-  document.getElementById("file-preview").style.display = "block";
-  const input = document.getElementById("upload_slip") as HTMLInputElement;
-  const file = input.files;
-  if (file) {
-    const fileReader = new FileReader();
-    const preview = document.getElementById("file-preview") as HTMLImageElement;
-    fileReader.onload = (event) => {
-      preview.src = event.target.result as string;
-    };
-    fileReader.readAsDataURL(file[0]);
-  }
 }
