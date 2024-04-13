@@ -5,6 +5,7 @@ import getAppointments from "@/app/libs/getAppointments";
 import { Suspense } from "react";
 import { LinearProgress, Skeleton } from "@mui/material";
 import AppointmentCatalog from "@/components/AppointmentCatalog";
+import Link from "next/link";
 
 export default async function DashbordPage() {
   const session = await getServerSession(authOptions);
@@ -39,8 +40,15 @@ export default async function DashbordPage() {
         </table>
       </div>
 
-      <div className="text-4xl font-bold pt-10 m-10 text-left">My booking</div>
-      <Suspense fallback={<Skeleton/>}>
+      <div className="flex flex-row m-10">
+        <div className="text-4xl font-bold text-left">My booking</div>
+        <Link href="/transaction">
+          <button className="absolute right-[12%] mt-3 bg-cadetblue px-5 py-1 font-medium rounded-full">
+            All User Transaction
+          </button>
+        </Link>
+      </div>
+      <Suspense fallback={<Skeleton />}>
         <AppointmentCatalog appointmentJson={appointment} session={session} />
       </Suspense>
     </main>
