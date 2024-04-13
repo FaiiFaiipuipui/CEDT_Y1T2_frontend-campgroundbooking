@@ -1,5 +1,6 @@
 "use client";
 import { qrcode, checkBox } from "public/img";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
@@ -7,6 +8,7 @@ import React, { useState } from "react";
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
+  const router = useRouter();
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +28,12 @@ export default function PaymentPage() {
   //        1. Convert the URL --> base64
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
-    alert(`Submit Image: ${imagePreview}`);
-    window.location.reload();
+    if (imagePreview != null) {
+      alert(`Submit Image: ${imagePreview}`);
+      router.push("/dashboard");
+    } else {
+      alert("Please upload Slip");
+    }
   };
 
   return (
