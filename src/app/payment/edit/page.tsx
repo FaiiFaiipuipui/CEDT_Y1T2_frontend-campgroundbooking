@@ -1,8 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Modal from "react-modal";
 
 export default function EditPaymentPage() {
+  const router = useRouter();
+
+  const [imagePreview, setImagePreview] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const nextUpload = () => {
     document.getElementById("upload").style.display = "block";
     document.getElementById("showQr").style.display = "none";
@@ -12,26 +20,34 @@ export default function EditPaymentPage() {
     document.getElementById("showQr").style.display = "block";
   };
   const cancelUpload = () => {
-    const input = document.getElementById("upload_slip") as HTMLInputElement;
-    input.value = "";
+    setImagePreview(null);
     document.getElementById("browse").style.display = "block";
     document.getElementById("file-preview").style.display = "none";
   };
-  const showSlip = () => {
-    document.getElementById("browse").style.display = "none";
-    document.getElementById("file-preview").style.display = "block";
-    const input = document.getElementById("upload_slip") as HTMLInputElement;
-    const file = input.files;
+  const upload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onload = (event) => {
+      setImagePreview(fileReader.result);
+    };
+
     if (file) {
-      const fileReader = new FileReader();
-      const preview = document.getElementById(
-        "file-preview"
-      ) as HTMLImageElement;
-      fileReader.onload = (event) => {
-        preview.src = event.target.result as string;
-      };
-      fileReader.readAsDataURL(file[0]);
+      fileReader.readAsDataURL(file);
     }
+  };
+  const handleSubmit = () => {
+    if (imagePreview != null) {
+      router.push("/dashboard");
+    } else {
+      alert("Please upload Slip");
+    }
+  };
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
   return (
     <main className="text-center p-5 mx-[8%]">
@@ -106,32 +122,60 @@ export default function EditPaymentPage() {
             Upload new receipt
           </div>
 
-          <div
-            className="mx-10 mt-5 text-center py-28 bg-emerald-50"
-            id="browse"
+          {imagePreview ? (
+            <div className="flex items-center justify-center">
+              <Image
+                src={imagePreview}
+                alt="Preview Uploaded Image"
+                width={280}
+                height={370}
+                className="mt-5 object-contain"
+              ></Image>
+              <div
+                className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
+                id="preview_button"
+                onClick={openModal}
+              >
+                Click for Preview
+              </div>
+            </div>
+          ) : (
+            <div className="mx-10 mt-5 text-center py-28 bg-emerald-50">
+              <button
+                className="mt-2 border-[2px] border-fern bg-fern px-10 py-1 text-white rounded-full"
+                onClick={() => document.getElementById("upload_slip").click()}
+              >
+                Browse files
+              </button>
+              <input
+                type="file"
+                id="upload_slip"
+                className="hidden"
+                onChange={(event) => upload(event)}
+              />
+            </div>
+          )}
+
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            contentLabel="Enlarged Image"
           >
-            <div>Drag and drop</div>
-            <div>or</div>
-            <button
-              className="mt-2 border-[2px] border-fern bg-fern px-10 py-1 text-white rounded-full"
-              id="button"
-              onClick={() => document.getElementById("upload_slip").click()}
-            >
-              Browse files
-            </button>
-            <input
-              type="file"
-              id="upload_slip"
-              className="hidden"
-              onChange={showSlip}
-            />
-          </div>
-          <Image
-            src=""
-            alt="Preview Uploaded Image"
-            id="file-preview"
-            className="hidden w-[280px] h-[370px] mt-5 ml-[22%] object-contain"
-          ></Image>
+            <div className="flex flex-col items-center justify-center mt-20">
+              <Image
+                src={imagePreview}
+                alt="Preview Uploaded Image"
+                width={350}
+                height={350}
+              ></Image>
+              <button
+                className="bg-fern text-white font-medium px-10 py-2 rounded-2xl mt-10 items-center"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </Modal>
           <div className="mt-5 text-center">
             <button
               className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
@@ -145,7 +189,10 @@ export default function EditPaymentPage() {
             >
               Cancel
             </button>
-            <button className="border-[2px] border-fern bg-fern px-10 py-1 text-white font-medium rounded-full">
+            <button
+              className="border-[2px] border-fern bg-fern px-10 py-1 text-white font-medium rounded-full"
+              onClick={handleSubmit}
+            >
               Submit
             </button>
           </div>
