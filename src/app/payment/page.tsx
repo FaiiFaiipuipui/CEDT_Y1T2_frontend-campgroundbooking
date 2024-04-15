@@ -57,9 +57,10 @@ export default function PaymentPage() {
       <div className="text-5xl font-black font-bold text-center">
         Payment Information
       </div>
-      <div className="flex border border-ash border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
+      <div className="flex border border-ash border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-[50px]">
         {/* The first col */}
-        <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-2xl pt-2">
+        <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
+          <div className="ml-3">
           <div className="flex flex-row font-bold pt-7 pl-6">User</div>
           <div className="pl-6">User1</div>
 
@@ -88,14 +89,15 @@ export default function PaymentPage() {
               </span>{" "}
               Estimated ticketing time less than 2 Days
             </div>
+            </div>
           </div>
         </div>
 
         {/* Second column */}
         <div className="pt-7 pl-6 flex flex-col ">
-          <div className="text-4xl text-[#007662] font-semibold text-left">
+          <div className="text-4xl text-teal-700 font-semibold text-left">
             Total Price{" "}
-            <span className="font-medium text-lg text-[#9DCAC2]">
+            <span className="font-medium text-lg text-[#80bab0]">
               (Tax included)
             </span>
           </div>
@@ -108,14 +110,14 @@ export default function PaymentPage() {
           </div>
         </div>
         {/* Third Column */}
-        <div className="flex justify-center flex-col pr-[5vw]">
+        <div className="flex justify-center flex-col pr-[5vw] rounded-[50px]">
           <div className="pt-7 font-medium text-xl">
             Please upload your receipt{" "}
           </div>
-          <div className=" ">
+          <div className="">
             {/* This function is for adding display the input image, so that user can preview what they have input recently*/}
             {imagePreview ? (
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center">
                 <img
                   src={imagePreview}
                   alt="Uploaded Image"
@@ -125,7 +127,7 @@ export default function PaymentPage() {
                   className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
                   onClick={openModal}
                 >
-                  <span className="text-lg  font-medium ">
+                  <span className="text-lg font-medium ">
                     Click for Preview
                   </span>
                 </div>
@@ -134,24 +136,11 @@ export default function PaymentPage() {
               <Button
                 variant="contained"
                 component="label"
-                className="bg-lightteal w-[100%] min-h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
+                className="bg-emerald-50 w-[100%] min-h-[30vh] mt-8 hover:bg-emerald-50 flex flex-col text-black cursor-default normal-case rounded-[20px]"
               >
-                <div className="flex flex-row justify-center items-center pb-0.5">
-                  <span className="h-[1.5vh] w-[3vh] flex pb-6">
-                    {/* <Image
-                      src="/img/image_icon.png"
-                      alt="image"
-                      width={12}
-                      height={12}
-                    /> */}
-                    <AddPhotoAlternate className="size-5 text-[#007662]"/>
-                    
-                  </span>{" "}
-                  filename.jpg
-                </div>
                 <label
                   htmlFor="file-upload"
-                  className="w-[10vw] h-[5vh] flex items-center justify-center block rounded-[20vh] bg-green-500 p-2 mt-2 text-white cursor-pointer hover:bg-green-700 shadow-xl"
+                  className="w-[10vw] h-[5vh] flex items-center justify-center block rounded-[20vh] bg-[#009a62] p-2 mt-2 text-white cursor-pointer shadow-xl"
                 >
                   <span>Browse file</span>
                   <input
@@ -167,7 +156,7 @@ export default function PaymentPage() {
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
               contentLabel="Enlarged Image"
-              className="flex items-center flex-col top-"
+              className="flex items-center flex-col"
             >
               <div>
                 <div className="h-[10vh]"></div>
@@ -198,14 +187,14 @@ export default function PaymentPage() {
               Cancel{" "}
             </div>
             <div
-              className="bg-fern  py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
+              className="bg-fern py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
               onClick={() => {
                 handleSubmit();
                 router.push("/dashboard");
               }}
             >
               {" "}
-              Confirm{" "}
+              Submit{" "}
             </div>
           </div>
         </div>
