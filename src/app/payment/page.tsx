@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { AddPhotoAlternate, CheckCircleOutline } from '@mui/icons-material';
 
 export default function PaymentPage() {
   // This use State is for save image data
@@ -56,32 +57,34 @@ export default function PaymentPage() {
       <div className="text-5xl font-black font-bold text-center">
         Payment Information
       </div>
-      <div className="flex border border-black border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
+      <div className="flex border border-ash border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
         {/* The first col */}
-        <div className="bg-[#9DCAC2] w-[100%] h-[100%] rounded-l-2xl">
-          <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-          <div className="pl-6">User1</div>
+        <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-2xl pt-2">
+          <div className="justify-center items-center flex flex-row font-bold pt-7 pl-6">User</div>
+          <div className="justify-center items-center flex pl-6">User1</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-          <div className="pl-6">7894sdafsdaf45665644adsf</div>
+          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">UserID</div>
+          <div className="justify-center items-center flex pl-6">7894sdafsdaf45665644adsf</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-          <div className="pl-6">01/01/1111</div>
+          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">Date</div>
+          <div className="justify-center items-center flex pl-6">01/01/1111</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-          <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
+          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">Campground</div>
+          <div className="justify-center items-center flex pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
           <div className="mt-10">
             <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
               {" "}
               <span className="h-[3vh] w-[3vh] flex mr-2">
-                <Image src={checkBox} alt="checkbox" />
+                {/* <Image src={checkBox} alt="checkbox" /> */}
+                <CheckCircleOutline className="pb-1"/>
               </span>
               Cannot be refunded
             </div>
             <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
               {" "}
               <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
-                <Image src={checkBox} alt="checkbox" />
+                {/* <Image src={checkBox} alt="checkbox" /> */}
+                <CheckCircleOutline className="pb-1"/>
               </span>{" "}
               Estimated ticketing time less than 2 Days
             </div>
@@ -134,13 +137,15 @@ export default function PaymentPage() {
                 className="bg-lightteal w-[100%] min-h-[30vh] mt-8 hover:bg-[#C5FFE4] flex flex-col text-black cursor-default normal-case"
               >
                 <div className="flex flex-row justify-center items-center pb-0.5">
-                  <span className="h-[1.5vh] w-[3vh] flex">
-                    <Image
-                      src="/img/image.png"
+                  <span className="h-[1.5vh] w-[3vh] flex pb-6">
+                    {/* <Image
+                      src="/img/image_icon.png"
                       alt="image"
-                      width={11}
-                      height={15}
-                    />
+                      width={12}
+                      height={12}
+                    /> */}
+                    <AddPhotoAlternate className="size-5 text-[#007662]"/>
+                    
                   </span>{" "}
                   filename.jpg
                 </div>
