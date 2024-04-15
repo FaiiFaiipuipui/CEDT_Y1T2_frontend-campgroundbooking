@@ -60,17 +60,17 @@ export default function PaymentPage() {
       <div className="flex border border-ash border-solid w-full grid grid-cols-3 gap-3 flex mt-10 rounded-2xl">
         {/* The first col */}
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-2xl pt-2">
-          <div className="justify-center items-center flex flex-row font-bold pt-7 pl-6">User</div>
-          <div className="justify-center items-center flex pl-6">User1</div>
+          <div className="flex flex-row font-bold pt-7 pl-6">User</div>
+          <div className="pl-6">User1</div>
 
-          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">UserID</div>
-          <div className="justify-center items-center flex pl-6">7894sdafsdaf45665644adsf</div>
+          <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
+          <div className="pl-6">7894sdafsdaf45665644adsf</div>
 
-          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">Date</div>
-          <div className="justify-center items-center flex pl-6">01/01/1111</div>
+          <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
+          <div className="pl-6">01/01/1111</div>
 
-          <div className="justify-center items-center flex flex-row font-bold pt-4 pl-6">Campground</div>
-          <div className="justify-center items-center flex pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
+          <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
+          <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
           <div className="mt-10">
             <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
               {" "}
