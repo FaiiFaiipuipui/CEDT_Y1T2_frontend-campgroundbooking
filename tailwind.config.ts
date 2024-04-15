@@ -15,10 +15,10 @@ const config: Config = {
       },
       colors: {
         cadetblue: "#b5d7d1",
-        ash: "#b4b4b4", 
-        fern: "#009a62", 
-        lightteal: "#80bab0"
-},
+        ash: "#b4b4b4",
+        fern: "#009a62",
+        lightteal: "#80bab0",
+      },
     },
   },
   plugins: [],
