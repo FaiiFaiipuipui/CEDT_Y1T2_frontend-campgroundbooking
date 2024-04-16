@@ -1,0 +1,79 @@
+'use client'
+import { useState } from 'react';
+import RadioGroup, { useRadioGroup } from '@mui/material/RadioGroup';
+import FormControlLabel, {
+    FormControlLabelProps,
+} from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PendingIcon from '@mui/icons-material/Pending';
+
+export default function TransactionCardAdmin() {
+    const [value, setValue] = useState('PENDING');
+
+    const handleRadioChange = (event) => {
+        setValue(event.target.value);
+    };
+
+    return (
+        <div className='w-[100%] h-[100%] min-w-[320px] min-h-[550px]  flex flex-row space-x-[20px]'>
+            <div className=" min-w-[320px] min-h-[550px] bg-white rounded-[50px] flex flex-row justify-start border border-2">
+                <div className="w-[2/5] min-w-[400px] rounded-l-[50px] flex justify-center items-end" style={{ backgroundImage: 'url("/img/test_slip_image.jpg")', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}></div>
+                <div className='flex flex-col'>
+                    <div className="w-[3/5] flex flex-col justify-center items-center p-[50px]">
+                        <div className="w-full h-full grid grid-cols-2 justify-center items-start text-left space-y-[10px]">
+                            <div className="col-span-2 text-[38px] font-bold text-fern">Customer Information</div>
+                            <div className='col-span-2 font-semibold text-black text-[24px]'>User&apos;s Name</div>
+                            <div className='col-span-2 font-normal text-black text-[24px]'>Name</div>
+                            <div className="col-span-2 flex flex-row justify-between items-center">
+                                <div className="flex flex-col pr-[30px]">
+                                    <p className="font-semibold text-black text-[24px]">Campground</p>
+                                    <p className="font-normal text-black text-[24px]">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</p>
+                                </div>
+                                <div className="flex flex-col">
+                                    <p className="font-semibold text-black text-[24px]">Date</p>
+                                    <p className="font-normal text-black text-[24px]">30/01/2024</p>
+                                </div>
+                            </div>
+                            <div className="col-span-2"></div>
+                            <div className="col-span-2 text-[38px] font-bold text-fern">Payment</div>
+                            <div className="col-span-2 flex flex-row justify-between items-center">
+                                <div className="font-normal text-black text-[24px]">Campground booking</div>
+                                <div className="font-normal text-black text-[24px]">$150</div>
+                            </div>
+                            <div className="col-span-2 flex flex-row justify-between items-center">
+                                <div className="font-normal text-black text-[24px]">Taxes & Fee</div>
+                                <div className="font-normal text-black text-[24px]">$0</div>
+                            </div>
+                            <hr className="col-span-2" />
+                            <div className="col-span-2 flex flex-row justify-between items-center">
+                                <div className="font-bold text-black text-[24px]">Total</div>
+                                <div className="font-bold text-black text-[24px]">$150</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='tagStatus' className={`w-full py-[20px] rounded-br-[50px] bg-opacity-60 ${value === "PENDING" ? "bg-[#D9D9D9]" : value === "REJECTED" ? "bg-[#FF0000]" : "bg-fern"}`}>
+                        <div className="">
+                            {
+                                value === "PENDING" ? <div className="flex flex-row justify-center items-center space-x-[20px]"><PendingIcon sx={{fontSize: '50px', color:'#D9D9D9'}} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Pending</div></div>
+                                    : value === "REJECTED" ? <div className="flex flex-row justify-center items-center space-x-[20px]"> <CancelIcon sx={{fontSize: '50px', color:'#FF0000'}} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Rejected</div></div>
+                                        : <div className="flex flex-row justify-center items-center space-x-[20px]"><CheckCircleIcon sx={{fontSize: '50px', color:'#48B02C'}}/><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Completed</div></div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='min-h-[550px] w-[10%] min-w-[370px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center'>
+                <p className='text-[32px] font-semibold'>Transaction Status</p>
+                <hr />
+                <RadioGroup name="transactionStatus" sx={{margin: '10px 0px 0px 20px'}} value={value} onChange={handleRadioChange}>
+                    <FormControlLabel value="PENDING" label="Pending" control={<Radio />} />
+                    <FormControlLabel value="COMPLETE" label="Completed" control={<Radio />} />
+                    <FormControlLabel value="REJECTED" label="Rejected" control={<Radio />} />
+                </RadioGroup>
+            </div>
+        </div>
+    );
+}
