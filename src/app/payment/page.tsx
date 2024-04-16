@@ -118,10 +118,12 @@ export default function PaymentPage() {
             {/* This function is for adding display the input image, so that user can preview what they have input recently*/}
             {imagePreview ? (
               <div className="flex items-center justify-center">
-                <img
+                <Image
                   src={imagePreview}
                   alt="Uploaded Image"
-                  className=" relative h-[30vh] mt-10"
+                  width={150}
+                  height={300}
+                  className="relative mt-10"
                 />
                 <div
                   className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
@@ -152,29 +154,27 @@ export default function PaymentPage() {
                 </label>
               </Button>
             )}
+            <div onClick={closeModal} >
             <Modal
               isOpen={modalIsOpen}
               onRequestClose={closeModal}
               contentLabel="Enlarged Image"
-              className="flex items-center flex-col"
+              className="flex items-center justify-center mt-5"
+            
             >
-              <div>
-                <div className="h-[10vh]"></div>
+              <div className="flex items-center justify-center h-[100vh]">
+            
                 <Image
                   src={imagePreview}
                   alt="Uploaded Image"
-                  width={350}
-                  height={350}
-                  className=""
+                  width={300}
+                  height={600}
+                  className="flex items-center justify-center flex-col"
                 />
-              </div>
-              <button
-                onClick={closeModal}
-                className="bg-fern text-white font-medium px-10 py-2 rounded-2xl mt-10"
-              >
-                Close
-              </button>
+             </div>
+           
             </Modal>
+            </div>
           </div>
           <div className="flex flex-row p-5 justify-around">
             <div
