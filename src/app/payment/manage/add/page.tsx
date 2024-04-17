@@ -55,7 +55,7 @@ export default function AddPaymentPage() {
     <main className="text-left mx-[20%] pb-5">
       <div className="text-4xl font-bold mt-[8%] ">Create a payment</div>
       <div className="w-full my-10">
-        <label className="w-auto block text-gray-700" htmlFor="name">
+        <label className="w-auto block text-gray-700" htmlFor="status">
           Status
         </label>
         <input
@@ -70,7 +70,7 @@ export default function AddPaymentPage() {
         ></input>
       </div>
       <div className="w-full my-10">
-        <label className="w-auto block text-gray-700" htmlFor="coor">
+        <label className="w-auto block text-gray-700" htmlFor="rent_date">
           Rent_date
         </label>
         <input
@@ -85,7 +85,7 @@ export default function AddPaymentPage() {
         ></input>
       </div>
       <div className="w-full my-10">
-        <label className="w-auto block text-gray-700" htmlFor="picture">
+        <label className="w-auto block text-gray-700" htmlFor="successful_payment_date">
           Successful_payment_date
         </label>
         <input
@@ -101,7 +101,7 @@ export default function AddPaymentPage() {
       </div>
       <div className="flex my-10">
         <div className="w-1/2">
-          <label className="w-full block text-gray-700" htmlFor="province">
+          <label className="w-full block text-gray-700" htmlFor="submitted_slip_images">
             Submitted_slip_images
           </label>
           <input
@@ -116,7 +116,7 @@ export default function AddPaymentPage() {
           ></input>
         </div>
         <div className="w-1/2 ml-5">
-          <label className="w-auto block text-gray-700" htmlFor="region">
+          <label className="w-auto block text-gray-700" htmlFor="successful_payment_slip_image">
             Successful_payment_slip_image
           </label>
           <input
@@ -133,7 +133,7 @@ export default function AddPaymentPage() {
       </div>
       <div className="flex my-10">
         <div className="w-1/2">
-          <label className="w-full block text-gray-700" htmlFor="postal">
+          <label className="w-full block text-gray-700" htmlFor="campground">
             Campground
           </label>
           <input
@@ -148,7 +148,7 @@ export default function AddPaymentPage() {
           ></input>
         </div>
         <div className="w-1/2 ml-5">
-          <label className="w-auto block text-gray-700" htmlFor="tel">
+          <label className="w-auto block text-gray-700" htmlFor="user">
             User
           </label>
           <input
@@ -165,7 +165,7 @@ export default function AddPaymentPage() {
       </div>
       <div className="flex my-10">
         <div className="w-1/2">
-          <label className="w-full block text-gray-700" htmlFor="postal">
+          <label className="w-full block text-gray-700" htmlFor="appointment">
             Appointment
           </label>
           <input
