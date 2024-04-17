@@ -36,18 +36,19 @@ export default function BookingPage() {
               throw new Error("Failed to submit create Appointment form");
             }
 
-            const responseData: ResponseData = await response.json();
+            // const responseData:ResponseData = await response.json();
 
-            if (response && response.status !== 200) {
-              alert(responseData.message);
-              alert("Not Success");
-              return;
-            }
+            // if (response && response.status !== 200) {
+            //   alert(responseData.message);
+            //   alert('Not Success')
+            //   return;
+            // }
 
             alert("Successfully booked!");
           };
-          booking();
-          router.push("/dashboard");
+          //booking();
+          router.push("/payment");
+
         } else {
           alert("Please fill in the missing field!");
         }
