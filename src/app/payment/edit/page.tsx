@@ -1,15 +1,63 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 import Modal from "react-modal";
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import getTransaction from "@/libs/getUserTransaction";
+import createTransactionSlip from "@/libs/createTransactionSlip";
+import { PaymentItem } from "interface";
+import { useEffect } from "react";
 
-export default function EditPaymentPage() {
-  const router = useRouter();
-
+export default function PaymentPage() {
+  // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [name, setName] = useState<string>("");
+  const [rentDate, setRentDate] = useState<string>("");
+  const [campgroundName, setCampgroundName] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const urlParams = useSearchParams();
+  const tid = urlParams.get("tid") as string;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const transactionData = await getTransaction(tid, session.user.token);
+      const transaction: PaymentItem = transactionData.data;
+      console.log(transaction);
+      setName(transaction.user.name);
+      setRentDate(transaction.rent_date.toString());
+      setCampgroundName(transaction.campground.name);
+      setPrice(transaction.campground.price.toString());
+    };
+    fetchData();
+  }, []);
+
+  const handleSubmit = () => {
+    if (imagePreview != null) {
+      if (session.user && tid) {
+        createTransactionSlip(session.user.token, tid, imagePreview);
+        setShowPopup(true);
+      }
+
+      // Hide the popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+
+      router.push("/dashboard");
+    } else {
+      alert("Please upload Slip");
+    }
+  };
 
   const nextUpload = () => {
     document.getElementById("upload").style.display = "block";
@@ -19,30 +67,25 @@ export default function EditPaymentPage() {
     document.getElementById("upload").style.display = "none";
     document.getElementById("showQr").style.display = "block";
   };
+
   const cancelUpload = () => {
     setImagePreview(null);
-    document.getElementById("browse").style.display = "block";
-    document.getElementById("file-preview").style.display = "none";
   };
+
   const upload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files[0];
     const fileReader = new FileReader();
 
     fileReader.onload = (event) => {
       setImagePreview(fileReader.result);
+      console.log(fileReader.result);
     };
 
     if (file) {
       fileReader.readAsDataURL(file);
     }
   };
-  const handleSubmit = () => {
-    if (imagePreview != null) {
-      router.push("/dashboard");
-    } else {
-      alert("Please upload Slip");
-    }
-  };
+
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -52,19 +95,20 @@ export default function EditPaymentPage() {
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>
+
       <div className="flex felx-row">
         <div className="bg-cadetblue ml-10 p-11 text-left text-lg rounded-l-[50px] w-1/2 border-ash border-y-2 border-l-2">
           <div className="m-8">
             <div className="font-semibold">Name</div>
-            <div>*Fetch data User1</div>
+            <div>{name}</div>
           </div>
           <div className="m-8">
             <div className="font-semibold">Campground</div>
-            <div>*Fetch data Campground</div>
+            <div>{campgroundName}</div>
           </div>
           <div className="m-8">
             <div className="font-semibold">Date</div>
-            <div>*Fetch data Date</div>
+            <div>{rentDate.toString().split("T")[0]}</div>
           </div>
           <div className="m-8">
             <div className="font-semibold">Transaction Status</div>
@@ -73,13 +117,13 @@ export default function EditPaymentPage() {
                 <circle cx="15" cy="15" r="15" fill="#f43f5e" />
               </svg>
               <div className="text-rose-500 ml-2 place-items-center">
-                *Fetch data transaction status
+                Rejected
               </div>
             </div>
           </div>
           <div className="m-8">
             <div className="font-semibold">Outstanding Balance</div>
-            <div className="text-rose-500">*Fetch data balance THB</div>
+            <div className="text-rose-500">{price} THB</div>
           </div>
         </div>
         <div
@@ -95,7 +139,7 @@ export default function EditPaymentPage() {
             </div>
           </div>
           <div className="mt-3 ml-12 text-3xl text-gray-700 font-medium">
-            THB xxx.xx
+            {price}
           </div>
           <Image
             src=""
@@ -155,27 +199,23 @@ export default function EditPaymentPage() {
               />
             </div>
           )}
-
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Enlarged Image"
-          >
-            <div className="flex flex-col items-center justify-center mt-20">
-              <Image
-                src={imagePreview}
-                alt="Preview Uploaded Image"
-                width={350}
-                height={350}
-              ></Image>
-              <button
-                className="bg-fern text-white font-medium px-10 py-2 rounded-2xl mt-10 items-center"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
-          </Modal>
+          <div onClick={closeModal}>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Enlarged Image"
+              className="flex items-center justify-center mt-5"
+            >
+              <div className="flex flex-col items-center justify-center mt-20">
+                <Image
+                  src={imagePreview}
+                  alt="Preview Uploaded Image"
+                  width={350}
+                  height={350}
+                ></Image>
+              </div>
+            </Modal>
+          </div>
           <div className="mt-5 text-center">
             <button
               className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
@@ -197,6 +237,21 @@ export default function EditPaymentPage() {
             </button>
           </div>
         </div>
+      </div>
+
+      <div
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } my-20 mx-[30%] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+      >
+        <Image
+          src="/img/Check.jpg"
+          width={32}
+          height={32}
+          alt="checkbox"
+          className="mr-5"
+        />
+        Successfully upload!
       </div>
     </main>
   );
