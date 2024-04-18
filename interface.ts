@@ -32,3 +32,28 @@ export interface AppointmentJson {
   pagination: Object;
   data: AppointmentItem[];
 }
+
+export interface PaymentItem {
+  _id: string;
+  status: string;
+  rent_date: Date;
+  successful_payment_date: Date;
+  submitted_slip_images: String[];
+  successful_payment_slip_image: Object;
+  campground: Object;
+  user: Object;
+  appointment: Object;
+}
+
+export interface Slip {
+  slip_image: Buffer;
+  submit_time: Date;
+  payment_id: string;
+}
+
+export interface PaymentJson {
+  success: boolean;
+  count: number;
+  pagination: Object;
+  data: PaymentItem[];
+}
