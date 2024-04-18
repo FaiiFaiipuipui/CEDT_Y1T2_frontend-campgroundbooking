@@ -13,8 +13,7 @@ import getTransaction from "@/libs/getUserTransaction";
 import { PaymentItem } from "interface";
 import { useEffect } from "react";
 
-export default function PaymentPage(
-) {
+export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -31,8 +30,8 @@ export default function PaymentPage(
   const tid = urlParams.get("tid") as string;
 
   const fetchData = async () => {
-    const transactionData  = await getTransaction(tid, session.user.token);
-    const transaction : PaymentItem= transactionData.data;
+    const transactionData = await getTransaction(tid, session.user.token);
+    const transaction: PaymentItem = transactionData.data;
     console.log(transaction);
     const name = transaction.user.name;
     const userId = transaction.user._id;
@@ -42,14 +41,11 @@ export default function PaymentPage(
     setUserId(userId);
     setRentDate(rentDate);
     setCampgroundName(campgroundName);
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  },[])
-
-  
-
+    fetchData();
+  }, []);
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,12 +66,8 @@ export default function PaymentPage(
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
     if (imagePreview != null) {
-      if (session.user) {
-        createTransactionSlip(
-          session.user.token,
-          tid,
-          imagePreview
-        );
+      if (session.user && tid) {
+        createTransactionSlip(session.user.token, tid, imagePreview);
         setShowPopup(true);
       }
 
@@ -106,28 +98,32 @@ export default function PaymentPage(
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
           <div className="ml-3">
             <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-            {
-              name ? <div className="pl-6">{name}</div> : 
+            {name ? (
+              <div className="pl-6">{name}</div>
+            ) : (
               <div className="pl-6 text-red-500">Pending...</div>
-            }
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-            {
-              userId ? <div className="pl-6">{userId}</div> : 
+            {userId ? (
+              <div className="pl-6">{userId}</div>
+            ) : (
               <div className="pl-6 text-red-500">Pending...</div>
-            }
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-            {
-              rentDate ? <div className="pl-6">{rentDate.toString()}</div> : 
+            {rentDate ? (
+              <div className="pl-6">{rentDate.toString()}</div>
+            ) : (
               <div className="pl-6 text-red-500">Pending...</div>
-            }
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-            {
-              campgroundName ? <div className="pl-6">{campgroundName}</div> : 
+            {campgroundName ? (
+              <div className="pl-6">{campgroundName}</div>
+            ) : (
               <div className="pl-6 text-red-500">Pending...</div>
-            }
+            )}
             <div className="mt-10">
               <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
                 {" "}
@@ -243,7 +239,7 @@ export default function PaymentPage(
               className="bg-fern py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
               onClick={() => {
                 handleSubmit();
-                router.push("/dashboard");
+                // router.push("/dashboard");
               }}
             >
               {" "}
