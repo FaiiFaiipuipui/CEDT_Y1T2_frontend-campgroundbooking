@@ -8,15 +8,29 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { AddPhotoAlternate, CheckCircleOutline } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import getTransaction from "@/libs/getUserTransaction";
+import { PaymentItem } from "interface";
 
-export default function PaymentPage() {
+export default function PaymentPage(
+) {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [name, setName] = useState<string>("");
 
   const router = useRouter();
   const { data: session } = useSession();
+
+  const urlParams = useSearchParams();
+  const tid = urlParams.get("tid") as string;
+
+  const fetchData = async () => {
+    const transaction : PaymentItem = await getTransaction(tid, session.user.token);
+    const name = transaction.user.name;
+  }
+
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +54,7 @@ export default function PaymentPage() {
       if (session.user) {
         createTransactionSlip(
           session.user.token,
-          session.user._id,
+          tid,
           imagePreview
         );
         setShowPopup(true);
