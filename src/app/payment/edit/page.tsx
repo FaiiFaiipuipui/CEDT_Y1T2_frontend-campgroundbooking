@@ -52,6 +52,8 @@ export default function PaymentPage() {
       setTimeout(() => {
         setShowPopup(false);
       }, 3000);
+
+      router.push("/dashboard");
     } else {
       alert("Please upload Slip");
     }
