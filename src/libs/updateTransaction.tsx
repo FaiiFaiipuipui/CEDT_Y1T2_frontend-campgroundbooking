@@ -3,6 +3,9 @@ export default async function updateTransaction(
   token: string,
   status: string
 ) {
+  let bodyData = {
+    status: status,
+  };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/transactions/${tid}`,
     {
@@ -11,7 +14,7 @@ export default async function updateTransaction(
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(status),
+      body: JSON.stringify(bodyData),
     }
   );
 
