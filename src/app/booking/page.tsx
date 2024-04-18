@@ -7,17 +7,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import createTransaction from "@/libs/createTransaction";
 
-interface ResponseData {
-  message: string;
-  // include other properties
-}
-
 export default function AddAppointmentPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [name, setName] = useState("");
   const [date, setDate] = useState("");
+  const [appointmentID, setAppointmentID] = useState("");
 
   const [selectedCampground, setSelectedCampground] = useState<string>("");
   const handleOptionChange = (newOption: string) => {
@@ -30,48 +25,61 @@ export default function AddAppointmentPage() {
     console.log(selectedCampground, date);
     if (selectedCampground && date) {
       const addAppointment = async () => {
-        const response = await createAppointment(
-          session.user.token,
-          selectedCampground,
-          date
-        );
+        try {
+          const response = await createAppointment(
+            session.user.token,
+            selectedCampground,
+            date
+          );
+          if (!response) {
+            throw new Error("Failed to submit create Appointment form");
+          }
 
-        if (!response) {
-          throw new Error("Failed to submit create Appointment form");
+          const responseData = await response.json();
+          console.log("------------------------------------");
+          const aid = responseData.data._id;
+          setAppointmentID(aid);
+          console.log("aid : ", aid);
+          console.log("------------------------------------");
+
+          // setAppointmentID(responseData.data._id);
+
+          if (response && response.status !== 200) {
+            alert(responseData.message);
+            alert("Not Success");
+            return;
+          }
+        } catch (err) {
+          console.log("error", err.stack);
         }
-
-        const responseData: ResponseData = await response.json();
-
-        if (response && response.status !== 200) {
-          alert(responseData.message);
-          alert("Not Success");
-          return;
-        }
-
-        alert("Successfully booked!");
       };
       const transaction = async () => {
-        const response = (await createTransaction(
-          session.user.token,
-          "id"
-        )) as Response;
-        console.log(response);
-        if (!response) {
-          throw new Error("Failed to submit create Transaction");
+        try {
+          const response = (await createTransaction(
+            session.user.token,
+            appointmentID
+          )) as Response;
+
+          if (!response) {
+            throw new Error("Failed to submit create Transaction");
+          }
+        } catch (error) {
+          console.log("transaction : ", error.message);
         }
 
-        // const responseData:ResponseData = await response.json();
+        //   // const responseData:ResponseData = await response.json();
 
-        // if (response && response.status !== 200) {
-        //   alert(responseData.message);
-        //   alert('Not Success')
-        //   return;
-        // }
+        //   // if (response && response.status !== 200) {
+        //   //   alert(responseData.message);
+        //   //   alert('Not Success')
+        //   //   return;
+        //   // }
 
-        alert("Successfully booked!");
+        //   alert("Successfully booked!");
       };
-      addAppointment();
-      transaction();
+
+      await addAppointment();
+      await transaction();
       router.push("/dashboard");
     } else {
       alert("Please fill in the missing field!");
