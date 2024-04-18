@@ -41,7 +41,7 @@ export interface PaymentItem {
   submitted_slip_images: String[];
   successful_payment_slip_image: Object;
   campground: Object;
-  user: Object;
+  user: UserItem;
   appointment: Object;
 }
 
@@ -56,4 +56,13 @@ export interface PaymentJson {
   count: number;
   pagination: Object;
   data: PaymentItem[];
+}
+
+export interface UserItem {
+  _id: string;
+  name: string;
+  telephone: string;
+  email: string;
+  role: string;
+  createdAt: Date;
 }
