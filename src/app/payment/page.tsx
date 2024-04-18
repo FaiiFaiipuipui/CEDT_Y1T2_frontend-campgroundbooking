@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import getTransaction from "@/libs/getUserTransaction";
 import { PaymentItem } from "interface";
+import { useEffect } from "react";
 
 export default function PaymentPage(
 ) {
@@ -19,6 +20,9 @@ export default function PaymentPage(
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [name, setName] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+  const [rentDate, setRentDate] = useState<Date>();
+  const [campgroundName, setCampgroundName] = useState<string>("");
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -27,9 +31,24 @@ export default function PaymentPage(
   const tid = urlParams.get("tid") as string;
 
   const fetchData = async () => {
-    const transaction : PaymentItem = await getTransaction(tid, session.user.token);
+    const transactionData  = await getTransaction(tid, session.user.token);
+    const transaction : PaymentItem= transactionData.data;
+    console.log(transaction);
     const name = transaction.user.name;
+    const userId = transaction.user._id;
+    const rentDate = transaction.rent_date;
+    const campgroundName = transaction.campground.name;
+    setName(name);
+    setUserId(userId);
+    setRentDate(rentDate);
+    setCampgroundName(campgroundName);
   }
+
+  useEffect(() => {
+    fetchData()
+  },[])
+
+  
 
 
   // This function is for recieve the image data from user
@@ -87,18 +106,28 @@ export default function PaymentPage(
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
           <div className="ml-3">
             <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-            <div className="pl-6">User1</div>
+            {
+              name ? <div className="pl-6">{name}</div> : 
+              <div className="pl-6 text-red-500">Pending...</div>
+            }
 
             <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-            <div className="pl-6">7894sdafsdaf45665644adsf</div>
+            {
+              userId ? <div className="pl-6">{userId}</div> : 
+              <div className="pl-6 text-red-500">Pending...</div>
+            }
 
             <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-            <div className="pl-6">01/01/1111</div>
+            {
+              rentDate ? <div className="pl-6">{rentDate.toString()}</div> : 
+              <div className="pl-6 text-red-500">Pending...</div>
+            }
 
             <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-            <div className="pl-6">
-              อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี
-            </div>
+            {
+              campgroundName ? <div className="pl-6">{campgroundName}</div> : 
+              <div className="pl-6 text-red-500">Pending...</div>
+            }
             <div className="mt-10">
               <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
                 {" "}
