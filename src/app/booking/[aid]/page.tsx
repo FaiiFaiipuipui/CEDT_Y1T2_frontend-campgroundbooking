@@ -15,8 +15,8 @@ export default async function AppointmentDetailPage({
   const apptDetail = await getAppointment(params.aid, session.user.token);
 
   return (
-    <main className="text-left mx-[20%] pb-5">
-      <div className="text-4xl font-bold mt-[8%] ">Add new campground</div>
+    <main className="text-left mx-[20%] top-[55px] pt-[120px] pb-5">
+      <div className="text-4xl font-bold ">Add new campground</div>
       <div className="ml-[10%] my-[10px] text-left text-black">
         <div className="text-md font-medium mt-[20px]">User ID</div>
         <div className="text-md">{JSON.stringify(apptDetail.data.user)}</div>
