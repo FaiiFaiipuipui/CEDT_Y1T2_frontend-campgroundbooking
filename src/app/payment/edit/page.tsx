@@ -2,12 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Modal from "react-modal";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import getTransaction from "@/libs/getUserTransaction";
 import createTransactionSlip from "@/libs/createTransactionSlip";
+import createPromptpayQR from "@/libs/createPromptpayQR";
 import { PaymentItem } from "interface";
 import { useEffect } from "react";
 
@@ -20,7 +21,9 @@ export default function PaymentPage() {
   const [name, setName] = useState<string>("");
   const [rentDate, setRentDate] = useState<string>("");
   const [campgroundName, setCampgroundName] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
+  const [price, setPrice] = useState<String | null>();
+  const [status, setStatus] = useState<string>("");
+  const [promptpayQr, setPromptpayQr] = useState<ReactNode | null>(null);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -30,16 +33,33 @@ export default function PaymentPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const transactionData = await getTransaction(tid, session.user.token);
-      const transaction: PaymentItem = transactionData.data;
-      console.log(transaction);
-      setName(transaction.user.name);
-      setRentDate(transaction.rent_date.toString());
-      setCampgroundName(transaction.campground.name);
-      setPrice(transaction.campground.price.toString());
+      try {
+        if (!session || !session.user.token) return null;
+
+        const transactionData = await getTransaction(tid, session.user.token);
+        const transaction: PaymentItem = transactionData.data;
+        setName(transaction.user.name);
+        setRentDate(transaction.rent_date.toString());
+        setCampgroundName(transaction.campground.name);
+        setPrice(transaction.campground.price.toString());
+        setStatus(transaction.status);
+
+        const response = await createPromptpayQR(session.user.token, tid);
+
+        // Update state with QR code data
+        const jsonRes = await response.json();
+        console.log(response);
+        console.log(jsonRes);
+        setPromptpayQr(
+          btoa(decodeURIComponent(encodeURIComponent(jsonRes.data)))
+        );
+        setPrice(jsonRes.campgroundPrice);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
-    fetchData();
-  }, []);
+    fetchData(); // Call the async function immediately
+  }, [tid]);
 
   const handleSubmit = () => {
     if (imagePreview != null) {
@@ -100,52 +120,89 @@ export default function PaymentPage() {
         <div className="bg-cadetblue ml-10 p-11 text-left text-lg rounded-l-[50px] w-1/2 border-ash border-y-2 border-l-2">
           <div className="m-8">
             <div className="font-semibold">Name</div>
-            <div>{name}</div>
+            {name ? (
+              <div>{name}</div>
+            ) : (
+              <div className="pl-6 text-rose-500">Pending...</div>
+            )}
           </div>
           <div className="m-8">
             <div className="font-semibold">Campground</div>
-            <div>{campgroundName}</div>
+            {campgroundName ? (
+              <div>{campgroundName}</div>
+            ) : (
+              <div className="pl-6 text-rose-500">Pending...</div>
+            )}
           </div>
           <div className="m-8">
             <div className="font-semibold">Date</div>
-            <div>{rentDate.toString().split("T")[0]}</div>
+            {rentDate ? (
+              <div>{rentDate}</div>
+            ) : (
+              <div className="pl-6 text-rose-500">Pending...</div>
+            )}
           </div>
           <div className="m-8">
             <div className="font-semibold">Transaction Status</div>
-            <div className="flex flex-row mt-1">
-              <svg width="30" height="30">
-                <circle cx="15" cy="15" r="15" fill="#f43f5e" />
-              </svg>
-              <div className="text-rose-500 ml-2 place-items-center">
-                Rejected
+
+            {status ? (
+              <div className="flex flex-row mt-1">
+                <svg width="30" height="30">
+                  <circle cx="12" cy="12" r="12" fill="#f43f5e" />
+                </svg>
+                <div className="text-rose-500 ml-1 place-items-center">
+                  {status}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="pl-6 text-rose-500">Pending...</div>
+            )}
           </div>
           <div className="m-8">
             <div className="font-semibold">Outstanding Balance</div>
-            <div className="text-rose-500">{price} THB</div>
+            {promptpayQr ? (
+              <div className="text-rose-500">{price}.00 THB</div>
+            ) : (
+              <div className="pl-6 text-rose-500">Pending...</div>
+            )}
           </div>
         </div>
         <div
-          className="p-11 text-left rounded-r-[50px] w-1/2 border-ash border-y-2 border-r-2"
+          className="p-11 text-left flex flex-col rounded-r-[50px] w-1/2 border-ash border-y-2 border-r-2"
           id="showQr"
         >
           <div className="flex flex-row place-items-center">
             <div className="mt-8 ml-12 text-4xl text-teal-700 font-medium">
               Total price
             </div>
-            <div className="mt-12 ml-3 text-lg text-lightteal font-semibold">
+            <div className="mt-10 ml-3 text-lg text-lightteal font-semibold">
               (Tax included)
             </div>
           </div>
-          <div className="mt-3 ml-12 text-3xl text-gray-700 font-medium">
-            {price}
+          {promptpayQr ? (
+            <div className="mt-3 ml-12 text-3xl text-gray-700 font-medium">
+              THB {price}.00
+            </div>
+          ) : (
+            <div className="mt-3 ml-12 text-xl text-rose-500">Pending...</div>
+          )}
+
+          <div className="flex items-center justify-center mt-2 ">
+            <div className="relative h-[38vh] w-[38vh]">
+              {promptpayQr ? (
+                <Image
+                  src={`data:image/svg+xml;base64,${promptpayQr}`}
+                  alt="qrcode"
+                  fill={true}
+                  object-fit="contain"
+                />
+              ) : (
+                <div className="mt-10 ml-12 text-xl text-rose-500">
+                  Loading QR code...
+                </div>
+              )}
+            </div>
           </div>
-          <Image
-            src=""
-            alt="QR code Image"
-            className="w-[300px] h-[300px] mt-5 ml-[20%] object-contain"
-          ></Image>
           <div className="mt-9 text-center">
             <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full">
               Cancel
