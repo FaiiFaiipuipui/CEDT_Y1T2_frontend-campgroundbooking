@@ -32,7 +32,7 @@ export default function BookingPage() {
               id,
               date
             )) as Response;
-            console.log(response);
+
             if (!response) {
               throw new Error("Failed to submit create Appointment form");
             }
@@ -43,7 +43,6 @@ export default function BookingPage() {
               session.user.token,
               id
             )) as Response;
-            console.log(response);
             if (!response) {
               throw new Error("Failed to submit create Transaction");
             }
