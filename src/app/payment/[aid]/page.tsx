@@ -3,11 +3,37 @@ import { qrcode, checkBox } from "public/img";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { AddPhotoAlternate, CheckCircleOutline } from '@mui/icons-material';
+import createPromptpayQR from "@/libs/createPromptpayQR";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import getAppointment from "@/libs/getAppointment";
 
-export default function PaymentPage() {
+export default function PaymentPage({ params }: { params: { aid: string } }) {
+  const [promptpayQr, setPromptpayQr] = useState<string | null>(null); // State to hold QR code data
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const session = await getServerSession(authOptions);
+        if (!session || !session.user.token) return null;
+
+        const appointment = await getAppointment(params.aid, session.user.token);
+        const qrData = await createPromptpayQR(session.user.token, appointment.data.campground._id);
+
+        // Update state with QR code data
+        setPromptpayQr(qrData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call the async function immediately
+
+  }, []);
+
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -61,34 +87,34 @@ export default function PaymentPage() {
         {/* The first col */}
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
           <div className="ml-3">
-          <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-          <div className="pl-6">User1</div>
+            <div className="flex flex-row font-bold pt-7 pl-6">User</div>
+            <div className="pl-6">User1</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-          <div className="pl-6">7894sdafsdaf45665644adsf</div>
+            <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
+            <div className="pl-6">7894sdafsdaf45665644adsf</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-          <div className="pl-6">01/01/1111</div>
+            <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
+            <div className="pl-6">01/01/1111</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-          <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
-          <div className="mt-10">
-            <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
-              {" "}
-              <span className="h-[3vh] w-[3vh] flex mr-2">
-                {/* <Image src={checkBox} alt="checkbox" /> */}
-                <CheckCircleOutline className="pb-1"/>
-              </span>
-              Cannot be refunded
-            </div>
-            <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
-              {" "}
-              <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
-                {/* <Image src={checkBox} alt="checkbox" /> */}
-                <CheckCircleOutline className="pb-1"/>
-              </span>{" "}
-              Estimated ticketing time less than 2 Days
-            </div>
+            <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
+            <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
+            <div className="mt-10">
+              <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
+                {" "}
+                <span className="h-[3vh] w-[3vh] flex mr-2">
+                  {/* <Image src={checkBox} alt="checkbox" /> */}
+                  <CheckCircleOutline className="pb-1" />
+                </span>
+                Cannot be refunded
+              </div>
+              <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
+                {" "}
+                <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
+                  {/* <Image src={checkBox} alt="checkbox" /> */}
+                  <CheckCircleOutline className="pb-1" />
+                </span>{" "}
+                Estimated ticketing time less than 2 Days
+              </div>
             </div>
           </div>
         </div>
@@ -103,6 +129,14 @@ export default function PaymentPage() {
           </div>
           <div className="text-5xl text-black font-medium mt-2 text-left">
             THB 100.00
+          </div>
+
+          <div>
+            {promptpayQr ? (
+              <img src={`${promptpayQr}`} alt="PromptPay QR Code" />
+            ) : (
+              <p>Loading QR code...</p>
+            )}
           </div>
 
           <div className="flex items-center justify-center mt-2">
@@ -155,25 +189,25 @@ export default function PaymentPage() {
               </Button>
             )}
             <div onClick={closeModal} >
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Enlarged Image"
-              className="flex items-center justify-center mt-5"
-            
-            >
-              <div className="flex items-center justify-center h-[100vh]">
-            
-                <Image
-                  src={imagePreview}
-                  alt="Uploaded Image"
-                  width={300}
-                  height={600}
-                  className="flex items-center justify-center flex-col"
-                />
-             </div>
-           
-            </Modal>
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Enlarged Image"
+                className="flex items-center justify-center mt-5"
+
+              >
+                <div className="flex items-center justify-center h-[100vh]">
+
+                  <Image
+                    src={imagePreview}
+                    alt="Uploaded Image"
+                    width={300}
+                    height={600}
+                    className="flex items-center justify-center flex-col"
+                  />
+                </div>
+
+              </Modal>
             </div>
           </div>
           <div className="flex flex-row p-5 justify-around">
@@ -200,9 +234,8 @@ export default function PaymentPage() {
         </div>
       </div>
       <div
-        className={`popup ${
-          showPopup ? "" : "hidden"
-        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+        className={`popup ${showPopup ? "" : "hidden"
+          } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
       >
         <Image src={checkBox} alt="checkbox" className="mr-5" />
         Successfully upload!
