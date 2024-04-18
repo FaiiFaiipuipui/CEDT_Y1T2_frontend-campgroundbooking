@@ -8,15 +8,44 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { AddPhotoAlternate, CheckCircleOutline } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import getTransaction from "@/libs/getUserTransaction";
+import { PaymentItem } from "interface";
+import { useEffect } from "react";
 
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+  const [rentDate, setRentDate] = useState<Date>();
+  const [campgroundName, setCampgroundName] = useState<string>("");
 
   const router = useRouter();
   const { data: session } = useSession();
+
+  const urlParams = useSearchParams();
+  const tid = urlParams.get("tid") as string;
+
+  const fetchData = async () => {
+    const transactionData = await getTransaction(tid, session.user.token);
+    const transaction: PaymentItem = transactionData.data;
+    console.log(transaction);
+    const name = transaction.user.name;
+    const userId = transaction.user._id;
+    const rentDate = transaction.rent_date;
+    const campgroundName = transaction.campground.name;
+    setName(name);
+    setUserId(userId);
+    setRentDate(rentDate);
+    setCampgroundName(campgroundName);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,12 +66,8 @@ export default function PaymentPage() {
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
     if (imagePreview != null) {
-      if (session.user) {
-        createTransactionSlip(
-          session.user.token,
-          session.user._id,
-          imagePreview
-        );
+      if (session.user && tid) {
+        createTransactionSlip(session.user.token, tid, imagePreview);
         setShowPopup(true);
       }
 
@@ -73,18 +98,32 @@ export default function PaymentPage() {
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
           <div className="ml-3">
             <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-            <div className="pl-6">User1</div>
+            {name ? (
+              <div className="pl-6">{name}</div>
+            ) : (
+              <div className="pl-6 text-red-500">Pending...</div>
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-            <div className="pl-6">7894sdafsdaf45665644adsf</div>
+            {userId ? (
+              <div className="pl-6">{userId}</div>
+            ) : (
+              <div className="pl-6 text-red-500">Pending...</div>
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-            <div className="pl-6">01/01/1111</div>
+            {rentDate ? (
+              <div className="pl-6">{rentDate.toString().split('T')[0]}</div>
+            ) : (
+              <div className="pl-6 text-red-500">Pending...</div>
+            )}
 
             <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-            <div className="pl-6">
-              อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี
-            </div>
+            {campgroundName ? (
+              <div className="pl-6">{campgroundName}</div>
+            ) : (
+              <div className="pl-6 text-red-500">Pending...</div>
+            )}
             <div className="mt-10">
               <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
                 {" "}
@@ -200,7 +239,7 @@ export default function PaymentPage() {
               className="bg-fern py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
               onClick={() => {
                 handleSubmit();
-                router.push("/dashboard");
+                // router.push("/dashboard");
               }}
             >
               {" "}
