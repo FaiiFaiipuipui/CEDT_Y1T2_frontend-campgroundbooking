@@ -30,7 +30,7 @@ export default async function RootLayout({
         <div className="z-50 w-full fixed ">
                  <GlobalNavBar />
                </div>
-           <div className="pt-10">{children}</div>
+           <div className="pt-[70px]">{children}</div>
         </NextAuthProvider>
       </body>
     </html>

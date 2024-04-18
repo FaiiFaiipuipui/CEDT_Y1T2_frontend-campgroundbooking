@@ -62,7 +62,7 @@ export default function TransactionCatalog({
       ) : session?.user.role === "user" ? (
         <div className="text-4xl font-bold m-10 text-left">My Booking</div>
       ) : null}
-      <div className="rounded-b-[50px] items-center justify-center">
+      <div className="rounded-[50px] items-center justify-center border border-solid pb-3">
         <div className="flex flex-row bg-cadetblue text-xl h-20 items-center rounded-t-[50px] font-semibold">
           <div className="w-1/5">User</div>
           <div className="w-1/5">Campground</div>
@@ -80,11 +80,11 @@ export default function TransactionCatalog({
                   onClick={handleClickListItem}
                   className="flex"
                 >
-                  <ListItemText >
+                  <ListItemText>
                     <div className="text-xl">
                       <div className={prompt.className}>
                         Transaction Status
-                      <KeyboardArrowDownIcon/>
+                        <KeyboardArrowDownIcon />
                       </div>
                     </div>
                   </ListItemText>
@@ -107,10 +107,7 @@ export default function TransactionCatalog({
                   selected={index === selectedIndex}
                   onClick={(event) => handleMenuItemClick(event, index)}
                 >
-                  <div className={prompt.className}>
-                    {statusList}
-                  </div>
-                  
+                  <div className={prompt.className}>{statusList}</div>
                 </MenuItem>
               ))}
             </Menu>
