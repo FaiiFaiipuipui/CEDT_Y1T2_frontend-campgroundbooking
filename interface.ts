@@ -49,6 +49,7 @@ export interface PaymentItem {
 }
 
 export interface Slip {
+  _id: string,
   slip_image: Buffer;
   submit_time: Date;
   payment_id: string;
@@ -68,4 +69,10 @@ export interface UserItem {
   email: string;
   role: string;
   createdAt: Date;
+}
+
+export interface OnePaymentJson{
+  success: boolean;
+  data: PaymentItem;
+  campgroundPrice: string;
 }
