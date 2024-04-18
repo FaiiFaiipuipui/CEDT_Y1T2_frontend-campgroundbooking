@@ -45,6 +45,8 @@ export default async function TransactionPage({
                   <TransactionCardUser
                     status={status}
                     transaction={transaction}
+                    imgBase={imgData}
+                    price={transactionJson.campgroundPrice}
                   />
                   <div className="flex flex-row justify-evenly items-center">
                     <Link href={`/dashboard`}>
