@@ -20,11 +20,11 @@ export default async function TransactionPage({
     // console.log("Role: " + profile.data.role);
 
     return (
-        <main className="w-[100vw] h-full flex justify-center items-center pt-[55px]">
-            <div className="space-y-[70px] w-[100%] h-[100%] p-[80px]">
+        <main className="w-[100vw] h-full flex justify-center items-center px-[45px] ">
+            <div className="space-y-[30px] w-[100%] h-[100%] p-[50px] m-50">
                 {
-                    status === 'PENDING' ? <p className="font-bold text-[48px] text-left">Pending Detail</p> :
-                        status === 'COMPLETE' ? <p className="font-bold text-[48px] text-left">Booking Detail</p> :
+                    status === 'PENDING' ? <p className="font-bold text-4xl text-left">Transaction Details</p> :
+                        status === 'COMPLETE' ? <p className="font-bold text-4xl text-left">Booking Details</p> :
                             null
                 }
 
