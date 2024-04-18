@@ -11,13 +11,13 @@ export default async function createPromptpayQR(
             authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ appointmentId : apptId }),
+          body: JSON.stringify({ appointmentID : apptId }),
         }
       );
       if (!response) {
         throw new Error("Failed to create promptpayqr");
       }
-      return await response;
+      return response;
     } catch (error) {
       console.log(error);
     }
