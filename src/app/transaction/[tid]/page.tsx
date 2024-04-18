@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getTransaction from "@/libs/getUserTransaction";
 import TransactionCardUser from "@/components/TransactionCardUser";
 import TransactionCardAdmin from "@/components/TransactionCardAdmin";
+import getTransactionSlip from "@/libs/getTransactionSlip";
+import { PaymentItem, PaymentJson } from "interface";
 
 export default async function TransactionPage({
     params,
@@ -15,7 +17,12 @@ export default async function TransactionPage({
     const session = await getServerSession(authOptions);
     const transaction = await getTransaction(params.tid, session.user.token);
     const status = transaction.data.status;
-    // console.log('Status: ' + status);
+    const indexSlipLatest = transaction.data.submitted_slip_images.length - 1;
+    if (indexSlipLatest < 0) { return null }
+
+    const imgSlip = transaction.data.submitted_slip_images[indexSlipLatest];
+    const imgData = await getTransactionSlip(imgSlip, session.user.token);
+
     const profile = await getUserDashboard(session.user.token);
     // console.log("Role: " + profile.data.role);
 
@@ -37,7 +44,7 @@ export default async function TransactionPage({
                                 <div className="w-full space-y-[70px]">
                                     <TransactionCardUser status={status} />
                                     <div className="flex flex-row justify-evenly items-center">
-                                        <Link href={`/transaction`}>
+                                        <Link href={`/dashboard`}>
                                             <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
                                                 Back
                                             </button>
@@ -46,14 +53,14 @@ export default async function TransactionPage({
                                 </div>
                                 : profile.data.role === 'admin' ?
                                     <div className="w-full space-y-[70px]">
-                                        <TransactionCardAdmin status={status} />
+                                        <TransactionCardAdmin status={status} imgBase={imgData} />
                                         <div className="flex flex-row justify-center items-center space-x-[100px]">
-                                            <Link href={`/transaction`}>
+                                            <Link href={`/dashboard`}>
                                                 <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
                                                     Back
                                                 </button>
                                             </Link>
-                                            <Link href={`/transaction`}>
+                                            <Link href={`/dashboard`}>
                                                 <button className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:shadow-xl">
                                                     Submit
                                                 </button>

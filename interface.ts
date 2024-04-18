@@ -38,14 +38,15 @@ export interface PaymentItem {
   status: string;
   rent_date: Date;
   successful_payment_date: Date;
-  submitted_slip_images: String[];
+  submitted_slip_images: Slip[];
   successful_payment_slip_image: Object;
-  campground: Object;
-  user: Object;
+  campground: CampgroundItem;
+  user: UserItem;
   appointment: Object;
 }
 
 export interface Slip {
+  _id: string,
   slip_image: Buffer;
   submit_time: Date;
   payment_id: string;
@@ -56,4 +57,13 @@ export interface PaymentJson {
   count: number;
   pagination: Object;
   data: PaymentItem[];
+}
+
+export interface UserItem {
+  _id: string;
+  name: string;
+  telephone: string;
+  email: string;
+  role: string;
+  createdAt: Date;
 }
