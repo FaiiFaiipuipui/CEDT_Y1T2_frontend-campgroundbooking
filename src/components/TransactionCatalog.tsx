@@ -3,7 +3,7 @@ import { PaymentItem, PaymentJson } from "interface";
 import { Session } from "next-auth";
 import TransactionCard from "./TransactionCard";
 
-export default async function TransactionCatalog({transactionJson, session}:{transactionJson:PaymentJson, session:Session}) {
+export default async function TransactionCatalog({transactionJson, session, role}:{transactionJson:PaymentJson, session:Session, role:string}) {
 
   const transactionJsonReady = await transactionJson;
   return (
@@ -26,7 +26,8 @@ export default async function TransactionCatalog({transactionJson, session}:{tra
         campground={transactionItem.campground}
         date={new Date(transactionItem.rent_date)}
         status={transactionItem.status}
-        submitImage={transactionItem.submitted_slip_images}/>
+        submitImage={transactionItem.submitted_slip_images}
+        role={role}/>
       ))}
       </div>
     </main>

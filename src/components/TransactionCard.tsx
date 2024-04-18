@@ -6,7 +6,8 @@ export default function TransactionCard({
   campground,
   date,
   status,
-  submitImage
+  submitImage,
+  role
 }: {
   tid: string;
   user: string;
@@ -14,6 +15,7 @@ export default function TransactionCard({
   date: Date;
   status:string;
   submitImage:String[];
+  role:string
 }) {
   return (
     <main>
@@ -62,19 +64,19 @@ export default function TransactionCard({
 
 
 {
-  (status === "REJECTED") ? (
+  (status === "REJECTED" && role !== "admin") ? (
     <Link href={`/payment/edit?tid=${tid}`} className="w-1/5">
       <button className="justify-center bg-rose-500 border-[2px] border-rose-500 px-8 py-1 text-white font-medium rounded-full hover:shadow-lg">
         Edit
       </button>
     </Link>
-  ) : (status === "PENDING" && submitImage.length == 0)? (
+  ) : (status === "PENDING" && submitImage.length == 0 && role !== "admin")? (
     <Link href={`/payment?tid=${tid}`} className="w-1/5">
       <button className="justify-center bg-fern border-[2px] border-fern px-8 py-1 text-white font-medium rounded-full hover:shadow-lg">
         Pay
       </button>
     </Link>
-  ) : ((status === "PENDING" && submitImage.length > 0)||(status === "COMPLETE"))? (
+  ) : ((status === "PENDING" && submitImage.length > 0)||(status === "COMPLETE")||(role === "admin"))? (
     <Link href={`/transaction/${tid}`} className="w-1/5">
       <button className="justify-center bg-white border-[2px] border-fern px-6 py-1 text-fern font-medium rounded-full hover:shadow-lg">
         Detail
