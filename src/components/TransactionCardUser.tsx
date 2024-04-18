@@ -2,7 +2,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 import { PaymentItem } from 'interface';
 
-export default function TransactionCardUser({ status,transaction }: { status: string, transaction: PaymentItem }) {
+export default function TransactionCardUser({ status, transaction }: { status: string, transaction: PaymentItem }) {
     return (
         <div className="w-[100%] h-[100%] min-w-[320px] min-h-[550px] bg-white rounded-[50px] flex flex-row border border-2">
 
@@ -39,7 +39,7 @@ export default function TransactionCardUser({ status,transaction }: { status: st
                     <div className="col-span-2 text-4xl font-bold text-fern">Payment</div>
                     <div className="col-span-2 flex flex-row justify-between items-center">
                         <div className="font-normal text-black text-xl">Campground booking</div>
-                        <div className="font-normal text-black text-xl">${transaction.campground.price.decimal128.toString()}</div>
+                        <div className="font-normal text-black text-xl">${transaction.campground.price.toString()}</div>
                     </div>
                     <div className="col-span-2 flex flex-row justify-between items-center">
                         <div className="font-normal text-black text-xl">Taxes & Fee</div>

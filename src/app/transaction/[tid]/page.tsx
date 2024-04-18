@@ -23,7 +23,7 @@ export default async function TransactionPage({
 
     console.log("Transaction json: " + transactionJson);
     console.log("Transaction campgroundPrice: " + transactionJson.campgroundPrice);
-    console.log("Transaction price: " + parseInt(transaction.campground.price.toString()));
+    console.log("Transaction price: " + parseFloat(transaction.campground.price.toString()));
 
     const imgSlip = transaction.submitted_slip_images[indexSlipLatest].toString();
     const imgData = await getTransactionSlip(imgSlip, session.user.token);

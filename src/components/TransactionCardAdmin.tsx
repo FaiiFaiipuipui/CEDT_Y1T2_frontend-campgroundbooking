@@ -20,12 +20,12 @@ export default function TransactionCardAdmin({
     status: string;
     imgBase: any;
     transaction: PaymentItem;
-    price: Number;
+    price: number;
 }) {
     const [value, setValue] = useState<string>(status);
     const imgArr = imgBase.data.slip_image.data;
 
-    console.log("Transaction :" + transaction.campground.price);
+    console.log("Transaction :" + price);
 
 
     // Convert the array to a Uint8Array

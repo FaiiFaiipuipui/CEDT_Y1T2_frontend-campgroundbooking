@@ -74,5 +74,5 @@ export interface UserItem {
 export interface OnePaymentJson{
   success: boolean;
   data: PaymentItem;
-  campgroundPrice: Number;
+  campgroundPrice: number;
 }
