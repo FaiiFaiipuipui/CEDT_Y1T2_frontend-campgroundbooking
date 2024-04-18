@@ -70,3 +70,9 @@ export interface UserItem {
   role: string;
   createdAt: Date;
 }
+
+export interface OnePaymentJson{
+  success: boolean;
+  data: PaymentItem;
+  campgroundPrice: Number;
+}

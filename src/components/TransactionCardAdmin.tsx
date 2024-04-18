@@ -9,44 +9,51 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PendingIcon from "@mui/icons-material/Pending";
 import Image from "next/image";
-import { getImgFromArr } from 'array-to-image';
+import { PaymentItem } from "interface";
 
 export default function TransactionCardAdmin({
     status,
     imgBase,
+    transaction,
+    price
 }: {
     status: string;
     imgBase: any;
+    transaction: PaymentItem;
+    price: Number;
 }) {
     const [value, setValue] = useState<string>(status);
     const imgArr = imgBase.data.slip_image.data;
-    console.log("img:" + imgBase.data.slip_image.data);
+
+    console.log("Transaction :" + transaction.campground.price);
+
+
     // Convert the array to a Uint8Array
     const uint8Array = new Uint8Array(imgArr);
-
-    // Convert the Uint8Array to a base64 string
-    const base64String = btoa(String.fromCharCode.apply(null, uint8Array));
-    console.log('Base64: '+ base64String);
     
+    // Convert the Uint8Array to a base64 string
+    let base64String = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+        base64String += String.fromCharCode(uint8Array[i]);
+    }
+    const finalBase64String = btoa(base64String);
+    
+    // console.log("img:" + imgBase.data.slip_image.data);
+    // console.log('Base64: '+ finalBase64String);
 
     const handleRadioChange = (event) => {
         setValue(event.target.value);
     };
 
-
     return (
-        <div className="w-[100%] h-[100%] min-w-[320px] min-h-[550px]  flex flex-row space-x-[20px]">
-            <div className=" min-w-[320px] min-h-[550px] bg-white rounded-[50px] flex flex-row justify-start border border-2">
-                <div
-                    className="w-[2/5] min-w-[400px] rounded-l-[50px] flex justify-center items-end"
-
-                >
-                    <Image src={base64String} alt="Preview" width={300} height={200} />
-
+        <div className="w-[100%] h-[100%] min-w-[320px] min-h-[550px]  flex flex-row justify-center items-start space-x-[20px]">
+            <div className="w-[75%] bg-white min-h-[550px] rounded-[50px] flex flex-row justify-start border border-2">
+                <div className="w-[40%] min-w-[350px] rounded-l-[50px] p-auto flex justify-center items-center">
+                    <Image src={base64String} alt="Slip Preview" width={0} height={0} style={{width: '270px', height: 'auto', objectFit: 'contain', borderRadius: '30px'}} />
                 </div>
 
-                <div className="flex flex-col">
-                    <div className="w-[3/5] flex flex-col justify-center items-center p-[50px]">
+                <div className="w-[60%] min-w-[500px] flex flex-col ">
+                    <div className="flex flex-col justify-center items-center p-[50px]">
                         <div className="w-full h-full grid grid-cols-2 justify-center items-start text-left space-y-[10px]">
                             <div className="col-span-2 text-4xl font-bold text-fern">
                                 Customer Information
@@ -55,18 +62,18 @@ export default function TransactionCardAdmin({
                                 User&apos;s Name
                             </div>
                             <div className="col-span-2 font-normal text-black text-xl">
-                                Name
+                                {transaction.user.name}
                             </div>
                             <div className="col-span-2 flex flex-row justify-between items-center">
                                 <div className="flex flex-col pr-[30px]">
                                     <p className="font-semibold text-black text-xl">Campground</p>
                                     <p className="font-normal text-black text-xl">
-                                        อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี
+                                        {transaction.campground.name}
                                     </p>
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="font-semibold text-black text-xl">Date</p>
-                                    <p className="font-normal text-black text-xl">30/01/2024</p>
+                                    <p className="font-normal text-black text-xl">{(new Date(transaction.rent_date)).getDate() + "/" + (new Date(transaction.rent_date)).getMonth() + "/" + (new Date(transaction.rent_date)).getFullYear()}</p>
                                 </div>
                             </div>
                             <div className="col-span-2"></div>
@@ -77,7 +84,7 @@ export default function TransactionCardAdmin({
                                 <div className="font-normal text-black text-xl">
                                     Campground booking
                                 </div>
-                                <div className="font-normal text-black text-xl">$150</div>
+                                <div className="font-normal text-black text-xl">{"$" + price}</div>
                             </div>
                             <div className="col-span-2 flex flex-row justify-between items-center">
                                 <div className="font-normal text-black text-xl">
@@ -88,14 +95,14 @@ export default function TransactionCardAdmin({
                             <hr className="col-span-2" />
                             <div className="col-span-2 flex flex-row justify-between items-center">
                                 <div className="font-bold text-black text-xl">Total</div>
-                                <div className="font-bold text-black text-xl">$150</div>
+                                <div className="font-bold text-black text-xl">{"$" + price}</div>
                             </div>
                         </div>
                     </div>
                     <div
                         id="tagStatus"
                         className={`w-full py-[20px] rounded-br-[50px] bg-opacity-60 ${value === "PENDING"
-                                ? "bg-[#D9D9D9]"
+                                ? "bg-[#BDBDBD]"
                                 : value === "REJECTED"
                                     ? "bg-[#FF0000]"
                                     : "bg-fern"
@@ -132,7 +139,7 @@ export default function TransactionCardAdmin({
                 </div>
             </div>
 
-            <div className="min-h-[550px] w-[10%] min-w-[370px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center">
+            <div className="min-h-[550px] w-[25%] min-w-[350px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center">
                 <p className="text-[32px] font-semibold">Transaction Status</p>
                 <hr />
                 <RadioGroup
