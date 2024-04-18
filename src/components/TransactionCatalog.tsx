@@ -8,8 +8,15 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ListItemText } from '@mui/material';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Prompt } from "next/font/google";
+
+const prompt = Prompt({
+  weight: '600',
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 export default function TransactionCatalog({
   transactionJson,
@@ -60,40 +67,53 @@ export default function TransactionCatalog({
           <div className="w-1/5">User</div>
           <div className="w-1/5">Campground</div>
           <div className="w-1/5">Date</div>
-          <div className="w-1/5">
-              <List component="nav" aria-label="Transaction Status">
-              
-              <ListItemText primary="Transaction Status" className="text-xl items-center font-semibold "/>
+
+          <div className="w-1/5 flex flex-row z-30">
+            {/* Transaction Status */}
+            <List component="nav" aria-label="Transaction Status">
+              {
                 <ListItemButton
                   id="lock-button"
                   aria-haspopup="listbox"
                   aria-controls="lock-menu"
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClickListItem}
-                ></ListItemButton>
-                
-              </List>
-              <Menu
-                id="lock-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "lock-button",
-                  role: "listbox",
-                }}
-              >
-                {statusList.map((statusList, index) => (
-                  <MenuItem
-                    key={statusList}
-                    selected={index === selectedIndex}
-                    onClick={(event) => handleMenuItemClick(event, index)}
-                  >
+                  className="flex"
+                >
+                  <ListItemText >
+                    <div className="text-xl">
+                      <div className={prompt.className}>
+                        Transaction Status
+                      <KeyboardArrowDownIcon/>
+                      </div>
+                    </div>
+                  </ListItemText>
+                </ListItemButton>
+              }
+            </List>
+            <Menu
+              id="lock-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "lock-button",
+                role: "listbox",
+              }}
+            >
+              {statusList.map((statusList, index) => (
+                <MenuItem
+                  key={statusList}
+                  selected={index === selectedIndex}
+                  onClick={(event) => handleMenuItemClick(event, index)}
+                >
+                  <div className={prompt.className}>
                     {statusList}
-                  </MenuItem>
-                ))}
-              </Menu>
-              <KeyboardArrowDownIcon />
+                  </div>
+                  
+                </MenuItem>
+              ))}
+            </Menu>
           </div>
           <div className="w-1/5"></div>
         </div>
