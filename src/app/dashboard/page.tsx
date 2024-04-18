@@ -39,9 +39,7 @@ export default async function DashbordPage() {
         </table>
       </div>
 
-      {/*<div className="text-4xl font-bold pt-10 m-10 text-left">My booking</div>*/}
       <Suspense fallback={<Skeleton />}>
-        {/*<AppointmentCatalog appointmentJson={appointment} session={session} />*/}
         <TransactionCatalog transactionJson={transactions} session={session}/>
       </Suspense>
     </main>

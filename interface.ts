@@ -40,7 +40,7 @@ export interface PaymentItem {
   successful_payment_date: Date;
   submitted_slip_images: String[];
   successful_payment_slip_image: Object;
-  campground: Object;
+  campground: CampgroundItem;
   user: UserItem;
   appointment: Object;
 }
