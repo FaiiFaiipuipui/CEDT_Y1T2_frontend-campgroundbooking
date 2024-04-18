@@ -4,14 +4,15 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import createTransactionSlip from "@/libs/createTransactionSlip";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import Modal from "react-modal";
 import { AddPhotoAlternate, CheckCircleOutline } from "@mui/icons-material";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import getTransaction from "@/libs/getUserTransaction";
 import { PaymentItem } from "interface";
 import { useEffect } from "react";
+import createPromptpayQR from "@/libs/createPromptpayQR";
 
 export default function PaymentPage() {
   // This use State is for save image data
@@ -22,6 +23,8 @@ export default function PaymentPage() {
   const [userId, setUserId] = useState<string>("");
   const [rentDate, setRentDate] = useState<Date>();
   const [campgroundName, setCampgroundName] = useState<string>("");
+  const [promptpayQr, setPromptpayQr] = useState<ReactNode | null>(null);
+  const [campgroundPrice, setCampgroundPrice] = useState<String | null>();
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -29,23 +32,44 @@ export default function PaymentPage() {
   const urlParams = useSearchParams();
   const tid = urlParams.get("tid") as string;
 
-  const fetchData = async () => {
-    const transactionData = await getTransaction(tid, session.user.token);
-    const transaction: PaymentItem = transactionData.data;
-    console.log(transaction);
-    const name = transaction.user.name;
-    const userId = transaction.user._id;
-    const rentDate = transaction.rent_date;
-    const campgroundName = transaction.campground.name;
-    setName(name);
-    setUserId(userId);
-    setRentDate(rentDate);
-    setCampgroundName(campgroundName);
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const session = await getSession();
+        if (!session || !session.user.token) return null;
+
+        const transactionData = await getTransaction(tid, session.user.token);
+        const transaction: PaymentItem = transactionData.data;
+        console.log(transaction);
+        const name = transaction.user.name;
+        const userId = transaction.user._id;
+        const rentDate = transaction.rent_date;
+        const campgroundName = transaction.campground.name;
+        setName(name);
+        setUserId(userId);
+        setRentDate(rentDate);
+        setCampgroundName(campgroundName);
+
+        const response = await createPromptpayQR(
+          session.user.token,
+          tid
+        );
+
+        // Update state with QR code data
+        const jsonRes = await response.json();
+        console.log(response);
+        console.log(jsonRes);
+        setPromptpayQr(
+          btoa(decodeURIComponent(encodeURIComponent(jsonRes.data)))
+        );
+        setCampgroundPrice(jsonRes.campgroundPrice);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData(); // Call the async function immediately
+  }, [tid]);
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,11 +178,17 @@ export default function PaymentPage() {
             </span>
           </div>
           <div className="text-5xl text-black font-medium mt-2 text-left">
-            THB 100.00
+            {campgroundPrice ? `${campgroundPrice} THB` : "Please wait..."}
           </div>
 
-          <div className="flex items-center justify-center mt-2">
-            <Image src={qrcode} alt="qrcode" className="h-[38vh] w-[38vh] " />
+          <div className="flex items-center justify-center mt-2 ">
+            <div className="relative h-[38vh] w-[38vh]">
+          {promptpayQr ? (
+              <Image src={`data:image/svg+xml;base64,${promptpayQr}`} alt="qrcode" fill={true} object-fit="contain"/>
+            ) : (
+              <p>Loading QR code...</p>
+            )}
+            </div>
           </div>
         </div>
         {/* Third Column */}
