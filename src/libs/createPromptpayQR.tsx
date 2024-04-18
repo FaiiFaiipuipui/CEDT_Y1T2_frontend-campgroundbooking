@@ -1,6 +1,6 @@
 export default async function createPromptpayQR(
     token: string,
-    apptId: string
+    transactionId: string
   ) {
     try {
       const response = await fetch(
@@ -11,7 +11,7 @@ export default async function createPromptpayQR(
             authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ appointmentID : apptId }),
+          body: JSON.stringify({ transactionId : transactionId }),
         }
       );
       if (!response) {
