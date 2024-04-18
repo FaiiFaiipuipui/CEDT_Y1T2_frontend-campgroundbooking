@@ -27,8 +27,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={prompt.className}>
         <NextAuthProvider session={nextAuthSession}>
-          <GlobalNavBar />
-          {children}
+              <div className="z-50 w-full fixed ">
+                <GlobalNavBar />
+              </div>
+          <div className="pt-10">{children}</div>
         </NextAuthProvider>
       </body>
     </html>
