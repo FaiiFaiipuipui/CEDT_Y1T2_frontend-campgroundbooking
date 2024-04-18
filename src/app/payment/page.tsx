@@ -3,16 +3,20 @@ import { qrcode, checkBox } from "public/img";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
+import createTransactionSlip from "@/libs/createTransactionSlip";
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { AddPhotoAlternate, CheckCircleOutline } from '@mui/icons-material';
+import { AddPhotoAlternate, CheckCircleOutline } from "@mui/icons-material";
+import { useSession } from "next-auth/react";
 
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
   const router = useRouter();
+  const { data: session } = useSession();
 
   // This function is for recieve the image data from user
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +37,14 @@ export default function PaymentPage() {
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
     if (imagePreview != null) {
-      setShowPopup(true);
+      if (session.user) {
+        createTransactionSlip(
+          session.user.token,
+          session.user._id,
+          imagePreview
+        );
+        setShowPopup(true);
+      }
 
       // Hide the popup after 3 seconds
       setTimeout(() => {
@@ -61,34 +72,36 @@ export default function PaymentPage() {
         {/* The first col */}
         <div className="bg-cadetblue w-[100%] h-[100%] rounded-l-[50px] pt-2">
           <div className="ml-3">
-          <div className="flex flex-row font-bold pt-7 pl-6">User</div>
-          <div className="pl-6">User1</div>
+            <div className="flex flex-row font-bold pt-7 pl-6">User</div>
+            <div className="pl-6">User1</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
-          <div className="pl-6">7894sdafsdaf45665644adsf</div>
+            <div className="flex flex-row font-bold pt-4 pl-6">UserID</div>
+            <div className="pl-6">7894sdafsdaf45665644adsf</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
-          <div className="pl-6">01/01/1111</div>
+            <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
+            <div className="pl-6">01/01/1111</div>
 
-          <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-          <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
-          <div className="mt-10">
-            <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
-              {" "}
-              <span className="h-[3vh] w-[3vh] flex mr-2">
-                {/* <Image src={checkBox} alt="checkbox" /> */}
-                <CheckCircleOutline className="pb-1"/>
-              </span>
-              Cannot be refunded
+            <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
+            <div className="pl-6">
+              อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี
             </div>
-            <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
-              {" "}
-              <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
-                {/* <Image src={checkBox} alt="checkbox" /> */}
-                <CheckCircleOutline className="pb-1"/>
-              </span>{" "}
-              Estimated ticketing time less than 2 Days
-            </div>
+            <div className="mt-10">
+              <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
+                {" "}
+                <span className="h-[3vh] w-[3vh] flex mr-2">
+                  {/* <Image src={checkBox} alt="checkbox" /> */}
+                  <CheckCircleOutline className="pb-1" />
+                </span>
+                Cannot be refunded
+              </div>
+              <div className="text-sm text-[#007662] flex flex-row mt-2 pl-6 font-semibold">
+                {" "}
+                <span className="lg:h-[3vh] lg:w-[3vh]  flex mr-2">
+                  {/* <Image src={checkBox} alt="checkbox" /> */}
+                  <CheckCircleOutline className="pb-1" />
+                </span>{" "}
+                Estimated ticketing time less than 2 Days
+              </div>
             </div>
           </div>
         </div>
@@ -154,26 +167,23 @@ export default function PaymentPage() {
                 </label>
               </Button>
             )}
-            <div onClick={closeModal} >
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Enlarged Image"
-              className="flex items-center justify-center mt-5"
-            
-            >
-              <div className="flex items-center justify-center h-[100vh]">
-            
-                <Image
-                  src={imagePreview}
-                  alt="Uploaded Image"
-                  width={300}
-                  height={600}
-                  className="flex items-center justify-center flex-col"
-                />
-             </div>
-           
-            </Modal>
+            <div onClick={closeModal}>
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Enlarged Image"
+                className="flex items-center justify-center mt-5"
+              >
+                <div className="flex items-center justify-center h-[100vh]">
+                  <Image
+                    src={imagePreview}
+                    alt="Uploaded Image"
+                    width={300}
+                    height={600}
+                    className="flex items-center justify-center flex-col"
+                  />
+                </div>
+              </Modal>
             </div>
           </div>
           <div className="flex flex-row p-5 justify-around">
