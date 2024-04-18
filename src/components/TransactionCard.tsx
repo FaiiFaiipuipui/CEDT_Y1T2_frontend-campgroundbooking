@@ -29,7 +29,7 @@ export default function TransactionCard({
         <div className="w-1/5">
           <div>{date.toDateString()}</div>
         </div>
-         <div className="w-1/5 items-left justify-left flex pl-12">
+         <div className="w-1/5 items-left justify-left flex pl-20">
           {
             (status === "REJECTED")? 
             <div className="flex flex-row space-x-2">
