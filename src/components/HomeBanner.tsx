@@ -18,13 +18,25 @@ function HomeBanner() {
   };
 
   return (
-    <div className="relative w-screen h-screen" onClick={changeCover}>
-      <Image src={bannerCoverSrc[currentCoverIndex]} alt={"cover"} fill />
-      <div className="relative top-[45%] text-center z-20 text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+    <div className="fixed inset-0 overflow-hidden" onClick={changeCover}>
+    <div className="absolute inset-0">
+      <Image
+        src={bannerCoverSrc[currentCoverIndex]}
+        alt="cover"
+        layout="fill"
+        objectFit="cover"
+        className="w-full h-full"
+      />
+    </div>
+    <div className="absolute inset-0 flex items-center justify-center text-center text-white z-20">
+      <div>
         <h1 className="text-4xl font-bold">Welcome to our services</h1>
         <h3 className="text-xl mt-5">Have a great time here!</h3>
       </div>
     </div>
+  </div>
+  
+  
   );
 }
 
