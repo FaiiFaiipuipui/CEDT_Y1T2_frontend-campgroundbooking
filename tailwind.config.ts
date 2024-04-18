@@ -18,6 +18,7 @@ const config: Config = {
         ash: "#b4b4b4",
         fern: "#009a62",
         lightteal: "#80bab0",
+        customGray: "#9CA3AF"
       },
     },
   },
