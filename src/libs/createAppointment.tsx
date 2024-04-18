@@ -18,7 +18,7 @@ export default async function createAppointment(
     if (!response) {
       throw new Error("Failed to create appointment");
     }
-    return await response;
+    return response.json();
   } catch (error) {
     console.log(error);
   }

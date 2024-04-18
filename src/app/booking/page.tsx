@@ -53,7 +53,7 @@ export default function AddAppointmentPage() {
       const transaction = async () => {
         const response = (await createTransaction(
           session.user.token,
-          params.aid
+          "id"
         )) as Response;
         console.log(response);
         if (!response) {
