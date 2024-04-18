@@ -113,7 +113,7 @@ export default function PaymentPage() {
 
             <div className="flex flex-row font-bold pt-4 pl-6">Date</div>
             {rentDate ? (
-              <div className="pl-6">{rentDate.toString().split('T')[0]}</div>
+              <div className="pl-6">{rentDate.toString().split("T")[0]}</div>
             ) : (
               <div className="pl-6 text-red-500">Pending...</div>
             )}

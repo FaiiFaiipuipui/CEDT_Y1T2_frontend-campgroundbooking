@@ -5,6 +5,7 @@ import CampGroundSelection from "@/components/CampGroundSelection";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import createTransaction from "@/libs/createTransaction";
 
 interface ResponseData {
   message: string;
@@ -53,8 +54,29 @@ export default function AddAppointmentPage({
 
         alert("Successfully booked!");
       };
-      // addAppointment();
-      router.push("/payment");
+      const transaction = async () => {
+        const response = (await createTransaction(
+          session.user.token,
+          params.aid
+        )) as Response;
+        console.log(response);
+        if (!response) {
+          throw new Error("Failed to submit create Transaction");
+        }
+
+        // const responseData:ResponseData = await response.json();
+
+        // if (response && response.status !== 200) {
+        //   alert(responseData.message);
+        //   alert('Not Success')
+        //   return;
+        // }
+
+        alert("Successfully booked!");
+      };
+      addAppointment();
+      transaction();
+      router.push("/dashboard");
     } else {
       alert("Please fill in the missing field!");
     }
