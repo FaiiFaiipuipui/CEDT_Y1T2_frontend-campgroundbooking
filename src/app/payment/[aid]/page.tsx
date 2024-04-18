@@ -1,38 +1,53 @@
+// change to [tid]
+
 "use client";
 import { qrcode, checkBox } from "public/img";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component, ReactNode } from "react";
 import Modal from "react-modal";
-import { AddPhotoAlternate, CheckCircleOutline } from '@mui/icons-material';
+import { AddPhotoAlternate, CheckCircleOutline } from "@mui/icons-material";
 import createPromptpayQR from "@/libs/createPromptpayQR";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 import getAppointment from "@/libs/getAppointment";
+import { getSession } from "next-auth/react";
 
 export default function PaymentPage({ params }: { params: { aid: string } }) {
-  const [promptpayQr, setPromptpayQr] = useState<string | null>(null); // State to hold QR code data
+  const [promptpayQr, setPromptpayQr] = useState<ReactNode | null>(null);
+  const [campgroundPrice, setCampgroundPrice] = useState<String | null>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const session = await getServerSession(authOptions);
+        const session = await getSession();
         if (!session || !session.user.token) return null;
 
-        const appointment = await getAppointment(params.aid, session.user.token);
-        const qrData = await createPromptpayQR(session.user.token, appointment.data.campground._id);
+        const appointment = await getAppointment(
+          params.aid,
+          session.user.token
+        );
+        const response = await createPromptpayQR(
+          session.user.token,
+          appointment.data._id
+        );
 
         // Update state with QR code data
-        setPromptpayQr(qrData);
+        const jsonRes = await response.json();
+        console.log(response);
+        console.log(jsonRes);
+        setPromptpayQr(
+          btoa(decodeURIComponent(encodeURIComponent(jsonRes.data)))
+        );
+        setCampgroundPrice(jsonRes.campgroundPrice);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData(); // Call the async function immediately
-
-  }, []);
+  }, [params.aid]);
 
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
@@ -97,7 +112,9 @@ export default function PaymentPage({ params }: { params: { aid: string } }) {
             <div className="pl-6">01/01/1111</div>
 
             <div className="flex flex-row font-bold pt-4 pl-6">Campground</div>
-            <div className="pl-6">อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี</div>
+            <div className="pl-6">
+              อุทยานแห่งชาติหาดนพรัตน์ธารา-หมู่เกาะพีพี
+            </div>
             <div className="mt-10">
               <div className="text-sm text-[#007662] flex flex-row pl-6 font-semibold">
                 {" "}
@@ -128,20 +145,20 @@ export default function PaymentPage({ params }: { params: { aid: string } }) {
             </span>
           </div>
           <div className="text-5xl text-black font-medium mt-2 text-left">
-            THB 100.00
+            {campgroundPrice ? `${campgroundPrice} THB` : "Please wait..."} 
           </div>
 
-          <div>
+          <div className="relative h-[38vh] w-[38vh]">
             {promptpayQr ? (
-              <img src={`${promptpayQr}`} alt="PromptPay QR Code" />
+              <Image src={`data:image/svg+xml;base64,${promptpayQr}`} alt="qrcode" fill={true} object-fit="contain"/>
             ) : (
               <p>Loading QR code...</p>
             )}
           </div>
 
-          <div className="flex items-center justify-center mt-2">
+{/*           <div className="flex items-center justify-center mt-2">
             <Image src={qrcode} alt="qrcode" className="h-[38vh] w-[38vh] " />
-          </div>
+          </div> */}
         </div>
         {/* Third Column */}
         <div className="flex justify-center flex-col pr-[5vw] rounded-[50px]">
@@ -188,16 +205,14 @@ export default function PaymentPage({ params }: { params: { aid: string } }) {
                 </label>
               </Button>
             )}
-            <div onClick={closeModal} >
+            <div onClick={closeModal}>
               <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 contentLabel="Enlarged Image"
                 className="flex items-center justify-center mt-5"
-
               >
                 <div className="flex items-center justify-center h-[100vh]">
-
                   <Image
                     src={imagePreview}
                     alt="Uploaded Image"
@@ -206,7 +221,6 @@ export default function PaymentPage({ params }: { params: { aid: string } }) {
                     className="flex items-center justify-center flex-col"
                   />
                 </div>
-
               </Modal>
             </div>
           </div>
@@ -234,8 +248,9 @@ export default function PaymentPage({ params }: { params: { aid: string } }) {
         </div>
       </div>
       <div
-        className={`popup ${showPopup ? "" : "hidden"
-          } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
       >
         <Image src={checkBox} alt="checkbox" className="mr-5" />
         Successfully upload!
