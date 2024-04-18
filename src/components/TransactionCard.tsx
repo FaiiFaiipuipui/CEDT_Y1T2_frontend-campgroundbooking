@@ -27,11 +27,11 @@ export default function TransactionCard({
         <div className="w-1/5">
           <div>{date.toDateString()}</div>
         </div>
-         <div className="w-1/5 items-center justify-center flex">
+         <div className="w-1/5 items-left justify-left flex pl-12">
           {
             (status === "REJECTED")? 
             <div className="flex flex-row space-x-2">
-              <div className="w-5 h-5 bg-red-400 rounded-full"></div>
+              <div className="w-5 h-5 bg-rose-500 rounded-full"></div>
               <div className="text-red-400">
                 {status}
               </div>
@@ -43,14 +43,20 @@ export default function TransactionCard({
                 {status}
               </div>
             </div>
-            : (status === "CONFIRM")? 
+            : (status === "COMPLETE")? 
             <div className="flex flex-row space-x-2">
-              <div className="w-5 h-5 bg-green-400 rounded-full"></div>
-              <div className="text-green-400">
+              <div className="w-5 h-5 bg-fern rounded-full"></div>
+              <div className="text-fern">
                 {status}
               </div>
             </div>
-            : null
+            : 
+            <div className="flex flex-row space-x-2">
+              <div className="w-5 h-5 bg-amber-500 rounded-full"></div>
+              <div className="text-amber-500">
+                {status}
+              </div>
+            </div>
         }
         </div>
 
@@ -58,19 +64,19 @@ export default function TransactionCard({
 {
   (status === "REJECTED") ? (
     <Link href={`/payment/edit?tid=${tid}`} className="w-1/5">
-      <button className="justify-center bg-white border-[2px] border-purple-500 px-8 py-1 text-purple-500 font-medium rounded-full hover:bg-purple-500 hover:text-white">
+      <button className="justify-center bg-rose-500 border-[2px] border-rose-500 px-8 py-1 text-white font-medium rounded-full hover:shadow-lg">
         Edit
       </button>
     </Link>
   ) : (status === "PENDING" && submitImage.length == 0)? (
     <Link href={`/payment?tid=${tid}`} className="w-1/5">
-      <button className="justify-center bg-white border-[2px] border-purple-500 px-8 py-1 text-purple-500 font-medium rounded-full hover:bg-purple-500 hover:text-white">
+      <button className="justify-center bg-fern border-[2px] border-fern px-8 py-1 text-white font-medium rounded-full hover:shadow-lg">
         Pay
       </button>
     </Link>
-  ) : (status === "PENDING" && submitImage.length > 0)? (
+  ) : ((status === "PENDING" && submitImage.length > 0)||(status === "COMPLETE"))? (
     <Link href={`/transaction/${tid}`} className="w-1/5">
-      <button className="justify-center items-center bg-white border-[2px] border-purple-500 px-8 py-1 text-purple-500 font-medium rounded-full hover:bg-purple-500 hover:text-white">
+      <button className="justify-center bg-white border-[2px] border-fern px-6 py-1 text-fern font-medium rounded-full hover:shadow-lg">
         Detail
       </button>
     </Link>

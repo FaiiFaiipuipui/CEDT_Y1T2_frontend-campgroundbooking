@@ -1,10 +1,10 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import getUserDashboard from "../../libs/getUserDashboard";
-import { Suspense } from "react";
-import { Skeleton } from "@mui/material";
 import TransactionCatalog from "@/components/TransactionCatalog";
 import getUserTransactions from "@/libs/getUserTransactions";
+import { Skeleton } from "@mui/material";
+import { getServerSession } from "next-auth";
+import { Suspense } from "react";
+import getUserDashboard from "../../libs/getUserDashboard";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function DashbordPage() {
   const session = await getServerSession(authOptions);
@@ -38,7 +38,12 @@ export default async function DashbordPage() {
           </tbody>
         </table>
       </div>
-
+      { (profile.data.role === "admin")?
+      <div className="text-4xl font-bold m-10 text-left">User Transaction</div>
+      : (profile.data.role === "user")? 
+      <div className="text-4xl font-bold m-10 text-left">My Booking</div>
+      : null
+      }
       <Suspense fallback={<Skeleton />}>
         <TransactionCatalog transactionJson={transactions} session={session}/>
       </Suspense>
