@@ -6,7 +6,6 @@ import getTransaction from "@/libs/getUserTransaction";
 import TransactionCardUser from "@/components/TransactionCardUser";
 import TransactionCardAdmin from "@/components/TransactionCardAdmin";
 import getTransactionSlip from "@/libs/getTransactionSlip";
-import { PaymentItem, PaymentJson, OnePaymentJson } from "interface";
 
 export default async function TransactionPage({
   params,
@@ -58,23 +57,13 @@ export default async function TransactionPage({
               ) : profile.data.role === "admin" ? (
                 <div className="w-full space-y-[70px]">
                   <TransactionCardAdmin
+                    tid={params.tid}
+                    token={session.user.token}
                     status={status}
                     imgBase={imgData}
                     transaction={transaction}
                     price={transactionJson.campgroundPrice}
                   />
-                  <div className="flex flex-row justify-center items-center space-x-[100px]">
-                    <Link href={`/dashboard`}>
-                      <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
-                        Back
-                      </button>
-                    </Link>
-                    <Link href={`/dashboard`}>
-                      <button className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:shadow-xl">
-                        Submit
-                      </button>
-                    </Link>
-                  </div>
                 </div>
               ) : null}
             </div>
