@@ -1,19 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Session } from "next-auth";
-import { PaymentJson, PaymentItem } from "interface";
 import TransactionCard from "./TransactionCard";
 
-export default async function TransactionCatalog({
-  transactionJson,
-  session,
-}: {
-  transactionJson: PaymentJson;
-  session: Session;
-}) {
-  const transactionJsonReady = await transactionJson;
+export default async function TransactionCatalog({transactionJson, session, role}:{transactionJson:PaymentJson, session:Session, role:string}) {
 
-  //console.log(session?.user.role);
+  const transactionJsonReady = await transactionJson;
   return (
     <main className="text-center">
       {session?.user.role === "admin" ? (
@@ -31,22 +23,17 @@ export default async function TransactionCatalog({
           <div className="w-1/5">Transaction Status</div>
           <div className="w-1/5"></div>
         </div>
-        {transactionJsonReady.data
-          .filter(
-            (transactionItem: PaymentItem) =>
-              transactionItem.status === "PENDING" //test
-          )
-          .map((transactionItem: PaymentItem) => (
-            <TransactionCard
-              key={transactionItem._id}
-              tid={transactionItem._id}
-              user={transactionItem.user.name}
-              campground={transactionItem.campground}
-              date={new Date(transactionItem.rent_date)}
-              status={transactionItem.status}
-              submitImage={transactionItem.submitted_slip_images}
-            />
-          ))}
+         {transactionJsonReady.data.map((transactionItem:PaymentItem) => (
+        <TransactionCard 
+        key={transactionItem._id}
+        tid={transactionItem._id}
+        user={transactionItem.user.name}
+        campground={transactionItem.campground}
+        date={new Date(transactionItem.rent_date)}
+        status={transactionItem.status}
+        submitImage={transactionItem.submitted_slip_images}
+        role={role}/>
+      ))}
       </div>
     </main>
   );
