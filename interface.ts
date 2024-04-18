@@ -1,3 +1,5 @@
+import { Decimal128 } from "mongoose";
+
 export interface CampgroundItem {
   _id: string;
   number: number;
@@ -9,6 +11,7 @@ export interface CampgroundItem {
   region: string;
   appointments: string[];
   picture: string;
+  price: Decimal128;
 }
 
 export interface CampgroundJson {

@@ -15,6 +15,7 @@ export default async function createTransactionSlip(
     }
   );
   if (!response.ok) {
+    console.log(response);
     throw new Error("Cannot add Transaction Slip");
   }
   return await response.json();

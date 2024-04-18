@@ -60,8 +60,7 @@ export default function BookingPage() {
           };
           booking();
           transaction();
-
-          router.push("/payment");
+          router.push("/dashboard");
         } else {
           alert("Please fill in the missing field!");
         }
