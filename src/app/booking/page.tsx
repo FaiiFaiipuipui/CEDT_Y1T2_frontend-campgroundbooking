@@ -4,7 +4,7 @@ import createAppointment from "../../libs/createAppointment";
 import CampGroundSelection from "@/components/CampGroundSelection";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import createTransaction from "@/libs/createTransaction";
 
 export default function AddAppointmentPage() {
@@ -24,63 +24,40 @@ export default function AddAppointmentPage() {
   const submit = async () => {
     console.log(selectedCampground, date);
     if (selectedCampground && date) {
-      const addAppointment = async () => {
-        try {
-          const response = await createAppointment(
-            session.user.token,
-            selectedCampground,
-            date
-          );
-          if (!response) {
-            throw new Error("Failed to submit create Appointment form");
-          }
-
-          const responseData = await response.json();
-          console.log("------------------------------------");
-          const aid = responseData.data._id;
-          setAppointmentID(aid);
-          console.log("aid : ", aid);
-          console.log("------------------------------------");
-
-          // setAppointmentID(responseData.data._id);
-
-          if (response && response.status !== 200) {
-            alert(responseData.message);
-            alert("Not Success");
-            return;
-          }
-        } catch (err) {
-          console.log("error", err.stack);
-        }
-      };
-      const transaction = async () => {
-        try {
-          const response = (await createTransaction(
-            session.user.token,
-            appointmentID
-          )) as Response;
-
-          if (!response) {
-            throw new Error("Failed to submit create Transaction");
-          }
-        } catch (error) {
-          console.log("transaction : ", error.message);
+      try {
+        const createApptResponse = await createAppointment(
+          session.user.token,
+          selectedCampground,
+          date
+        );
+        if (!createApptResponse) {
+          throw new Error("Failed to submit create Appointment form");
         }
 
-        //   // const responseData:ResponseData = await response.json();
+        const createApptResponseData = await createApptResponse.json();
+        console.log(createApptResponseData);
+        console.log("------------------------------------");
+        const aid = createApptResponseData.data._id;
+        setAppointmentID(aid);
+        console.log("aid : ", typeof aid);
+        console.log("------------------------------------");
 
-        //   // if (response && response.status !== 200) {
-        //   //   alert(responseData.message);
-        //   //   alert('Not Success')
-        //   //   return;
-        //   // }
+        const createTransactionResponse = (await createTransaction(
+          session.user.token,
+          aid
+        )) as Response;
+        console.log(createTransactionResponse);
 
-        //   alert("Successfully booked!");
-      };
+        if (!createTransactionResponse) {
+          throw new Error("Failed to submit create Transaction");
+        }
 
-      await addAppointment();
-      await transaction();
-      router.push("/dashboard");
+        alert("Successfully booked!");
+
+        router.push("/dashboard");
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       alert("Please fill in the missing field!");
     }
