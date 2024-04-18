@@ -9,8 +9,8 @@ export default async function TransactionCatalog({transactionJson, session, role
   return (
     <main className="text-center">
       
-      <div className="rounded-b-[50px] items-center justify-center">
-        <div className="flex flex-row bg-cadetblue text-xl h-20 items-center rounded-t-[50px] font-semibold">
+      <div className="rounded-[50px] items-center justify-center border border-solid pb-[20px]">
+        <div className="flex flex-row bg-cadetblue text-xl h-20 items-center rounded-t-[50px] font-semibold space-y-[10px]">
           <div className="w-1/5">User</div>
           <div className="w-1/5">Campground</div>
           <div className="w-1/5">Date</div>
