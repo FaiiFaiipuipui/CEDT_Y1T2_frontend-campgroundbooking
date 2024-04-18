@@ -18,43 +18,50 @@ export default async function TransactionPage({
     return (
         <main className="w-[100vw] h-full flex justify-center items-center pt-[55px]">
             <div className="space-y-[70px] w-[100%] h-[100%] p-[80px]">
-                <p className="font-bold text-[48px] text-left">Booking Detail</p>
+                {
+                    status === 'PENDING' ? <p className="font-bold text-[48px] text-left">Pending Detail</p> :
+                        status === 'COMPLETED' ? <p className="font-bold text-[48px] text-left">Booking Detail</p> :
+                            null
+                }
+
 
                 {/*Detail Card */}
                 <div>
                     {!profile ? null :
                         <div className="w-full h-full">
-                            {
-                                profile.data.role === 'user' ?
-                                    <div className="w-full space-y-[70px]">
-                                        <TransactionCardUser />
-                                        <div className="flex flex-row justify-evenly items-center">
-                                            <Link href={`/transaction`}>
-                                                <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
-                                                    Back
-                                                </button>
-                                            </Link>
-                                        </div>
+                            {profile.data.role === 'user' ?
+                                <div className="w-full space-y-[70px]">
+                                    <TransactionCardUser status="PENDING" />
+                                    <div className="flex flex-row justify-evenly items-center">
+                                        <Link href={`/transaction`}>
+                                            <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
+                                                Back
+                                            </button>
+                                        </Link>
                                     </div>
-                                    : <div className="w-full space-y-[70px]">
-                                        <TransactionCardAdmin/>
-                                        <div className="flex flex-row justify-evenly items-center">
+                                </div>
+                                : profile.data.role === 'admin' ?
+                                    <div className="w-full space-y-[70px]">
+                                        <TransactionCardAdmin status='COMPLETE' />
+                                        <div className="flex flex-row justify-center items-center space-x-[100px]">
                                             <Link href={`/transaction`}>
-                                                <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
+                                                <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
                                                     Back
                                                 </button>
                                             </Link>
                                             <Link href={`/transaction`}>
-                                                <button className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500">
+                                                <button className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:shadow-xl">
                                                     Submit
                                                 </button>
                                             </Link>
                                         </div>
                                     </div>
+                                    : null
                             }
                         </div>
                     }
                 </div>
+
 
 
             </div>
