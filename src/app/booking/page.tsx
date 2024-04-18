@@ -12,11 +12,7 @@ interface ResponseData {
   // include other properties
 }
 
-export default function AddAppointmentPage({
-  params,
-}: {
-  params: { aid: string };
-}) {
+export default function AddAppointmentPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
