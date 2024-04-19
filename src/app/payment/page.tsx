@@ -50,10 +50,7 @@ export default function PaymentPage() {
         setRentDate(rentDate);
         setCampgroundName(campgroundName);
 
-        const response = await createPromptpayQR(
-          session.user.token,
-          tid
-        );
+        const response = await createPromptpayQR(session.user.token, tid);
 
         // Update state with QR code data
         const jsonRes = await response.json();
@@ -103,6 +100,7 @@ export default function PaymentPage() {
     } else {
       alert("Please upload Slip");
     }
+    router.push("/dashboard");
   };
 
   const openModal = () => {
@@ -184,11 +182,16 @@ export default function PaymentPage() {
 
           <div className="flex items-center justify-center mt-2 ">
             <div className="relative h-[38vh] w-[38vh]">
-          {promptpayQr ? (
-              <Image src={`data:image/svg+xml;base64,${promptpayQr}`} alt="qrcode" fill={true} object-fit="contain"/>
-            ) : (
-              <p>Loading QR code...</p>
-            )}
+              {promptpayQr ? (
+                <Image
+                  src={`data:image/svg+xml;base64,${promptpayQr}`}
+                  alt="qrcode"
+                  fill={true}
+                  object-fit="contain"
+                />
+              ) : (
+                <p>Loading QR code...</p>
+              )}
             </div>
           </div>
         </div>
