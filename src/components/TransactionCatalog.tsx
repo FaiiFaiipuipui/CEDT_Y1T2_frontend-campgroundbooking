@@ -8,15 +8,15 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import { ListItemText } from '@mui/material';
+import { ListItemText } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Prompt } from "next/font/google";
 
 const prompt = Prompt({
-  weight: '600',
-  subsets: ['latin'],
-  display: 'swap'
-})
+  weight: "600",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function TransactionCatalog({
   transactionJson,
@@ -55,13 +55,6 @@ export default function TransactionCatalog({
 
   return (
     <main className="text-center">
-      {session?.user.role === "admin" ? (
-        <div className="text-4xl font-bold m-10 text-left">
-          User Transaction
-        </div>
-      ) : session?.user.role === "user" ? (
-        <div className="text-4xl font-bold m-10 text-left">My Booking</div>
-      ) : null}
       <div className="rounded-[50px] items-center justify-center border border-solid pb-3">
         <div className="flex flex-row bg-cadetblue text-xl h-20 items-center rounded-t-[50px] font-semibold">
           <div className="w-1/5">User</div>
