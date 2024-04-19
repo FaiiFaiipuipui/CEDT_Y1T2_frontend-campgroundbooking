@@ -89,6 +89,7 @@ export default function PaymentPage() {
   //        1. Convert the URL --> base64
   //        2. Convert base64 --> Buffer
   const handleSubmit = () => {
+    console.log("imagePreview ", imagePreview);
     if (imagePreview != null) {
       if (session.user && tid) {
         createTransactionSlip(session.user.token, tid, imagePreview);

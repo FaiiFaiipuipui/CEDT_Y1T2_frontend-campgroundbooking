@@ -14,7 +14,8 @@ export default async function createTransactionSlip(
       body: JSON.stringify({ slip_image: slip_image }),
     }
   );
-  if (!response.ok) {
+  console.log(response);
+  if (!response) {
     console.log(response);
     throw new Error("Cannot add Transaction Slip");
   }
