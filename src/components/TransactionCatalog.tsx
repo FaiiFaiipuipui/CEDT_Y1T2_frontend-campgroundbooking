@@ -30,7 +30,13 @@ export default function TransactionCatalog({
   const transactionJsonReady = transactionJson;
 
   const [statusFilter, setStatusFilter] = useState("Default");
-  const statusList = ["Default", "PENDING", "REJECTED", "COMPLETE"];
+  const statusList = [
+    "Default",
+    "WAITING",
+    "VERIFYING",
+    "REJECTED",
+    "COMPLETED",
+  ];
 
   //For mui drop down list
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
