@@ -33,7 +33,7 @@ export default function TransactionCatalog({
   const statusList = [
     "Default",
     "WAITING",
-    "VERIfYING",
+    "VERIFYING",
     "REJECTED",
     "COMPLETED",
   ];
